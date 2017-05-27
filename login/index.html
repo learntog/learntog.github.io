@@ -53,13 +53,15 @@
                     handleWindowResize: true,
                     weekends: false, // Hide weekends
                     defaultView: 'agendaWeek', // Only show week view
-                    height: 700,
-                    header: false, // Hide buttons/titles
+//                    height: 700,
+                    contentHeight: 'auto',
+                    header: false,   // Hide buttons/titles
                     minTime: '07:30:00', // Start time for the calendar
                     maxTime: '21:00:00', // End time for the calendar
                     columnFormat: {
                         week: 'ddd' // Only show day of the week names
                     },
+                    allDaySlot: false,
                     displayEventTime: true,
                     eventClick: function(event) {
                         console.log(event);
