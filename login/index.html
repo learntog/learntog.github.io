@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.0/fullcalendar.css' />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+    <!--<link rel="stylesheet" href="calendar.css"/>-->
 
 
     <script
@@ -46,25 +46,60 @@
                 },
                 minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
             });
+            try{
+                calendar = $('#calendar');
+                calendar.fullCalendar({
+                    editable: false,
+                    handleWindowResize: true,
+                    weekends: false, // Hide weekends
+                    defaultView: 'agendaWeek', // Only show week view
+                    height: 700,
+                    header: false, // Hide buttons/titles
+                    minTime: '07:30:00', // Start time for the calendar
+                    maxTime: '21:00:00', // End time for the calendar
+                    columnFormat: {
+                        week: 'ddd' // Only show day of the week names
+                    },
+                    displayEventTime: true,
+                    eventClick: function(event) {
+                        console.log(event);
+                        document.getElementById('eventdescription').innerHTML = event.description;
+                        document.getElementById('eventtime').innerHTML = event.start._d;
 
-            calendar = $('#calendar');
-            calendar.fullCalendar({
-                header: {
-                    center: "All weeks"
-                },
-                height: 700,
-                columnFormat: 'ddd',
-                allDaySlot: false,
+                    }
+//                allDayText: 'Online/TBD'
+                });}catch(err){
+                //
+            }
 
-                defaultView: 'agendaWeek',
-                minTime: '07:00:00',
-                maxTime: '22:00:00',
-                editatble: true
-            });
+            //createEventCalendar();
 
 
         });
 
+        function createEventCalendar(color){
+            try{
+                newEvent = new Object();
+                newEvent.title = "Hello";
+                newEvent.description = "Hello world this is my unit";
+                newEvent.start = new Date(new Date() - (4*24*60*60*1000));
+                newEvent.end = new Date(newEvent.start + (60*60*1000));
+                newEvent.allDay = false;
+                newEvent.color =  getRandomColor();
+                newEvent.duration = "duration";
+                $('#calendar').fullCalendar('renderEvent', newEvent, 'stick');}catch(err){
+
+            }
+        }
+
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++ ) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
 
 
         function tour() {
@@ -86,6 +121,16 @@
                 padding-left: 0;
             }
         }
+
+
+        .fc-today {
+            opacity: 0;
+            border: none;
+        }
+
+
+
+
     </style>
 
 </head>
@@ -94,90 +139,95 @@
 
 
 <!--<nav class="black lighten-3">-->
-    <ul id="slide-out" class="side-nav fixed">
-        <li>
-            <div class="userView">
-                <div class="background">
-                    <img style="max-height: 100%; max-width: 100%" src="background.jpg">
-                </div>
-                <a href="#!user"><img class="circle" src="profilepicdefault.png"></a>
-                <a href="#!name"><span class="black-text name">Katie Polus</span></a>
-                <a href="#!email"><span class="black-text email">kpol0001@student.monash.edu</span></a>
+<ul id="slide-out" class="side-nav fixed">
+    <li>
+        <div class="userView">
+            <div class="background">
+                <img style="max-height: 100%; max-width: 100%" src="background.jpg">
             </div>
-        </li>
+            <a href="#!user"><img class="circle" src="profilepicdefault.png"></a>
+            <a href="#!name"><span class="black-text name">Katie Polus</span></a>
+            <a href="#!email"><span class="black-text email">kpol0001@student.monash.edu</span></a>
+        </div>
+    </li>
 
-        <li><a class="subheader">Actions</a></li>
+    <li><a class="subheader">Actions</a></li>
 
-        <li><a href="#"><i class="material-icons">create</i>Edit</a></li>
-        <li><a href="#"><i class="material-icons">settings</i>Preferences</a></li>
-        <li><a href="#"><i class="material-icons">drafts</i>Contact Us</a></li>
-        <li><a onclick="tour()" href="#"><i class="material-icons">help</i>Help</a></li>
-        <li><a href="#"><i class="material-icons">pets</i>Friends <span class="badge">1</span> </a></li>
+    <li><a href="#"><i class="material-icons">create</i>Edit</a></li>
+    <li><a href="#"><i class="material-icons">settings</i>Preferences</a></li>
+    <li><a href="#"><i class="material-icons">drafts</i>Contact Us</a></li>
+    <li><a onclick="tour()" href="#"><i class="material-icons">help</i>Help</a></li>
+    <li><a href="#"><i class="material-icons">pets</i>Friends <span class="badge">1</span> </a></li>
 
-        <li><div class="divider"></div></li>
+    <li><div class="divider"></div></li>
 
-        <li><a href="#!"><i class="material-icons">close</i>Log off</a></li>
-    </ul>
-    <a href="#" data-activates="slide-out" class="button-collapse"><img src="menuicon.png" style="width: 50px"> </a>
+    <li><a href="#!"><i class="material-icons">close</i>Log off</a></li>
+    <li><a onclick="createEventCalendar('red')">Test event</a></li>
+</ul>
+<a href="#" data-activates="slide-out" class="button-collapse"><img src="menuicon.png" style="width: 50px"> </a>
 
 
 <main>
     <div class="row">
         <div class="col s8">
             <p>My calendar can be accessed by unique code <strong>A352J</strong></p>
-            <div id='calendar'></div>
+            <ul id="tabs-swipe-demo" class="tabs">
+                <li class="tab col s3"><a class="active" href="#test-swipe-1">Calendar View</a></li>
+                <li class="tab col s3"><a href="#test-swipe-2">Table View</a></li>
+            </ul>
             <br>
-            <div class="row">
-                <div class="col s2">
-                    <p>
-                        <input type="checkbox" id="p1" />
-                        <label for="p1">Ishan</label>
-                    </p>
-                </div>
-                <div class="col s2">
-                    <p>
-                        <input type="checkbox" id="p2" />
-                        <label for="p2">Laura</label>
-                    </p>
-                </div>
-                <div class="col s2">
-                    <p>
-                        <input type="checkbox" id="p3" />
-                        <label for="p3">Surayez</label>
-                    </p>
-                </div>
-                <div class="col s2">
-                    <p>
-                        <input type="checkbox" id="p4" />
-                        <label for="p4">Arni</label>
-                    </p>
-                </div>
-                <div class="col s2">
-                    <p>
-                        <input type="checkbox" id="p5" />
-                        <label for="p5">Spare time</label>
-                    </p>
-                </div>
-                <div class="col s2">
-                    <a id="add" class="btn-floating btn-large waves-effect waves-light pulse red"><i class="material-icons">add</i></a>
-                </div>
+            <div id="test-swipe-1" class="col s12 transparent"><div id='calendar'></div></div>
 
+            <div id="test-swipe-2" class="col s12 transparent">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Item Name</th>
+                        <th>Item Price</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr>
+                        <td>Alvin</td>
+                        <td>Eclair</td>
+                        <td>$0.87</td>
+                    </tr>
+                    <tr>
+                        <td>Alan</td>
+                        <td>Jellybean</td>
+                        <td>$3.76</td>
+                    </tr>
+                    <tr>
+                        <td>Jonathan</td>
+                        <td>Lollipop</td>
+                        <td>$7.00</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
+
+
         </div>
         <div class="col s4">
             <!--<h3>Information</h3>-->
             <!--<p>Time: __________________</p>-->
             <!--<p>Activity Details: _________________</p>-->
 
+            <h5>Activity Details</h5>
+            <p id="eventdescription">Description</p>
+            <p id="eventtime">Time</p>
+
             <h5>Who's with me?</h5>
-            <a href="#">Connect to facebook?</a>
+            <a href="#">Connect to facebook.</a>
             <div class="row">
                 <div class="col s12">
                     <div class="row">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">search</i>
                             <input type="text" id="autocomplete-input" class="autocomplete">
-                            <label for="autocomplete-input">Autocomplete</label>
+                            <label for="autocomplete-input">Search for peers</label>
                         </div>
                     </div>
                 </div>
@@ -219,7 +269,7 @@
 
 
             </ul>
-            <p style="text-align: center">See more...</p>
+            <p style="text-align: center">(See more)</p>
         </div>
     </div>
     <div class="tap-target" data-activates="add">
