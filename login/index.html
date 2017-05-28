@@ -34,18 +34,32 @@
             );
             $('.collapsible').collapsible();
 
-            $('input.autocomplete').autocomplete({
+            $('.modal').modal({
+                        dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                        opacity: .8, // Opacity of modal background
+                        inDuration: 300, // Transition in duration
+                        outDuration: 200, // Transition out duration
+                        startingTop: '4%', // Starting top style attribute
+                        endingTop: '10%', // Ending top style attribute
+                        ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+
+                        },
+                        complete: function() { } // Callback for Modal close
+                    }
+            );
+
+            /*$('input.autocomplete').autocomplete({
                 data: {
                     "Apple": null,
                     "Microsoft": null,
-                    "Google": 'http://placehold.it/250x250'
+                    "Google": null
                 },
                 limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
                 onAutocomplete: function(val) {
                     // Callback function when value is autcompleted.
                 },
                 minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
-            });
+            });*/
             try{
                 calendar = $('#calendar');
                 calendar.fullCalendar({
@@ -56,17 +70,18 @@
 //                    height: 700,
                     contentHeight: 'auto',
                     header: false,   // Hide buttons/titles
-//                    minTime: '07:30:00', // Start time for the calendar
-//                    maxTime: '21:00:00', // End time for the calendar
+                    minTime: '08:00:00', // Start time for the calendar
+                    maxTime: '20:00:00', // End time for the calendar
                     columnFormat: {
                         week: 'ddd' // Only show day of the week names
                     },
                     allDaySlot: false,
                     displayEventTime: true,
                     eventClick: function(event) {
-                        console.log(event);
+//                        console.log(event);
                         document.getElementById('eventdescription').innerHTML = event.description;
                         document.getElementById('eventtime').innerHTML = event.start._d;
+                        $('#moreinfodialog').modal('open');
 
                     }
 //                allDayText: 'Online/TBD'
@@ -169,6 +184,7 @@
 
 
     <div class="nav-wrapper">
+        <a href="#" class="brand-logo center">Connect and LearnTogether</a>
         <ul class="show-on-med-and-down">
             <li><a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons right">menu</i></a></li>
         </ul>
@@ -180,16 +196,16 @@
 
 <main>
     <div class="row">
-        <div class="col s8">
+        <div class="col s9">
             <p>My calendar can be accessed by unique code <strong>A352J</strong></p>
             <ul id="tabs-swipe-demo" class="tabs">
-                <li class="tab col s3"><a class="active" href="#test-swipe-1">Calendar View</a></li>
-                <li class="tab col s3"><a href="#test-swipe-2">Table View</a></li>
+                <li class="tab col s3"><a class="active" href="#calendarview">Calendar View</a></li>
+                <li class="tab col s3"><a href="#tableview">Table View</a></li>
             </ul>
             <br>
-            <div id="test-swipe-1" class="col s12 transparent"><div id='calendar'></div></div>
+            <div id="calendarview" class="col s12 transparent"><div id='calendar'></div></div>
 
-            <div id="test-swipe-2" class="col s12 transparent">
+            <div id="tableview" class="col s12 transparent">
                 <table>
                     <thead>
                     <tr>
@@ -215,76 +231,86 @@
                 </table>
             </div>
 
+            <!-- Modal Trigger -->
+            <a href="#moreinfodialog"></a>
 
-        </div>
-        <div class="col s4">
-            <!--<h3>Information</h3>-->
-            <!--<p>Time: __________________</p>-->
-            <!--<p>Activity Details: _________________</p>-->
+            <!-- Modal Structure -->
+            <div id="moreinfodialog" class="modal ">
+                <div class="modal-content">
+                    <!--<h4>Modal Header</h4>-->
 
-            <h5>Activity Details</h5>
-            <p id="eventdescription">Description</p>
-            <p id="eventtime">Time</p>
+                        <!--<h3>Information</h3>-->
+                        <!--<p>Time: __________________</p>-->
+                        <!--<p>Activity Details: _________________</p>-->
 
-            <h5>Who's with me?</h5>
-            <a href="#">Connect to facebook.</a>
-            <div class="row">
-                <div class="col s12">
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">search</i>
-                            <input type="text" id="autocomplete-input" class="autocomplete">
-                            <label for="autocomplete-input">Search for peers</label>
-                        </div>
-                    </div>
+                        <h5>Activity Details</h5>
+                        <p id="eventdescription">Description</p>
+                        <p id="eventtime">Time</p>
+
+                        <!--<h5>Who's with me?</h5>-->
+                        <a href="#">Connect to facebook.</a>
+                        <!--<div class="row">-->
+                            <!--<div class="col s12">-->
+                                <!--<div class="row">-->
+                                    <!--<div class="input-field col s12">-->
+                                        <!--<i class="material-icons prefix">search</i>-->
+                                        <!--<input type="text" id="autocomplete-input" class="autocomplete">-->
+                                        <!--<label for="autocomplete-input">Search for peers</label>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<ul class="collection">
+                            <li class="collection-item avatar">
+                                <i class="material-icons circle">person</i>
+                                <span class="title">Ishan Joshi</span>
+                                <p>
+                                    ijos0001
+                                </p>
+                                <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                            </li>
+                            <li class="collection-item avatar">
+                                <i class="material-icons circle">person</i>
+                                <span class="title">Ishan Joshi</span>
+                                <p>
+                                    ijos0001
+                                </p>
+                                <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                            </li>
+                            <li class="collection-item avatar">
+                                <i class="material-icons circle">person</i>
+                                <span class="title">Ishan Joshi</span>
+                                <p>
+                                    ijos0001
+                                </p>
+                                <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                            </li>
+                            <li class="collection-item avatar">
+                                <i class="material-icons circle">person</i>
+                                <span class="title">Ishan Joshi</span>
+                                <p>
+                                    ijos0001
+                                </p>
+                                <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                            </li>
+
+
+                        </ul>-->
+                        <!--<p style="text-align: center">(See more)</p>-->
+
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-action modal-close waves-effect btn-flat">Close</a>
                 </div>
             </div>
-
-            <ul class="collection">
-                <li class="collection-item avatar">
-                    <i class="material-icons circle">person</i>
-                    <span class="title">Ishan Joshi</span>
-                    <p>
-                        ijos0001
-                    </p>
-                    <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                </li>
-                <li class="collection-item avatar">
-                    <i class="material-icons circle">person</i>
-                    <span class="title">Ishan Joshi</span>
-                    <p>
-                        ijos0001
-                    </p>
-                    <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                </li>
-                <li class="collection-item avatar">
-                    <i class="material-icons circle">person</i>
-                    <span class="title">Ishan Joshi</span>
-                    <p>
-                        ijos0001
-                    </p>
-                    <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                </li>
-                <li class="collection-item avatar">
-                    <i class="material-icons circle">person</i>
-                    <span class="title">Ishan Joshi</span>
-                    <p>
-                        ijos0001
-                    </p>
-                    <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                </li>
-
-
-            </ul>
-            <p style="text-align: center">(See more)</p>
         </div>
-    </div>
-    <div class="tap-target" data-activates="add">
-        <div class="tap-target-content">
-            <h5>Title</h5>
-            <p>A bunch of text</p>
+        <div class="col s3">
+
         </div>
+
     </div>
+
 </main>
 
 </body>
