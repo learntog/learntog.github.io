@@ -6,7 +6,7 @@
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.0/fullcalendar.css' />
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.0/fullcalendar.css'/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--<link rel="stylesheet" href="calendar.css"/>-->
 
@@ -21,14 +21,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
 
 
-
-
-
     <script>
         $(document).ready(function () {
             $('.button-collapse').sideNav({
                         menuWidth: 300,
-                        draggable:true// Default is 240
+                        draggable: true// Default is 240
 //                        closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
                     }
             );
@@ -41,43 +38,44 @@
                         outDuration: 200, // Transition out duration
                         startingTop: '4%', // Starting top style attribute
                         endingTop: '10%', // Ending top style attribute
-                        ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+                        ready: function (modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
 
                         },
-                        complete: function() { } // Callback for Modal close
+                        complete: function () {
+                        } // Callback for Modal close
                     }
             );
 
             /*$('input.autocomplete').autocomplete({
-                data: {
-                    "Apple": null,
-                    "Microsoft": null,
-                    "Google": null
-                },
-                limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
-                onAutocomplete: function(val) {
-                    // Callback function when value is autcompleted.
-                },
-                minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
-            });*/
-            try{
+             data: {
+             "Apple": null,
+             "Microsoft": null,
+             "Google": null
+             },
+             limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
+             onAutocomplete: function(val) {
+             // Callback function when value is autcompleted.
+             },
+             minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
+             });*/
+            try {
                 calendar = $('#calendar');
                 calendar.fullCalendar({
                     editable: false,
                     handleWindowResize: true,
-                    weekends: false, // Hide weekends
+//                    weekends: false, // Hide weekends
                     defaultView: 'agendaWeek', // Only show week view
 //                    height: 700,
                     contentHeight: 'auto',
                     header: false,   // Hide buttons/titles
-                    minTime: '08:00:00', // Start time for the calendar
+                    minTime: '07:00:00', // Start time for the calendar
                     maxTime: '20:00:00', // End time for the calendar
                     columnFormat: {
                         week: 'ddd' // Only show day of the week names
                     },
                     allDaySlot: false,
                     displayEventTime: true,
-                    eventClick: function(event) {
+                    eventClick: function (event) {
 //                        console.log(event);
                         document.getElementById('eventdescription').innerHTML = event.description;
                         document.getElementById('eventtime').innerHTML = event.start._d;
@@ -85,7 +83,8 @@
 
                     }
 //                allDayText: 'Online/TBD'
-                });}catch(err){
+                });
+            } catch (err) {
                 //
             }
 
@@ -94,17 +93,18 @@
 
         });
 
-        function createEventCalendar(color){
-            try{
-                newEvent = new Object();
+        function createEventCalendar(color) {
+            try {
+                newEvent = {};
                 newEvent.title = "Hello";
                 newEvent.description = "Hello world this is my unit";
-                newEvent.start = new Date(new Date() + (24*60*60*1000));
-                newEvent.end = new Date(newEvent.start + (60*60*1000));
+                newEvent.start = new Date();
+                newEvent.end = new Date(newEvent.start + (60 * 60 * 1000));
                 newEvent.allDay = false;
-                newEvent.color =  getRandomColor();
+                newEvent.color = getRandomColor();
                 newEvent.duration = "duration";
-                $('#calendar').fullCalendar('renderEvent', newEvent, 'stick');}catch(err){
+                $('#calendar').fullCalendar('renderEvent', newEvent, 'stick');
+            } catch (err) {
 
             }
         }
@@ -112,16 +112,12 @@
         function getRandomColor() {
             var letters = '0123456789ABCDEF';
             var color = '#';
-            for (var i = 0; i < 6; i++ ) {
+            for (var i = 0; i < 6; i++) {
                 color += letters[Math.floor(Math.random() * 16)];
             }
             return color;
         }
 
-
-        function tour() {
-            $('.tap-target').tapTarget('open');
-        }
 
     </script>
 
@@ -129,23 +125,17 @@
         header, main, footer {
             padding-left: 300px;
         }
-        main, footer {
-            padding-top: 0%;
-        }
 
-        @media only screen and (max-width : 992px) {
+        @media only screen and (max-width: 992px) {
             header, main, footer {
                 padding-left: 0;
             }
         }
 
-
         .fc-today {
             opacity: 0;
             border: none;
         }
-
-
 
 
     </style>
@@ -154,60 +144,60 @@
 <body>
 
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
+<script>(function (d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
+    js = d.createElement(s);
+    js.id = id;
     js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.9&appId=591742027703785";
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
 
-
-
 <header>
-<nav>
-<!--<nav class="black lighten-3">-->
-<ul id="slide-out" class="side-nav fixed">
-    <li>
-        <div class="userView">
-            <div class="background">
-                <img style="background-size: 100%; max-height: 100%; max-width: 100%" src="background.jpg">
-            </div>
-            <a href="#!user"><img class="circle" src="profilepicdefault.png"></a>
-            <a href="#!name"><span class="black-text name">Katie Polus</span></a>
-            <a href="#!email"><span class="black-text email">_</span></a>
-        </div>
-    </li>
+    <nav>
+        <!--<nav class="black lighten-3">-->
+        <ul id="slide-out" class="side-nav fixed">
+            <li>
+                <div class="userView">
+                    <div class="background">
+                        <img style="background-size: 100%; max-height: 100%; max-width: 100%" src="background.jpg">
+                    </div>
+                    <a href="#!user"><img class="circle" src="profilepicdefault.png"></a>
+                    <a href="#!name"><span class="black-text name">Katie Polus</span></a>
+                    <a href="#!email"><span class="black-text email">_</span></a>
+                </div>
+            </li>
 
-    <li><a class="subheader">Actions</a></li>
+            <li><a class="subheader">Actions</a></li>
 
-    <li><a href="#"><i class="material-icons">create</i>Edit</a></li>
-    <li><a href="#"><i class="material-icons">settings</i>Preferences</a></li>
-    <li><a href="#"><i class="material-icons">drafts</i>Contact Us</a></li>
-    <li><a onclick="tour()" href="#"><i class="material-icons">help</i>Help</a></li>
-    <li><a href="#"><i class="material-icons">pets</i>Friends <span class="badge">1</span> </a></li>
+            <li><a href="#"><i class="material-icons">create</i>Edit</a></li>
+            <li><a href="#"><i class="material-icons">settings</i>Preferences</a></li>
+            <li><a href="#"><i class="material-icons">drafts</i>Contact Us</a></li>
+            <li><a onclick="tour()" href="#"><i class="material-icons">help</i>Help</a></li>
+            <li><a href="#"><i class="material-icons">pets</i>Friends <span class="badge">1</span> </a></li>
 
-    <li><div class="divider"></div></li>
+            <li>
+                <div class="divider"></div>
+            </li>
 
-    <li><a href="#!"><i class="material-icons">close</i>Log off</a></li>
-    <li><a onclick="createEventCalendar('red')">Test event</a></li>
-    <!---->
+            <li><a href="#!"><i class="material-icons">close</i>Log off</a></li>
+            <li><a onclick="createEventCalendar('red')">Test event</a></li>
+            <!---->
 
-</ul>
-
-
-
-    <div class="nav-wrapper">
-        <a href="#" class="brand-logo center">Connect and LearnTogether</a>
-        <ul class="show-on-med-and-down">
-            <li><a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons right">menu</i></a></li>
         </ul>
 
-    </div>
-</nav>
+
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo center">Connect and LearnTogether</a>
+            <ul class="show-on-med-and-down">
+                <li><a href="#" data-activates="slide-out" class="button-collapse"><i
+                        class="material-icons right">menu</i></a></li>
+            </ul>
+
+        </div>
+    </nav>
 </header>
-<!--<a href="#" data-activates="slide-out" class="button-collapse"><img src="menuicon.png" style="width: 50px"> </a>-->
 
 
 <main>
@@ -222,7 +212,9 @@
             </ul>
 
             <br>
-            <div id="calendarview" class="col s12 transparent"><div id='calendar'></div></div>
+            <div id="calendarview" class="col s12 transparent">
+                <div id='calendar'></div>
+            </div>
 
             <div id="tableview" class="col s12 transparent">
                 <table>
@@ -256,67 +248,14 @@
             <!-- Modal Structure -->
             <div id="moreinfodialog" class="modal ">
                 <div class="modal-content">
-                    <!--<h4>Modal Header</h4>-->
 
-                        <!--<h3>Information</h3>-->
-                        <!--<p>Time: __________________</p>-->
-                        <!--<p>Activity Details: _________________</p>-->
+                    <h5>Activity Details</h5>
+                    <p id="eventdescription">Description</p>
+                    <p id="eventtime">Time</p>
 
-                        <h5>Activity Details</h5>
-                        <p id="eventdescription">Description</p>
-                        <p id="eventtime">Time</p>
+                    <!--<h5>Who's with me?</h5>-->
+                    <a href="#">Connect to facebook.</a>
 
-                        <!--<h5>Who's with me?</h5>-->
-                        <a href="#">Connect to facebook.</a>
-                        <!--<div class="row">-->
-                            <!--<div class="col s12">-->
-                                <!--<div class="row">-->
-                                    <!--<div class="input-field col s12">-->
-                                        <!--<i class="material-icons prefix">search</i>-->
-                                        <!--<input type="text" id="autocomplete-input" class="autocomplete">-->
-                                        <!--<label for="autocomplete-input">Search for peers</label>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-
-                        <!--<ul class="collection">
-                            <li class="collection-item avatar">
-                                <i class="material-icons circle">person</i>
-                                <span class="title">Ishan Joshi</span>
-                                <p>
-                                    ijos0001
-                                </p>
-                                <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                            </li>
-                            <li class="collection-item avatar">
-                                <i class="material-icons circle">person</i>
-                                <span class="title">Ishan Joshi</span>
-                                <p>
-                                    ijos0001
-                                </p>
-                                <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                            </li>
-                            <li class="collection-item avatar">
-                                <i class="material-icons circle">person</i>
-                                <span class="title">Ishan Joshi</span>
-                                <p>
-                                    ijos0001
-                                </p>
-                                <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                            </li>
-                            <li class="collection-item avatar">
-                                <i class="material-icons circle">person</i>
-                                <span class="title">Ishan Joshi</span>
-                                <p>
-                                    ijos0001
-                                </p>
-                                <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                            </li>
-
-
-                        </ul>-->
-                        <!--<p style="text-align: center">(See more)</p>-->
 
                 </div>
                 <div class="modal-footer">
@@ -326,11 +265,14 @@
         </div>
         <div class="col s3">
             <br><br>
-            <div class="fb-share-button" data-href="https://learntog.github.io/" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Flearntog.github.io%2F&amp;src=sdkpreparse">Share</a></div>
+            <div class="fb-share-button" data-href="https://learntog.github.io/" data-layout="button_count"
+                 data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank"
+                                                                href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Flearntog.github.io%2F&amp;src=sdkpreparse">Share</a>
+            </div>
             <br><br><br>
             <!--<script data-cfasync='false' type='text/javascript' src='//p222057.clksite.com/adServe/banners?tid=222057_417377_0'></script>-->
             <div style=" margin-left: 2%; width: 96%; height: 620px; background-color: rgba(0,0,0,0);">
-                <script type="text/javascript">
+                <!--<script type="text/javascript">
                     ( function() {
                         if (window.CHITIKA === undefined) { window.CHITIKA = { 'units' : [] }; };
                         var unit = {"calltype":"async[2]","publisher":"ishan99","width":160,"height":600,"sid":"Chitika Default"};
@@ -339,7 +281,7 @@
                         document.write('<div id="chitikaAdBlock-' + placement_id + '"></div>');
                     }());
                 </script>
-                <script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
+                <script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>-->
             </div>
         </div>
 
