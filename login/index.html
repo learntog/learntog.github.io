@@ -84,7 +84,7 @@
                 newEvent = new Object();
                 newEvent.title = "Hello";
                 newEvent.description = "Hello world this is my unit";
-                newEvent.start = new Date(new Date() - (4*24*60*60*1000));
+                newEvent.start = new Date(new Date() + (24*60*60*1000));
                 newEvent.end = new Date(newEvent.start + (60*60*1000));
                 newEvent.allDay = false;
                 newEvent.color =  getRandomColor();
