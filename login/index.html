@@ -336,33 +336,25 @@
             </div>
 
 
+            <script>
+                $(document).ready(function(){
+                    $('.collapsible').collapsible();
+                });
+
+            </script>
+
 
             <div id="tableview" class="col s12 transparent">
-
-
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Class</th>
-                        <th>Details</th>
-                        <th>My Peers</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    <tr>
-                        <td>FIT1045 - Lab</td>
-                        <td>Tuesday 6-8pm, 14 Rainforest Walk</td>
-                        <td>Ishan, Arni...</td>
-                    </tr>
-                    <tr>
-                        <td>FIT1047 - Lab</td>
-                        <td>Thursday 6-8pm, 25 Exhibition Walk</td>
-                        <td><a>Connect to facebook</a></td>
-                    </tr>
-
-                    </tbody>
-                </table>
+                <b>Click on the class to get details</b>
+                <ul class="collapsible" data-collapsible="accordion">
+                    <li>
+                        <div class="collapsible-header">FIT1045 - Lab</div>
+                        <div class="collapsible-body"><span> <b>Location</b> <br>Thursday 6-8pm, 16 Rainforest Walk <br><br> <b>Peers:</b> <br> Ishan, Arni.. </span></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">FIT1047 - Lab</div>
+                        <div class="collapsible-body"><span> <b>Location</b> <br>Thursday 6-8pm, 25 Exhibition Walk <br><br> <b>Peers:</b> <br> Ishan, Arni.. </span> </div>
+                </ul>
             </div>
 
             <!-- Modal Trigger -->
