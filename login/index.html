@@ -376,11 +376,27 @@
                 <div class="modal-content">
 
                     <h5>Activity Details</h5>
+                    <a href="#">Want to swap?</a>
                     <p id="eventdescription">Description</p>
                     <p id="eventtime">Time</p>
 
-                    <ul style="height: 420px; overflow-y: scroll" class="collection with-header">
-                        <li class="collection-header"><h5>Classmates</h5></li>
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">search</i>
+                                <input type="text" id="autocomplete_inp" class="autocomplete">
+                                <label for="autocomplete-input">Search</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul  class="collection with-header">
+                        <li class="collection-header"><h5>Facebook Friends</h5></li>
+                        <li class="collection-item"><div>No one you know, make new friends?</div></li>
+
+                    </ul>
+                    <ul class="collection with-header">
+                        <li class="collection-header"><h6><strong>Others you may want to connect with</strong></h6></li>
                         <li class="collection-item"><div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
                         <li class="collection-item"><div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
                         <li class="collection-item"><div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
