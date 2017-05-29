@@ -24,7 +24,7 @@
     <script>
         $(document).ready(function () {
             $('.button-collapse').sideNav({
-                        menuWidth: 300,
+                        menuWidth: 230,
                         draggable: true// Default is 240
 //                        closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
                     }
@@ -68,8 +68,8 @@
 //                    height: 700,
                     contentHeight: 'auto',
                     header: false,   // Hide buttons/titles
-                    minTime: '07:00:00', // Start time for the calendar
-                    maxTime: '20:00:00', // End time for the calendar
+//                    minTime: '07:00:00', // Start time for the calendar
+//                    maxTime: '21:00:00', // End time for the calendar
                     columnFormat: {
                         week: 'ddd' // Only show day of the week names
                     },
@@ -123,7 +123,7 @@
 
     <style>
         header, main, footer {
-            padding-left: 300px;
+            padding-left: 230px;
         }
 
         @media only screen and (max-width: 992px) {
@@ -136,6 +136,11 @@
             opacity: 0;
             border: none;
         }
+
+        #listfacebookfriends {
+            overflow-y: hidden;
+        }
+        #listfacebookfriends:hover { overflow-y:scroll; }
 
 
     </style>
@@ -160,12 +165,15 @@
         <ul id="slide-out" class="side-nav fixed">
             <li>
                 <div class="userView">
-                    <div class="background">
-                        <img style="background-size: 100%; max-height: 100%; max-width: 100%" src="background.jpg">
-                    </div>
+                    <!--<div class="background">-->
+                        <!--<img style="background-size: 100%; max-height: 100%; max-width: 100%" src="background.jpg">-->
+                        <!---->
+                    <!--</div>-->
+
                     <a href="#!user"><img class="circle" src="profilepicdefault.png"></a>
                     <a href="#!name"><span class="black-text name">Katie Polus</span></a>
-                    <a href="#!email"><span class="black-text email">_</span></a>
+                    <a href="#!email"><span class="black-text email" style="font-size: 0.8em">kpol0001@student.monash.edu</span></a>
+
                 </div>
             </li>
 
@@ -180,6 +188,12 @@
             <li>
                 <div class="divider"></div>
             </li>
+            <!--<li>
+                <div style="width: 100%" class="fb-share-button" data-href="https://learntog.github.io/" data-layout="button_count"
+                     data-size="large" data-mobile-iframe="true"><a style="text-align: center" class="fb-xfbml-parse-ignore" target="_blank"
+                                                                    href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Flearntog.github.io%2F&amp;src=sdkpreparse">Share</a>
+                </div>
+            </li>-->
 
             <li><a href="#!"><i class="material-icons">close</i>Log off</a></li>
             <li><a onclick="createEventCalendar('red')">Test event</a></li>
@@ -194,17 +208,25 @@
                 <li><a href="#" data-activates="slide-out" class="button-collapse"><i
                         class="material-icons right">menu</i></a></li>
             </ul>
+            <ul>
+                <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">favorite</i></a></li>
+            </ul>
+
 
         </div>
+
     </nav>
 </header>
 
 
 <main>
-    <div class="row">
+    <div class="row" style="padding-bottom: 80px;">
+
         <div class="col s9">
 
-            <p>My calendar can be accessed by unique code <strong>A352J</strong></p>
+
+
+            <p>My calendar can be accessed by unique code  <a onclick="createEventCalendar('red')"><strong>A352J</strong></a></p>
 
             <ul id="tabs-swipe-demo" class="tabs">
                 <li class="tab col s3"><a class="active" href="#calendarview">Calendar View</a></li>
@@ -212,11 +234,112 @@
             </ul>
 
             <br>
-            <div id="calendarview" class="col s12 transparent">
-                <div id='calendar'></div>
+            <div class="col s12" id="calendarview">
+                <div  class="col s9 ">
+                    <div id='calendar'></div>
+
+
+                </div>
+                <div class="col s3 center">
+
+
+
+                    <table>
+                        <tr>
+                            <td>
+                                <p>
+
+                                    <input type="checkbox" id="test5" />
+                                    <label for="test5">Laura</label>
+
+                                </p>
+                            </td>
+                            <td>
+                                <i class="close material-icons">close</i>
+                            </td>
+                            <td class="green">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>
+                                    <input type="checkbox" id="test6" checked="checked" />
+                                    <label for="test6">Katie</label>
+
+                                </p>
+                            </td>
+                            <td>
+                                <i class="close material-icons">close</i>
+                            </td>
+                            <td class="blue">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>
+
+                                    <input type="checkbox" id="test7" checked="checked" />
+                                    <label for="test7">Nevin</label>
+
+                                </p>
+                            </td>
+                            <td>
+                                <i class="close material-icons">close</i>
+                            </td>
+                            <td class="red">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>
+
+                                    <input type="checkbox" id="test8" checked="checked" />
+                                    <label for="test8">Spare time</label>
+
+                                </p>
+                            </td>
+                            <td>
+
+                            </td>
+                            <td class="grey lighten-3">
+
+                            </td>
+                        </tr>
+
+                    </table>
+
+
+
+                </div>
+
+                <div class="fixed-action-btn toolbar">
+                    <a class="btn-floating btn-large red">
+                        <i class="large material-icons">date_range</i>
+                    </a>
+                    <ul style="padding-left: 230px">
+                        <!--<li class="waves-effect waves-light"><a href="#!"><i class="material-icons">link</i></a></li>-->
+                        <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">share</i></a></li>
+                        <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">attach_file</i></a></li>
+                        <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">print</i></a></li>
+                        <!--<li class="waves-effect waves-light"><a href="#!"><i class="material-icons">format_quote</i></a></li>-->
+                        <!--<li class="waves-effect waves-light"><a href="#!"><i class="material-icons">publish</i></a></li>-->
+                        <!--<li class="waves-effect waves-light"><a href="#!"><i class="material-icons">attach_file</i></a></li>-->
+                        <!--<li class="waves-effect waves-light"><a href="#!"><i class="material-icons">insert_chart</i></a></li>-->
+                        <!--<li class="waves-effect waves-light"><a href="#!"><i class="material-icons">format_quote</i></a></li>-->
+                        <!--<li class="waves-effect waves-light"><a href="#!"><i class="material-icons">publish</i></a></li>-->
+                        <!--<li class="waves-effect waves-light"><a href="#!"><i class="material-icons">attach_file</i></a></li>-->
+                    </ul>
+                </div>
             </div>
 
+
+
             <div id="tableview" class="col s12 transparent">
+
+
                 <table>
                     <thead>
                     <tr>
@@ -250,11 +373,61 @@
                 <div class="modal-content">
 
                     <h5>Activity Details</h5>
+                    <a href="#">Want to swap?</a>
                     <p id="eventdescription">Description</p>
                     <p id="eventtime">Time</p>
 
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">search</i>
+                                <input type="text" id="autocomplete_inp" class="autocomplete">
+                                <label for="autocomplete-input">Search</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul  class="collection with-header">
+                        <li class="collection-header"><h5>Facebook Friends</h5></li>
+                        <li class="collection-item"><div>No one you know, make new friends?</div></li>
+
+                    </ul>
+                    <ul class="collection with-header">
+                        <li class="collection-header"><h6><strong>Others you may want to connect with</strong></h6></li>
+                        <li class="collection-item"><div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+
+                        <li class="collection-item"><div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+
+                        <li class="collection-item"><div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+
+                        <li class="collection-item"><div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+
+                        <li class="collection-item"><div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+
+                    </ul>
+
                     <!--<h5>Who's with me?</h5>-->
-                    <a href="#">Connect to facebook.</a>
+                    <!--<a href="#">Connect to facebook.</a>-->
+
 
 
                 </div>
@@ -263,34 +436,40 @@
                 </div>
             </div>
         </div>
+        <!--<div class="col s1">-->
+
+        <!--</div>-->
         <div class="col s3">
-            <br><br>
-            <div class="fb-share-button" data-href="https://learntog.github.io/" data-layout="button_count"
-                 data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank"
-                                                                href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Flearntog.github.io%2F&amp;src=sdkpreparse">Share</a>
-            </div>
-            <br><br><br>
-            <div class="hide-on-med-and-down" style=" margin-left: 2%; width: 96%; height: 620px; background-color: rgba(0,0,0,0);">
-                <script type="text/javascript">
+            <br>
 
-                    function checkMobile() {
-                        var check = false;
-                        (function (a) {
-                            if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4))) check = true;
-                        })(navigator.userAgent || navigator.vendor || window.opera);
-                        return check;
-                    }
+            <p class="right"><i class="material-icons">info</i></p>
+            <div class="row">
+                <div class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">search</i>
+                            <input type="text" id="autocomplete-input" class="autocomplete">
+                            <label for="autocomplete-input">Search</label>
+                        </div>
+                    </div>
+                </div>
+                <div  style="padding-bottom: 80px;" class="col s11 offset-s1">
 
-                    if(!checkMobile()){
-                    ( function() {
-                        if (window.CHITIKA === undefined) { window.CHITIKA = { 'units' : [] }; };
-                        var unit = {"calltype":"async[2]","publisher":"ishan99","width":160,"height":600,"sid":"Chitika Default"};
-                        var placement_id = window.CHITIKA.units.length;
-                        window.CHITIKA.units.push(unit);
-                        document.write('<div id="chitikaAdBlock-' + placement_id + '"></div>');
-                    }());}
-                </script>
-                <script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
+                    <ul id="listfacebookfriends" style="height: 600px;" class="collection with-header">
+                        <li class="collection-header"><h5>Facebook Friends</h5>
+                            <!--<p class="center grey-text">-->
+                                <!--<a href="#">Connect to Facebook</a>-->
+                            <!--</p>-->
+                        </li>
+                        <li>
+
+                            <div style="padding-left: 3%" class="fb-login-button" data-max-rows="1" data-size="small" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+                        </li>
+
+                    </ul>
+
+
+                </div>
             </div>
         </div>
 
