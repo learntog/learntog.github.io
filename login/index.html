@@ -190,9 +190,10 @@
                             console.log(response);
                             if (response && !response.error) {
                                 /* handle the result */
+//                            <li class="collection-item"></li>
 
                                 for(i=0; i < response.data.length; i++){
-                                    $("#listfacebookfriends").append("<li>"+response.data[i].name+"</li>");
+                                    $("#listfacebookfriends").append("<li class='collection-item'><div>"+response.data[i].name+"<a href='#!' class='secondary-content'><i class=\"material-icons\">add</i></a></div>"+"</li>");
                                 }
                             }
                         }
