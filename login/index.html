@@ -245,11 +245,20 @@
                 </div>
             </li>
 
+            <script>
+                $(document).ready(function(){
+                // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+                $('.modal').modal();
+            });
+            </script>
+
+
             <li><a class="subheader">Actions</a></li>
 
             <li><a href="#"><i class="material-icons">create</i>Edit</a></li>
             <li><a href="#"><i class="material-icons">settings</i>Preferences</a></li>
-            <li><a href="#"><i class="material-icons">drafts</i>Contact Us</a></li>
+            <li><a href="#modalsrs"><i class="material-icons">drafts</i>Contact Us</a></li>
+
             <li><a onclick="tour()" href="#"><i class="material-icons">help</i>Help</a></li>
             <li><a href="#!"><i class="material-icons">close</i>Log off</a></li>
             <!--<li><a href="#"><i class="material-icons">pets</i>Friends <span class="badge">1</span> </a></li>-->
@@ -292,6 +301,39 @@
 
         <div class="col s9">
 
+        <!--I've added contact us modal here! - Surayez -->
+
+            <div id="modalsrs" class="modal">
+                <div class="modal-content">
+                    <h4>You can email us here!</h4>
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input placeholder="Name" id="first_name" type="text" class="validate">
+                                    <label for="first_name">First Name</label>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input placeholder="Email" id="userEmail" type="email" class="validate">
+                                    <label for="userEmail">Email</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input placeholder="Your message" id="message" type="text" class="validate">
+                                    <label for="message">Your message</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Submit!</a>
+                </div>
+            </div>
 
 
             <p>My calendar can be accessed by unique code  <a onclick="createEventCalendar('red')"><strong>A352J</strong></a></p>
