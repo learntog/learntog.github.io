@@ -301,50 +301,23 @@
 
         <div class="col s9">
 
-        <!--I've added contact us modal here! - Surayez -->
 
-            <div id="modalsrs" class="modal">
-                <div class="modal-content">
-                    <h4>You can email us here!</h4>
-                    <div class="row">
-                        <form class="col s12">
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <input placeholder="Name" id="first_name" type="text" class="validate">
-                                    <label for="first_name">First Name</label>
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <input placeholder="Email" id="userEmail" type="email" class="validate">
-                                    <label for="userEmail">Email</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <input placeholder="Your message" id="message" type="text" class="validate">
-                                    <label for="message">Your message</label>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Submit!</a>
-                </div>
-            </div>
-
-            <p style="text-align:center">My calendar can be accessed by unique code  <a onclick="createEventCalendar('red')"><strong>A352J</strong></a></p>
+            <p>My calendar can be accessed by unique code  <a onclick="createEventCalendar('red')"><strong>A352J</strong></a></p>
 
             <ul id="tabs-swipe-demo" class="tabs">
-                <li class="tab col s6"><a class="active" href="#calendarview">Calendar View</a></li>
-                <li class="tab col s6"><a href="#tableview">List View</a></li>
+                <li class="tab col s3"><a class="active" href="#calendarview">Calendar View</a></li>
+                <li class="tab col s3"><a href="#tableview">List View</a></li>
             </ul>
+
+            <!--I've added contact us modal here! - Surayez -->
+
+
+
 
             <br>
 
             <div class="col s12" id="calendarview">
+
                 <div  class="col s9 ">
                     <div id='calendar'></div>
 
@@ -663,6 +636,37 @@
                 <a class="btn waves-effect waves-light">Add</a>
 
                 </form>
+        </div>
+    </div>
+    <div id="modalsrs" class="modal">
+        <div class="modal-content">
+            <h4>You can email us here!</h4>
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input placeholder="Name" id="first_name" type="text" class="validate">
+                            <label for="first_name">First Name</label>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input placeholder="Email" id="userEmail" type="email" class="validate">
+                            <label for="userEmail">Email</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input placeholder="Your message" id="message" type="text" class="validate">
+                            <label for="message">Your message</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Submit!</a>
         </div>
     </div>
     <!--<div class="modal-footer">
