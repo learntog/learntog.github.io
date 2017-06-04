@@ -182,8 +182,10 @@
 //                            <li class="collection-item"></li>
 
                                 autocompletefbdata = {};
+                                idnamevalue = {};
                                 for(i=0; i < response.data.length; i++){
-                                    autocompletefbdata[response.data[i].name] = response.data[i].id;
+                                    idnamevalue[response.data[i].id] = response.data[i].name;
+                                    autocompletefbdata[response.data[i].name] = 'profilepicdefault.png';
                                     $("#listfacebookfriends").append("<li class='collection-item'><div>"+response.data[i].name+"<a href='#!' class='secondary-content'><i class=\"material-icons\">add</i></a></div>"+"</li>");
                                 }
 
