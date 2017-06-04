@@ -120,6 +120,8 @@
         }
 
 
+
+
     </script>
 
     <style>
@@ -150,13 +152,52 @@
 <body>
 
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.9&appId=1913393705562842";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '1913393705562842',
+            cookie     : true,
+            xfbml      : true,
+            version    : 'v2.8'
+        });
+        FB.AppEvents.logPageView();
+    };
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+            console.log(response);
+//        statusChangeCallback(response);
+        });
+    }
+    uid = 0;
+    function LoadFBUI() {
+        console.log('Hello');
+        FB.login(function(response) {
+            console.log(response);
+            if (response.authResponse) {
+//                window.location.reload();
+                uid = response.authResponse.userID;
+                FB.api(
+                        "/me/friends",
+                        function (response) {
+                            if (response && !response.error) {
+                                /* handle the result */
+                                console.log(response);
+                            }
+                        }
+                );
+            }
+        }, {scope:'email, user_friends'});
+    }
+
+</script>
 
 
 <header>
@@ -183,17 +224,20 @@
             <li><a href="#"><i class="material-icons">settings</i>Preferences</a></li>
             <li><a href="#"><i class="material-icons">drafts</i>Contact Us</a></li>
             <li><a onclick="tour()" href="#"><i class="material-icons">help</i>Help</a></li>
-            <li><a href="#"><i class="material-icons">pets</i>Friends <span class="badge">1</span> </a></li>
-
-            <li>
-                <div class="divider"></div>
-            </li>
-            <!--<li>
-
-            </li>-->
-
             <li><a href="#!"><i class="material-icons">close</i>Log off</a></li>
-            <li><a onclick="createEventCalendar('red')">Test event</a></li>
+            <!--<li><a href="#"><i class="material-icons">pets</i>Friends <span class="badge">1</span> </a></li>-->
+
+            <!--<li>-->
+                <!--<div class="divider"></div>-->
+            <!--</li>-->
+
+            <!---->
+            <!--&lt;!&ndash;<li>-->
+
+            <!--</li>&ndash;&gt;-->
+
+
+            <!--<li><a onclick="createEventCalendar('red')">Test event</a></li>-->
             <!---->
 
         </ul>
@@ -472,7 +516,7 @@
                 <div  style="padding-bottom: 80px;" class="col s11 offset-s1">
 
                     <ul id="listfacebookfriends" style="height: 600px;" class="collection with-header">
-                        <li class="collection-header"><h5>Facebook Friends</h5>
+                        <li class="collection-header"><h5 onclick="LoadFBUI()">Facebook Friends</h5>
                             <!--<p class="center grey-text">-->
                                 <!--<a href="#">Connect to Facebook</a>-->
                             <!--</p>-->
