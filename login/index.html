@@ -191,8 +191,8 @@
                             if (response && !response.error) {
                                 /* handle the result */
 
-                                for(i=0; i < response.length; i++){
-                                    $("#listfacebookfriends").append("<li>"+response.name+"</li>");
+                                for(i=0; i < response.data.length; i++){
+                                    $("#listfacebookfriends").append("<li>"+response.data[i].name+"</li>");
                                 }
                             }
                         }
