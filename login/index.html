@@ -187,8 +187,10 @@
                 FB.api(
                         "/me/friends",
                         function (response) {
+                            console.log(response);
                             if (response && !response.error) {
                                 /* handle the result */
+
                                 for(i=0; i < response.length; i++){
                                     $("#listfacebookfriends").append("<li>"+response.name+"</li>");
                                 }
