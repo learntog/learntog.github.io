@@ -47,18 +47,7 @@
                     }
             );
 
-            /*$('input.autocomplete').autocomplete({
-             data: {
-             "Apple": null,
-             "Microsoft": null,
-             "Google": null
-             },
-             limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
-             onAutocomplete: function(val) {
-             // Callback function when value is autcompleted.
-             },
-             minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
-             });*/
+
             try {
                 calendar = $('#calendar');
                 calendar.fullCalendar({
@@ -192,9 +181,22 @@
                                 /* handle the result */
 //                            <li class="collection-item"></li>
 
+                                autocompletefbdata = {};
                                 for(i=0; i < response.data.length; i++){
+                                    autocompletefbdata[response.data[i].name] = response.data[i].id;
                                     $("#listfacebookfriends").append("<li class='collection-item'><div>"+response.data[i].name+"<a href='#!' class='secondary-content'><i class=\"material-icons\">add</i></a></div>"+"</li>");
                                 }
+
+
+
+                                $('autocomplete-input-1').autocomplete({
+                                    data: autocompletefbdata,
+                                    limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
+                                    onAutocomplete: function(val) {
+                                        // Callback function when value is autcompleted.
+                                    },
+                                    minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
+                                });
                             }
                         }
                 );
