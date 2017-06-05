@@ -74,8 +74,8 @@
 //                    height: 700,
                     contentHeight: 'auto',
                     header: false,   // Hide buttons/titles
-//                    minTime: '07:00:00', // Start time for the calendar
-//                    maxTime: '21:00:00', // End time for the calendar
+                    minTime: '08:00:00', // Start time for the calendar
+                    maxTime: '21:00:00', // End time for the calendar
                     columnFormat: {
                         week: 'ddd' // Only show day of the week names
                     },
@@ -280,7 +280,7 @@
 
         <!--Changed the header background colour - Surayez-->
         <div class="nav-wrapper">
-            <a href="../" class="brand-logo center">Connect and LearnTogether</a>
+            <a href="../" class="brand-logo center">LearnTogether</a>
             <ul class="show-on-med-and-down">
                 <li><a href="#" data-activates="slide-out" class="button-collapse"><i
                         class="material-icons right">menu</i></a></li>
@@ -299,14 +299,15 @@
 <main>
     <div class="row" style="padding-bottom: 80px;">
 
-        <div class="col s9">
+
+        <div class="col s12 m12  l9 x9">
 
 
             <p>My calendar can be accessed by unique code  <a onclick="createEventCalendar('red')"><strong>A352J</strong></a></p>
 
             <ul id="tabs-swipe-demo" class="tabs">
-                <li class="tab col s3"><a class="active" href="#calendarview">Calendar View</a></li>
-                <li class="tab col s3"><a href="#tableview">List View</a></li>
+                <li class="tab col l3 s4"><a class="active" href="#calendarview">Calendar View</a></li>
+                <li class="tab col l3 s4"><a href="#tableview">List View</a></li>
             </ul>
 
             <!--I've added contact us modal here! - Surayez -->
@@ -318,12 +319,12 @@
 
             <div class="col s12" id="calendarview">
 
-                <div  class="col s9 ">
+                <div  class="col l9 s9 ">
                     <div id='calendar'></div>
 
 
                 </div>
-                <div class="col s3 center">
+                <div class="col l3 s3 center">
 
 
 
@@ -434,24 +435,7 @@
 
                 </div>
 
-                <div class="fixed-action-btn toolbar">
-                    <a class="btn-floating btn-large red">
-                        <i class="large material-icons">date_range</i>
-                    </a>
-                    <ul style="padding-left: 230px">
-                        <!--<li class="waves-effect waves-light"><a href="#!"><i class="material-icons">link</i></a></li>-->
-                        <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">share</i></a></li>
-                        <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">attach_file</i></a></li>
-                        <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">print</i></a></li>
-                        <!--<li class="waves-effect waves-light"><a href="#!"><i class="material-icons">format_quote</i></a></li>-->
-                        <!--<li class="waves-effect waves-light"><a href="#!"><i class="material-icons">publish</i></a></li>-->
-                        <!--<li class="waves-effect waves-light"><a href="#!"><i class="material-icons">attach_file</i></a></li>-->
-                        <!--<li class="waves-effect waves-light"><a href="#!"><i class="material-icons">insert_chart</i></a></li>-->
-                        <!--<li class="waves-effect waves-light"><a href="#!"><i class="material-icons">format_quote</i></a></li>-->
-                        <!--<li class="waves-effect waves-light"><a href="#!"><i class="material-icons">publish</i></a></li>-->
-                        <!--<li class="waves-effect waves-light"><a href="#!"><i class="material-icons">attach_file</i></a></li>-->
-                    </ul>
-                </div>
+
             </div>
 
 
@@ -554,7 +538,7 @@
         <!--<div class="col s1">-->
 
         <!--</div>-->
-        <div class="col s3">
+        <div class="col s12 m12 l3 x3">
             <br>
 
 
@@ -638,42 +622,40 @@
                 </form>
         </div>
     </div>
-    
+
+
     <!--<div class="modal-footer">
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
     </div>-->
 </div>
 <div id="modalsrs" class="modal">
-        <div class="modal-content">
-            <h4>You can email us here!</h4>
-            <div class="row">
-                <form class="col s12">
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input placeholder="Name" id="first_name" type="text" class="validate">
-                            <label for="first_name">First Name</label>
-                        </div>
+    <div class="modal-content">
+        <h4>You can email us here!</h4>
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input placeholder="Name" id="first_name" type="text" class="validate">
+                        <label for="first_name">First Name</label>
+                    </div>
 
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input placeholder="Email" id="userEmail" type="email" class="validate">
+                        <label for="userEmail">Email</label>
                     </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input placeholder="Email" id="userEmail" type="email" class="validate">
-                            <label for="userEmail">Email</label>
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input placeholder="Your message" id="message" type="text" class="validate">
+                        <label for="message">Your message</label>
                     </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input placeholder="Your message" id="message" type="text" class="validate">
-                            <label for="message">Your message</label>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Submit!</a>
+                </div>
+            </form>
         </div>
     </div>
+
 
 
 <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
