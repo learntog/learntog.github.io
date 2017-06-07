@@ -306,7 +306,138 @@
     <div class="row" style="padding-bottom: 80px;">
 
 
-        <div class="col s12 m12  l9 x9">
+        <div class="col s12 m12  l8 x8">
+
+
+            <p>My calendar can be accessed by unique code  <a onclick="createEventCalendar('red')"><strong>A352J</strong></a></p>
+
+            <ul id="tabs-swipe-demo" class="tabs">
+                <li class="tab col l3 s4"><a class="active" href="#calendarview">Calendar View</a></li>
+                <li class="tab col l3 s4"><a href="#tableview">List View</a></li>
+            </ul>
+
+            <!--I've added contact us modal here! - Surayez -->
+
+
+
+
+            <br>
+
+            <div class="col s12" id="calendarview">
+
+                <div  class="col l12 s12 ">
+                    <div id='calendar'></div>
+
+
+                </div>
+                <div class="col l12 s12 center">
+
+                    <!--add calendar control here-->
+
+
+                </div>
+
+
+            </div>
+
+
+            <script>
+                $(document).ready(function(){
+                    $('.collapsible').collapsible();
+                });
+
+            </script>
+
+
+            <div id="tableview" class="col s12 transparent">
+                <b>Click on the class to get details</b>
+                <br>
+                <br>
+                <ul class="collapsible popout" data-collapsible="accordion">
+                    <li>
+                        <div class="collapsible-header">FIT1045 - Lab</div>
+                        <div class="collapsible-body"><span> <b>Location</b> <br>Thursday 6-8pm, 16 Rainforest Walk <br><br> <b>Peers:</b> <br> Ishan, Arni.. </span></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">FIT1047 - Lab</div>
+                        <div class="collapsible-body"><span> <b>Location</b> <br>Thursday 6-8pm, 25 Exhibition Walk <br><br> <b>Peers:</b> <br> Ishan, Arni.. </span> </div>
+                </ul>
+            </div>
+
+            <!-- Modal Trigger -->
+            <a href="#moreinfodialog"></a>
+
+            <!-- Modal Structure -->
+            <div id="moreinfodialog" class="modal modal-fixed-footer">
+                <div class="modal-content">
+
+                    <h5>Activity Details</h5>
+                    <a class="tooltipped" data-position="right" data-delay="50" data-tooltip="Coming soon... (Stay Tuned)">I wish I could swap this class.</a><br>
+                    <a class="tooltipped" data-position="right" data-delay="50" data-tooltip="Coming soon.">Make and review notes with classmates.</a>
+
+                    <p id="eventdescription">Description</p>
+                    <p id="eventtime">Time</p>
+
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">search</i>
+                                <input type="text" id="autocomplete_inp" class="autocomplete">
+                                <label for="autocomplete_inp">Search</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul  class="collection with-header">
+                        <li class="collection-header"><h5>Facebook Friends</h5></li>
+                        <li class="collection-item"><div>No one you know, make new friends?</div></li>
+
+                    </ul>
+                    <ul class="collection with-header">
+                        <li class="collection-header"><h6><strong>Others you may want to connect with</strong></h6></li>
+                        <li class="collection-item"><div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+
+                        <li class="collection-item"><div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+
+                        <li class="collection-item"><div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+
+                        <li class="collection-item"><div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+
+                        <li class="collection-item"><div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item"><div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+
+                    </ul>
+
+                    <!--<h5>Who's with me?</h5>-->
+                    <!--<a href="#">Connect to facebook.</a>-->
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-action modal-close waves-effect btn-flat">Close</a>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m12  l8 x8">
 
 
             <p>My calendar can be accessed by unique code  <a onclick="createEventCalendar('red')"><strong>A352J</strong></a></p>
@@ -440,7 +571,7 @@
         <!--<div class="col s1">-->
 
         <!--</div>-->
-        <div class="col s12 m12 l3 x3">
+        <div class="col s12 m12 l4 x4">
             <br>
 
 
@@ -468,8 +599,29 @@
                 </div>
                 <div  style="padding-bottom: 80px;" class="col s10 offset-s1">
 
+                    <ul id="currentlycomparing" style=" overflow-y: auto; max-height: 600px;" class="collection with-header">
+                        <li class="collection-header"><a><h6  style="color: #3b5998;">Currently comparing</h6></a>
+                            <!--<ul class="collection">-->
+                                <!--</ul>-->
+                            <!--<p cl1ass="center grey-text">-->
+                            <!--<a href="#">Connect to Facebook</a>-->
+                            <!--</p>-->
+                        </li>
+                        <li class="collection-item dismissable"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">remove</i></a></div></li>
+                        <li class="collection-item dismissable"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">remove</i></a></div></li>
+                        <li class="collection-item dismissable"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">remove</i></a></div></li>
+                        <li class="collection-item  dismissable"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">remove</i></a></div></li>
+
+                        <!--<li>-->
+
+                        <!--&lt;!&ndash;<div style="padding-left: 3%" class="fb-login-button" data-max-rows="1" data-size="small" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>&ndash;&gt;-->
+                        <!--<div class="fb-login-button" data-max-rows="2" data-size="large" data-button-type="continue_with" data-show-faces="true" data-auto-logout-link="false" data-use-continue-as="false"></div>-->
+                        <!--</li>-->
+
+
+                    </ul>
                     <ul id="listfacebookfriends" style=" overflow-y: auto; max-height: 600px;" class="collection with-header">
-                        <li class="collection-header"><a><h5  style="color: #3b5998;" onclick="LoadFBUI()">Facebook Friends</h5></a>
+                        <li class="collection-header"><a><h6  style="color: red" onclick="LoadFBUI()">Facebook Friends</h6></a>
                             <!--<p class="center grey-text">-->
                                 <!--<a href="#">Connect to Facebook</a>-->
                             <!--</p>-->
@@ -485,7 +637,8 @@
                     <!--<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="true" data-auto-logout-link="false" data-use-continue-as="true"></div>-->
                     <!--<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false"></div>-->
                     <ul id="otheraddedfriends" style="max-height: 250px;" class="collection with-header">
-                        <li class="collection-header"><h6>Other Friends <a href="#modal1"><i class="material-icons">add</i></a></h6>
+                        <li class="collection-header"><h6><a href="#modal1">Other friends</a></h6>
+
 
                             <!--<p class="center grey-text">-->
                             <!--<a href="#">Connect to Facebook</a>-->
