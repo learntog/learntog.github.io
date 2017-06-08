@@ -42,18 +42,18 @@
             firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
                     console.log(user);
-                    loading = document.getElementsByClassName("logincomponents");
+                    loading = document.getElementById("logincomponents");
                     loading.style.visibility = "visible" ;
-                    loading = document.getElementsByClassName("non-login-component");
+                    loading = document.getElementById("non-login-component");
                     loading.style.visibility = "hidden" ;
                     // User is signed in.
                 } else {
                     // User is signed out.
                     console.log("Signed out.. ");
 
-                    loading = document.getElementsByClassName("logincomponents");
+                    loading = document.getElementById("logincomponents");
                     loading.style.visibility = "hidden" ;
-                    loading = document.getElementsByClassName("non-login-component");
+                    loading = document.getElementById("non-login-component");
                     loading.style.visibility = "visible" ;
 
                 }
@@ -271,7 +271,7 @@
 <header>
     <nav>
         <!--<nav class="black lighten-3">-->
-        <ul id="slide-out" class="logincomponents side-nav fixed">
+        <ul id="slide-out" class="side-nav fixed">
             <li>
                 <div class="userView">
                     <!--<div class="background">-->
@@ -339,9 +339,9 @@
 
 <main>
 
-    <h4 class="center"><a class="non-login-component" href="../home.html">Login</a></h4>
+    <h4 id="non-login-component" class="center"><a href="../home.html">Login</a></h4>
 
-    <div class="row logincomponents" style="visibility: hidden; padding-bottom: 80px;">
+    <div class="row" id="logincomponents" style="visibility: hidden; padding-bottom: 80px;">
 
 
         <div class="col s12 m12  l8 x8">
