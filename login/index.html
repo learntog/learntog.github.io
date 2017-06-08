@@ -37,6 +37,37 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
     <script src="date.js"></script>
 
+    <script>
+        initApp = function() {
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    console.log(user);
+                    loading = document.getElementsByClassName("logincomponents");
+                    loading.style.visibility = "visible" ;
+                    loading = document.getElementsByClassName("non-login-component");
+                    loading.style.visibility = "hidden" ;
+                    // User is signed in.
+                } else {
+                    // User is signed out.
+                    console.log("Signed out.. ");
+
+                    loading = document.getElementsByClassName("logincomponents");
+                    loading.style.visibility = "hidden" ;
+                    loading = document.getElementsByClassName("non-login-component");
+                    loading.style.visibility = "visible" ;
+
+                }
+            }, function(error) {
+                console.log(error);
+            });
+        };
+
+        window.addEventListener('load', function() {
+            initApp()
+        });
+    </script>
+
+
 
     <script>
         $(document).ready(function () {
@@ -161,6 +192,10 @@
 
 <div id="fb-root"></div>
 <script>
+    function logoff() {
+        firebase.auth().signOut();
+    }
+
     function LoadFBUI() {
         console.log('Hello');
         FB.login(function(response) {
@@ -236,7 +271,7 @@
 <header>
     <nav>
         <!--<nav class="black lighten-3">-->
-        <ul id="slide-out" class="side-nav fixed">
+        <ul id="slide-out" class="logincomponents side-nav fixed">
             <li>
                 <div class="userView">
                     <!--<div class="background">-->
@@ -266,7 +301,7 @@
             <li><a href="#modalsrs"><i class="material-icons">drafts</i>Contact Us</a></li>
 
             <li><a onclick="tour()" href="#"><i class="material-icons">help</i>Help</a></li>
-            <li><a href="#!"><i class="material-icons">close</i>Log off</a></li>
+            <li><a onclick="logoff()"><i class="material-icons">close</i>Log off</a></li>
             <!--<li><a href="#"><i class="material-icons">pets</i>Friends <span class="badge">1</span> </a></li>-->
 
             <!--<li>-->
@@ -303,7 +338,10 @@
 
 
 <main>
-    <div class="row" style="padding-bottom: 80px;">
+
+    <h4 class="center"><a class="non-login-component" href="../home.html">Login</a></h4>
+
+    <div class="row logincomponents" style="visibility: hidden; padding-bottom: 80px;">
 
 
         <div class="col s12 m12  l8 x8">
