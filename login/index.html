@@ -343,11 +343,11 @@
         autocompletefbdata = {};
         if(response!=null){
         try{
-            for(i=0; i < response.data.length; i++){
-            idnamevalue[response.data[i].id] = response.data[i].name;
-            autocompletefbdata[response.data[i].name] = 'profilepicdefault.png';
+            for(i=0; i < response.length; i++){
+            idnamevalue[response[i].id] = response[i].name;
+            autocompletefbdata[response[i].name] = 'profilepicdefault.png';
 //                                <a href='#!' class='secondary-content'><i class=\"material-icons\">add</i></a>
-            $("#listfacebookfriends").append("<li class='collection-item'><div>"+response.data[i].name+"</div>"+"</li>");
+            $("#listfacebookfriends").append("<li class='collection-item'><div>"+response[i].name+"</div>"+"</li>");
         }}catch(err){}
         }else{
             //show the fb button...
