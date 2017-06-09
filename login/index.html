@@ -33,6 +33,7 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.0/fullcalendar.min.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
     <script src="../js/data.js"></script>
+    <script src="../js/analytics.js"></script>
 
     <script>
 
@@ -55,7 +56,6 @@
 
         }
         weektoday = {Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6};
-
         initApp = function () {
             firebase.auth().onAuthStateChanged(function (user) {
                 if (user) {
@@ -133,7 +133,6 @@
                 ////console.log(error);
             });
         };
-
         window.addEventListener('load', function () {
             initApp()
         });
@@ -201,7 +200,6 @@
         function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
-
         function createEventCalendar(color) {
             try {
                 newEvent = {};
@@ -239,7 +237,6 @@
 
             }
         }
-
         function getRandomColor() {
 
             var letters = '0123456789ABCDEF';
