@@ -133,6 +133,12 @@
 
             }}else{
 
+                loading = document.getElementById("timetableuploadtab");
+                loading.style.visibility = "visible";
+
+                document.getElementById("calendarviewtab").style.display = "none";
+                document.getElementById("listviewtab").style.display = "none";
+
                 addfilelist();
                 //no timetable exists.
 
@@ -531,9 +537,9 @@
             </p>
 
             <ul id="tabs-swipe-demo" class="tabs">
-                <li class="tab col l3 s4"><a class="active" href="#calendarview">Calendar View</a></li>
-                <li class="tab col l3 s4"><a href="#tableview">List View</a></li>
-                <li class="tab col l3 s4"><a href="#timetableupload">Timetable Upload</a></li>
+                <li class="tab col l3 s4"><a class="active" href="#calendarview" id="calendarviewtab">Calendar View</a></li>
+                <li class="tab col l3 s4"><a href="#tableview" id="listviewtab">List View</a></li>
+                <li style="visibility: hidden" class="tab col l3 s4"><a href="#timetableupload" id="timetableuploadtab">Timetable Upload</a></li>
             </ul>
 
 
