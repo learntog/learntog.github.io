@@ -337,9 +337,9 @@
 
     function ShowFbFriend() {
 
-        console.log(uid);
         response = getdata.getfacebook(uid);
 
+        console.log(uid, response);
         autocompletefbdata = {};
         if(response!=null){
         try{
