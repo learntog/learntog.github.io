@@ -37,7 +37,6 @@
 
     <script>
 
-        uid = "";
         function thisWeekDay(x) {
             var now = new Date();
 
@@ -55,14 +54,50 @@
             }
 
         }
-        weektoday = {Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6};
+        uid = "";
+
+        weektodays = {Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6};
+        function drawoncalendar(timetablesur) {
+            unitcolor = {};
+
+            for (i = 0; i < timetablesur.length; i++) {
+                var cl = timetablesur[i];
+                var cld = cl.split("*");
+                //console.log(cld);
+                var day = cld[2];
+                var time = cld[3];
+                var hour = time.split(":")[0];
+                var min = time.split(":")[1];
+
+//                        createEventCalendarWithTime(color, start, end, title, duration)
+
+                var weektoday = {Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6};
+                //console.log(thisWeekDay(weektoday[day]));
+                var start = thisWeekDay(weektoday[day]);
+                //console.log(start);
+                start.setHours(hour);
+                start.setMinutes(min);
+
+                var unit = cld[0];
+                ////console.log(unit, unitcolor);
+                if (unitcolor[unit] == null) {
+                    unitcolor[unit] = getRandomColor();
+                }
+
+
+                createEventCalendarWithTime(unitcolor[unit], start, null, cld[0], cld[5]);
+
+
+            }
+
+        }
         initApp = function () {
             firebase.auth().onAuthStateChanged(function (user) {
                 if (user) {
 
 
 
-                    ////console.log(user);
+                    //////console.log(user);
                     loading = document.getElementById("logincomponents");
                     loading.style.visibility = "visible";
                     loading = document.getElementById("non-login-component");
@@ -78,7 +113,7 @@
 
 
 
-                    ////console.log(displayName+email+emailVerified+photoURL+uid);
+                    //////console.log(displayName+email+emailVerified+photoURL+uid);
                     user.getIdToken().then(function (accessToken) {
 
                         uid = user.uid;
@@ -93,37 +128,26 @@
 
                     ShowFbFriend();
 
-                    timetablesur = ["FIT1045*Laboratory32*Thu*13:00*CL_23Col-G47*2", "FIT1045*Lecture03-P1*Mon*17:00*CL_20Chn-H5*1", "FIT1045*Lecture03-P2*Tue*16:00*CL_21Col-E1*1", "FIT1045*PASSWorkshop04*Fri*15:00*CL_20Chn-E353*1", "FIT1045*Tutorial12*Wed*09:00*CL_14Rnf-G16*2", "FIT1047*Laboratory18*Thu*18:00*CL_14Rnf-G11A*2", "FIT1047*Lecture02-P1*Tue*14:00*-*1", "FIT1047*Lecture02-P2*Wed*16:00*-*1", "FIT1050*Laboratory03*Wed*17:00*CL_22All-103*3", "FIT1050*Lecture01*Mon*10:00*CL_21Col-E1*1", "MAT1830*Lecture01-P2*Thu*12:00*CL_25Exh-C1*1", "MAT1830*Lecture01-P3*Fri*16:00*CL_25Exh-C1*1", "MAT1830*Lecture01-P1*Wed*12:00*CL_25Exh-C1*1", "MAT1830*Support-Class12*Tue*17:30*CL_7Inn-CG20*1.5"];
+
+                            /*["FIT1045*Laboratory32*Thu*13:00*CL_23Col-G47*2", "FIT1045*Lecture03-P1*Mon*17:00*CL_20Chn-H5*1", "FIT1045*Lecture03-P2*Tue*16:00*CL_21Col-E1*1", "FIT1045*PASSWorkshop04*Fri*15:00*CL_20Chn-E353*1", "FIT1045*Tutorial12*Wed*09:00*CL_14Rnf-G16*2", "FIT1047*Laboratory18*Thu*18:00*CL_14Rnf-G11A*2", "FIT1047*Lecture02-P1*Tue*14:00*-*1", "FIT1047*Lecture02-P2*Wed*16:00*-*1", "FIT1050*Laboratory03*Wed*17:00*CL_22All-103*3", "FIT1050*Lecture01*Mon*10:00*CL_21Col-E1*1", "MAT1830*Lecture01-P2*Thu*12:00*CL_25Exh-C1*1", "MAT1830*Lecture01-P3*Fri*16:00*CL_25Exh-C1*1", "MAT1830*Lecture01-P1*Wed*12:00*CL_25Exh-C1*1", "MAT1830*Support-Class12*Tue*17:30*CL_7Inn-CG20*1.5"];
                     timetablearn =
                             ["ACC1200*Seminar04*Wed*15:00*CL_7Inn-BG15*3", "ETC1000*Comp-Lab03*Fri*09:30*CL_20Chn-S317*1.5", "ETC1000*Lecture02*Fri*11:30*CL_25Exh-C1*1.5", "FIT1045*Laboratory20*Fri*13:00*CL_23Col-G45*2", "FIT1045*Lecture01-P1*Mon*13:00*CL_21Col-E3*1", "FIT1045*Lecture01-P2*Tue*15:00*CL_21Col-E3*1", "FIT1045*PASSWorkshop04*Fri*15:00*CL_20Chn-E353*1", "FIT1045*Tutorial16*Mon*14:00*CL_14Rnf-G13*2", "MAT1830*Lecture01-P2*Thu*12:00*CL_25Exh-C1*1", "MAT1830*Lecture01-P3*Fri*16:00*CL_25Exh-C1*1", "MAT1830*Lecture01-P1*Wed*12:00*CL_25Exh-C1*1", "MAT1830*Support-Class08*Mon*10:00*CL_7Inn-CG10*1.5"];
-
-                    unitcolor = {};
-
-                    for (i = 0; i < timetablesur.length; i++) {
-                        var cl = timetablesur[i];
-                        var cld = cl.split("*");
-                        var day = cld[2];
-                        var time = cld[3];
-                        var hour = time.split(":")[0];
-                        var min = time.split(":")[1];
-
-//                        createEventCalendarWithTime(color, start, end, title, duration)
-
-                        var start = thisWeekDay(weektoday[day]);
-                        start.setHours(hour);
-                        start.setMinutes(min);
-
-                        var unit = cld[0];
-                        //console.log(unit, unitcolor);
-                        if (unitcolor[unit] == null) {
-                            unitcolor[unit] = getRandomColor();
-                        }
+*/
 
 
-                        createEventCalendarWithTime(unitcolor[unit], start, null, cld[0], cld[5]);
+                    var starCountRef = firebase.database().ref('users/' + uid + '/classes/');
+                    starCountRef.once('value').then( function(snapshot) {
 
 
-                    }
+                        timetablesur = snapshot.val();
+                        //console.log(timetablesur);
+//                        updateStarCount(postElement, snapshot.val());
+
+                        drawoncalendar(timetablesur);
+
+                    });
+
+
 
                 } else {
 
@@ -138,7 +162,7 @@
 
                 }
             }, function (error) {
-                ////console.log(error);
+                //////console.log(error);
             });
         };
         window.addEventListener('load', function () {
@@ -191,7 +215,7 @@
                     allDaySlot: false,
                     displayEventTime: true,
                     eventClick: function (event) {
-//                        ////console.log(event);
+//                        //////console.log(event);
                         document.getElementById('eventdescription').innerHTML = event.description;
                         document.getElementById('eventtime').innerHTML = event.start._d;
                         $('#moreinfodialog').modal('open');
@@ -309,7 +333,7 @@
                 for (i = 0; i < response.length; i++) {
 
                     autocompletefbdata[response[i].name] = 'profilepicdefault.png';
-                    console.log(response[i]);
+                    //console.log(response[i]);
                     $("#listfacebookfriends").append("<li class='collection-item'><div>" + response[i].name + "</div>" + "</li>");
                 }
             } catch (err) {
@@ -343,7 +367,7 @@
                 FB.api(
                         "/me/friends",
                         function (response) {
-                            ////console.log(response);
+                            //////console.log(response);
                             if (response && !response.error) {
 
                                 getdata.setfacebook(uid, response.data);
