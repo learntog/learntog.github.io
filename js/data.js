@@ -19,6 +19,23 @@ var getdata = {
         }
     },
 
+    getproperty: function (uid, property) {
+        if(localStorage.getItem(uid+property)!==undefined){
+            return JSON.parse(localStorage.getItem(uid+property));
+        }else{
+            return null;
+        }
+    },
+
+
+    setproperty: function (uid, data, property) {
+        if(typeof data == 'string'){
+            localStorage.setItem(uid+property, data);
+        }else{
+            localStorage.setItem(uid+property, JSON.stringify(data));
+        }
+    },
+
     clearfacebook: function (uid) {
         localStorage.removeItem(uid+'facebook_friends');
 
