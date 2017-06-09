@@ -5,20 +5,17 @@
     <title>Connect and Learn together</title>
 
     <!-- Basic SEO metadata -->
-    <meta property="description" content="" />
-    <meta property="keywords" content="" />
-    <meta name="copyright" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+    <meta property="description" content=""/>
+    <meta property="keywords" content=""/>
+    <meta name="copyright" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0"/>
 
 
-    <meta property="og:url"           content="http://www.your-domain.com/your-page.html" />
-    <meta property="og:type"          content="website" />
-    <meta property="og:title"         content="Your Website Title" />
-    <meta property="og:description"   content="Your description" />
-    <meta property="og:image"         content="http://www.your-domain.com/path/image.jpg" />
-
-
-
+    <meta property="og:url" content="http://www.your-domain.com/your-page.html"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Your Website Title"/>
+    <meta property="og:description" content="Your description"/>
+    <meta property="og:image" content="http://www.your-domain.com/path/image.jpg"/>
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
@@ -40,16 +37,19 @@
     <script>
 
         uid = "";
-        function thisWeekDay(x){
+        function thisWeekDay(x) {
             var now = new Date();
 //        ////console.log(x, now.getDay());
 //        ////console.log(now.setDate(now.getDate() - (now.getDay() - x)));
-            if(x==now.getDay()){return now;}
+            if (x == now.getDay()) {
+                return now;
+            }
 
-            else if(x < now.getDay()){
+            else if (x < now.getDay()) {
                 now.setDate(now.getDate() - (now.getDay() - x));
-                return now;}
-            else if (x > now.getDay()){
+                return now;
+            }
+            else if (x > now.getDay()) {
                 now.setDate(now.getDate() + (x - now.getDay()));
                 return now;
             }
@@ -57,14 +57,14 @@
         }
         weektoday = {Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6};
 
-        initApp = function() {
-            firebase.auth().onAuthStateChanged(function(user) {
+        initApp = function () {
+            firebase.auth().onAuthStateChanged(function (user) {
                 if (user) {
                     ////console.log(user);
                     loading = document.getElementById("logincomponents");
-                    loading.style.visibility = "visible" ;
+                    loading.style.visibility = "visible";
                     loading = document.getElementById("non-login-component");
-                    loading.style.display = "none" ;
+                    loading.style.display = "none";
 
 
                     var displayName = user.displayName;
@@ -75,7 +75,7 @@
 
 
                     ////console.log(displayName+email+emailVerified+photoURL+uid);
-                    user.getIdToken().then(function(accessToken) {
+                    user.getIdToken().then(function (accessToken) {
 
                         uid = user.uid;
 
@@ -86,13 +86,13 @@
 
                     ShowFbFriend();
 
-                    timetablesur = [ "FIT1045*Laboratory32*Thu*13:00*CL_23Col-G47*2", "FIT1045*Lecture03-P1*Mon*17:00*CL_20Chn-H5*1", "FIT1045*Lecture03-P2*Tue*16:00*CL_21Col-E1*1", "FIT1045*PASSWorkshop04*Fri*15:00*CL_20Chn-E353*1", "FIT1045*Tutorial12*Wed*09:00*CL_14Rnf-G16*2", "FIT1047*Laboratory18*Thu*18:00*CL_14Rnf-G11A*2", "FIT1047*Lecture02-P1*Tue*14:00*-*1", "FIT1047*Lecture02-P2*Wed*16:00*-*1", "FIT1050*Laboratory03*Wed*17:00*CL_22All-103*3", "FIT1050*Lecture01*Mon*10:00*CL_21Col-E1*1", "MAT1830*Lecture01-P2*Thu*12:00*CL_25Exh-C1*1", "MAT1830*Lecture01-P3*Fri*16:00*CL_25Exh-C1*1", "MAT1830*Lecture01-P1*Wed*12:00*CL_25Exh-C1*1", "MAT1830*Support-Class12*Tue*17:30*CL_7Inn-CG20*1.5" ];
+                    timetablesur = ["FIT1045*Laboratory32*Thu*13:00*CL_23Col-G47*2", "FIT1045*Lecture03-P1*Mon*17:00*CL_20Chn-H5*1", "FIT1045*Lecture03-P2*Tue*16:00*CL_21Col-E1*1", "FIT1045*PASSWorkshop04*Fri*15:00*CL_20Chn-E353*1", "FIT1045*Tutorial12*Wed*09:00*CL_14Rnf-G16*2", "FIT1047*Laboratory18*Thu*18:00*CL_14Rnf-G11A*2", "FIT1047*Lecture02-P1*Tue*14:00*-*1", "FIT1047*Lecture02-P2*Wed*16:00*-*1", "FIT1050*Laboratory03*Wed*17:00*CL_22All-103*3", "FIT1050*Lecture01*Mon*10:00*CL_21Col-E1*1", "MAT1830*Lecture01-P2*Thu*12:00*CL_25Exh-C1*1", "MAT1830*Lecture01-P3*Fri*16:00*CL_25Exh-C1*1", "MAT1830*Lecture01-P1*Wed*12:00*CL_25Exh-C1*1", "MAT1830*Support-Class12*Tue*17:30*CL_7Inn-CG20*1.5"];
                     timetablearn =
-                            [ "ACC1200*Seminar04*Wed*15:00*CL_7Inn-BG15*3", "ETC1000*Comp-Lab03*Fri*09:30*CL_20Chn-S317*1.5", "ETC1000*Lecture02*Fri*11:30*CL_25Exh-C1*1.5", "FIT1045*Laboratory20*Fri*13:00*CL_23Col-G45*2", "FIT1045*Lecture01-P1*Mon*13:00*CL_21Col-E3*1", "FIT1045*Lecture01-P2*Tue*15:00*CL_21Col-E3*1", "FIT1045*PASSWorkshop04*Fri*15:00*CL_20Chn-E353*1", "FIT1045*Tutorial16*Mon*14:00*CL_14Rnf-G13*2", "MAT1830*Lecture01-P2*Thu*12:00*CL_25Exh-C1*1", "MAT1830*Lecture01-P3*Fri*16:00*CL_25Exh-C1*1", "MAT1830*Lecture01-P1*Wed*12:00*CL_25Exh-C1*1", "MAT1830*Support-Class08*Mon*10:00*CL_7Inn-CG10*1.5" ];
+                            ["ACC1200*Seminar04*Wed*15:00*CL_7Inn-BG15*3", "ETC1000*Comp-Lab03*Fri*09:30*CL_20Chn-S317*1.5", "ETC1000*Lecture02*Fri*11:30*CL_25Exh-C1*1.5", "FIT1045*Laboratory20*Fri*13:00*CL_23Col-G45*2", "FIT1045*Lecture01-P1*Mon*13:00*CL_21Col-E3*1", "FIT1045*Lecture01-P2*Tue*15:00*CL_21Col-E3*1", "FIT1045*PASSWorkshop04*Fri*15:00*CL_20Chn-E353*1", "FIT1045*Tutorial16*Mon*14:00*CL_14Rnf-G13*2", "MAT1830*Lecture01-P2*Thu*12:00*CL_25Exh-C1*1", "MAT1830*Lecture01-P3*Fri*16:00*CL_25Exh-C1*1", "MAT1830*Lecture01-P1*Wed*12:00*CL_25Exh-C1*1", "MAT1830*Support-Class08*Mon*10:00*CL_7Inn-CG10*1.5"];
 
                     unitcolor = {};
 
-                    for(i=0; i < timetablesur.length; i++){
+                    for (i = 0; i < timetablesur.length; i++) {
                         var cl = timetablesur[i];
                         var cld = cl.split("*");
                         var day = cld[2];
@@ -108,10 +108,9 @@
 
                         var unit = cld[0];
                         //console.log(unit, unitcolor);
-                        if(unitcolor[unit]==null){
+                        if (unitcolor[unit] == null) {
                             unitcolor[unit] = getRandomColor();
                         }
-
 
 
                         createEventCalendarWithTime(unitcolor[unit], start, null, cld[0], cld[5]);
@@ -119,37 +118,34 @@
 
                     }
                     /*for(i=0; i < timetablearn.length; i++){
-                        var cl = timetablearn[i];
-                        var cld = cl.split("*");
-                        var day = cld[2];
-                        var time = cld[3];
-                        var hour = time.split(":")[0];
-                        var min = time.split(":")[1];
+                     var cl = timetablearn[i];
+                     var cld = cl.split("*");
+                     var day = cld[2];
+                     var time = cld[3];
+                     var hour = time.split(":")[0];
+                     var min = time.split(":")[1];
 
-//                        createEventCalendarWithTime(color, start, end, title, duration)
+                     //                        createEventCalendarWithTime(color, start, end, title, duration)
 
-                        var start = thisWeekDay(weektoday[day]);
-                        start.setHours(hour);
-                        start.setMinutes(min);
+                     var start = thisWeekDay(weektoday[day]);
+                     start.setHours(hour);
+                     start.setMinutes(min);
 
-//                        var unit = cld[0];
-//                        //console.log(unit, unitcolor);
-//                        if(unitcolor[unit]==null){
-//                            unitcolor[unit] = getRandomColor();
-//                        }
-
-
-
-                        createEventCalendarWithTime('grey', start, null, cld[0], cld[5]);
+                     //                        var unit = cld[0];
+                     //                        //console.log(unit, unitcolor);
+                     //                        if(unitcolor[unit]==null){
+                     //                            unitcolor[unit] = getRandomColor();
+                     //                        }
 
 
-                    }*/
+
+                     createEventCalendarWithTime('grey', start, null, cld[0], cld[5]);
+
+
+                     }*/
 
 
 //                    createEventCalendar('AFAFAF');
-
-
-
 
 
                     // User is signed in.
@@ -158,24 +154,23 @@
                     ////console.log("Signed out.. ");
 
                     loading = document.getElementById("logincomponents");
-                    loading.style.display = "none" ;
+                    loading.style.display = "none";
                     loading = document.getElementById("non-login-component");
-                    loading.style.display = "block" ;
+                    loading.style.display = "block";
 
                     document.getElementById('useremail').innerHTML = "";
                     document.getElementById('userdisplayname').innerHTML = "";
 
                 }
-            }, function(error) {
+            }, function (error) {
                 ////console.log(error);
             });
         };
 
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             initApp()
         });
     </script>
-
 
 
     <script>
@@ -253,7 +248,7 @@
 //                newEvent.start = new Date();
 
                 var d = new Date();
-                x = getRandomInt(8,18);
+                x = getRandomInt(8, 18);
                 d.setHours(x);
                 newEvent.start = d;
                 newEvent.end = new Date(newEvent.start + (60 * 60 * 1000));
@@ -278,7 +273,7 @@
 
 //
 //                ////console.log("End: " + end);
-                newEvent.end = new Date(start.getTime() + (duration*60*60*1000));
+                newEvent.end = new Date(start.getTime() + (duration * 60 * 60 * 1000));
                 newEvent.allDay = false;
                 newEvent.color = color;
                 newEvent.duration = "duration";
@@ -302,9 +297,6 @@
         }
 
 
-
-
-
     </script>
 
     <style>
@@ -326,7 +318,10 @@
         #listfacebookfriends {
             overflow-y: hidden;
         }
-        #listfacebookfriends:hover { overflow-y:scroll; }
+
+        #listfacebookfriends:hover {
+            overflow-y: scroll;
+        }
 
 
     </style>
@@ -346,25 +341,26 @@
 
         console.log(uid, response);
         autocompletefbdata = {};
-        if(response!=null){
-        try{
-            for(i=0; i < response.length; i++){
+        if (response != null) {
+            try {
+                for (i = 0; i < response.length; i++) {
 
-            autocompletefbdata[response[i].name] = 'profilepicdefault.png';
-                console.log(response[i]);
-            $("#listfacebookfriends").append("<li class='collection-item'><div>"+response[i].name+"</div>"+"</li>");
-        }}catch(err){}
-        }else{
+                    autocompletefbdata[response[i].name] = 'profilepicdefault.png';
+                    console.log(response[i]);
+                    $("#listfacebookfriends").append("<li class='collection-item'><div>" + response[i].name + "</div>" + "</li>");
+                }
+            } catch (err) {
+            }
+        } else {
             //show the fb button...
         }
-
 
 
         $('#autocomplete-input-1').autocomplete({
             data: autocompletefbdata,
             limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
-            onAutocomplete: function(val) {
-                alert("Compare with "+val+"?");
+            onAutocomplete: function (val) {
+                alert("Compare with " + val + "?");
                 // Callback function when value is autcompleted.
             },
             minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
@@ -372,75 +368,51 @@
 
     }
     function LoadFBUI() {
-        ////console.log('Hello');
-        FB.login(function(response) {
-            ////console.log(response);
+
+        FB.login(function (response) {
+
             if (response.authResponse) {
-//                window.location.reload();
+
                 fuid = response.authResponse.userID;
                 FB.api(
                         "/me/friends",
                         function (response) {
                             ////console.log(response);
                             if (response && !response.error) {
-                                /* handle the result */
-//                            <li class="collection-item"></li>
 
                                 getdata.setfacebook(uid, response.data);
                                 ShowFbFriend();
 
-                                /*autocompletefbdata = {};
-                                idnamevalue = {};
 
-
-
-                                for(i=0; i < response.data.length; i++){
-                                    idnamevalue[response.data[i].id] = response.data[i].name;
-                                    autocompletefbdata[response.data[i].name] = 'profilepicdefault.png';
-//                                <a href='#!' class='secondary-content'><i class=\"material-icons\">add</i></a>
-                                    $("#listfacebookfriends").append("<li class='collection-item'><div>"+response.data[i].name+"</div>"+"</li>");
-                                }
-
-
-
-                                $('#autocomplete-input-1').autocomplete({
-                                    data: autocompletefbdata,
-                                    limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
-                                    onAutocomplete: function(val) {
-                                        alert("Compare with "+val+"?");
-                                        // Callback function when value is autcompleted.
-                                    },
-                                    minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
-                                });*/
                             }
                         }
                 );
             }
-        }, {scope:'email, user_friends'});
+        }, {scope: 'email, user_friends'});
     }
-    window.fbAsyncInit = function() {
+    window.fbAsyncInit = function () {
         FB.init({
-            appId      : '1913393705562842',
-            cookie     : true,
-            xfbml      : true,
-            version    : 'v2.8'
+            appId: '1913393705562842',
+            cookie: true,
+            xfbml: true,
+            version: 'v2.8'
         });
         FB.AppEvents.logPageView();
 
-//        LoadFBUI();
     };
-    (function(d, s, id){
+    (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement(s); js.id = id;
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement(s);
+        js.id = id;
         js.src = "//connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
     function checkLoginState() {
-        FB.getLoginStatus(function(response) {
-            ////console.log(response);
-//        statusChangeCallback(response);
+        FB.getLoginStatus(function (response) {
         });
     }
     uid = 0;
@@ -451,27 +423,24 @@
 
 <header>
     <nav>
-        <!--<nav class="black lighten-3">-->
+
         <ul id="slide-out" class="side-nav fixed">
             <li>
                 <div class="userView">
-                    <!--<div class="background">-->
-                        <!--<img style="background-size: 100%; max-height: 100%; max-width: 100%" src="background.jpg">-->
-                        <!---->
-                    <!--</div>-->
+
 
                     <a href="#!user"><img id="profileimage" class="circle" src="profilepicdefault.png"></a>
                     <a href="#!name"><span id="userdisplayname" class="black-text name">  </span></a>
-                    <a href="#!email"><span id="useremail" class="black-text email" style="font-size: 0.8em">  </span></a>
+                    <a href="#!email"><span id="useremail" class="black-text email"
+                                            style="font-size: 0.8em">  </span></a>
 
                 </div>
             </li>
 
             <script>
-                $(document).ready(function(){
-                // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-                $('.modal').modal();
-            });
+                $(document).ready(function () {
+                    $('.modal').modal();
+                });
             </script>
 
 
@@ -483,32 +452,16 @@
 
             <li><a onclick="tour()" href="#"><i class="material-icons">help</i>Help</a></li>
             <li><a onclick="logoff()"><i class="material-icons">close</i>Log off</a></li>
-            <!--<li><a href="#"><i class="material-icons">pets</i>Friends <span class="badge">1</span> </a></li>-->
 
-            <!--<li>-->
-                <!--<div class="divider"></div>-->
-            <!--</li>-->
-
-            <!---->
-            <!--&lt;!&ndash;<li>-->
-
-            <!--</li>&ndash;&gt;-->
-
-
-            <!--<li><a onclick="createEventCalendar('red')">Test event</a></li>-->
-            <!---->
 
         </ul>
 
-        <!--Changed the header background colour - Surayez-->
+
         <div class="nav-wrapper">
             <a href="../" class="brand-logo center">LearnTogether</a>
             <ul class="show-on-med-and-down">
                 <li><a href="#" data-activates="slide-out" class="button-collapse"><i
                         class="material-icons right">menu</i></a></li>
-            </ul>
-            <ul>
-                <!--<li class="waves-effect waves-light"><a href="#!"><i class="material-icons">favorite_border</i></a></li>-->
             </ul>
 
 
@@ -528,7 +481,8 @@
         <div class="col s12 m12  l8 x8">
 
 
-            <p>My calendar can be accessed by unique code  <a onclick="createEventCalendar('red')"><strong>A352J</strong></a></p>
+            <p>My calendar can be accessed by unique code <a onclick="createEventCalendar('red')"><strong>A352J</strong></a>
+            </p>
 
             <ul id="tabs-swipe-demo" class="tabs">
                 <li class="tab col l3 s4"><a class="active" href="#calendarview">Calendar View</a></li>
@@ -536,20 +490,20 @@
                 <li class="tab col l3 s4"><a href="#timetableupload">Timetable Upload</a></li>
             </ul>
 
-            <!--I've added contact us modal here! - Surayez -->
-
-
-
 
             <br>
 
             <div class="col s12" id="calendarview">
 
-                <div  class="col l12 s12 ">
+                <div class="col l12 s12 ">
                     <div id='calendar'></div>
                     <div class="row valign-wrapper">
-                        <div class="col valign-wrapper s10" >
-                            <div class="fb-share-button" style="padding: 10px;" data-href="https://learntog.github.io/" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Flearntog.github.io%2F&amp;src=sdkpreparse">Share</a></div>
+                        <div class="col valign-wrapper s10">
+                            <div class="fb-share-button" style="padding: 10px;" data-href="https://learntog.github.io/"
+                                 data-layout="button_count" data-size="large" data-mobile-iframe="true"><a
+                                    class="fb-xfbml-parse-ignore" target="_blank"
+                                    href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Flearntog.github.io%2F&amp;src=sdkpreparse">Share</a>
+                            </div>
                             <div class="fb-send" data-href="https://learntog.github.io/"></div>
                         </div>
                         <div class="col s2">
@@ -571,7 +525,7 @@
 
 
             <script>
-                $(document).ready(function(){
+                $(document).ready(function () {
                     $('.collapsible').collapsible();
                 });
 
@@ -585,11 +539,13 @@
                 <ul class="collapsible popout" data-collapsible="accordion">
                     <li>
                         <div class="collapsible-header">FIT1045 - Lab</div>
-                        <div class="collapsible-body"><span> <b>Location</b> <br>Thursday 6-8pm, 16 Rainforest Walk <br><br> <b>Peers:</b> <br> Ishan, Arni.. </span></div>
+                        <div class="collapsible-body"><span> <b>Location</b> <br>Thursday 6-8pm, 16 Rainforest Walk <br><br> <b>Peers:</b> <br> Ishan, Arni.. </span>
+                        </div>
                     </li>
                     <li>
                         <div class="collapsible-header">FIT1047 - Lab</div>
-                        <div class="collapsible-body"><span> <b>Location</b> <br>Thursday 6-8pm, 25 Exhibition Walk <br><br> <b>Peers:</b> <br> Ishan, Arni.. </span> </div>
+                        <div class="collapsible-body"><span> <b>Location</b> <br>Thursday 6-8pm, 25 Exhibition Walk <br><br> <b>Peers:</b> <br> Ishan, Arni.. </span>
+                        </div>
                 </ul>
             </div>
 
@@ -604,16 +560,18 @@
 
             </div>
 
-            <!-- Modal Trigger -->
+
             <a href="#moreinfodialog"></a>
 
-            <!-- Modal Structure -->
+
             <div id="moreinfodialog" class="modal modal-fixed-footer">
                 <div class="modal-content">
 
                     <h5>Activity Details</h5>
-                    <a class="tooltipped" data-position="right" data-delay="50" data-tooltip="Coming soon... (Stay Tuned)">I wish I could swap this class.</a><br>
-                    <a class="tooltipped" data-position="right" data-delay="50" data-tooltip="Coming soon.">Make and review notes with classmates.</a>
+                    <a class="tooltipped" data-position="right" data-delay="50"
+                       data-tooltip="Coming soon... (Stay Tuned)">I wish I could swap this class.</a><br>
+                    <a class="tooltipped" data-position="right" data-delay="50" data-tooltip="Coming soon.">Make and
+                        review notes with classmates.</a>
 
                     <p id="eventdescription">Description</p>
                     <p id="eventtime">Time</p>
@@ -628,47 +586,117 @@
                         </div>
                     </div>
 
-                    <ul  class="collection with-header">
+                    <ul class="collection with-header">
                         <li class="collection-header"><h5>Facebook Friends</h5></li>
-                        <li class="collection-item"><div>No one you know, make new friends?</div></li>
+                        <li class="collection-item">
+                            <div>No one you know, make new friends?</div>
+                        </li>
 
                     </ul>
                     <ul class="collection with-header">
                         <li class="collection-header"><h6><strong>Others you may want to connect with</strong></h6></li>
-                        <li class="collection-item"><div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
-                        <li class="collection-item"><div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
-                        <li class="collection-item"><div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
-                        <li class="collection-item"><div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
-                        <li class="collection-item"><div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
-                        <li class="collection-item"><div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
-                        <li class="collection-item"><div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
-                        <li class="collection-item"><div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item">
+                            <div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                            </div>
+                        </li>
 
-                        <li class="collection-item"><div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
-                        <li class="collection-item"><div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
-                        <li class="collection-item"><div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
-                        <li class="collection-item"><div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item">
+                            <div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                            </div>
+                        </li>
 
-                        <li class="collection-item"><div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
-                        <li class="collection-item"><div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
-                        <li class="collection-item"><div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
-                        <li class="collection-item"><div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item">
+                            <div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                            </div>
+                        </li>
 
-                        <li class="collection-item"><div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
-                        <li class="collection-item"><div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
-                        <li class="collection-item"><div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
-                        <li class="collection-item"><div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item">
+                            <div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                            </div>
+                        </li>
 
-                        <li class="collection-item"><div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
-                        <li class="collection-item"><div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
-                        <li class="collection-item"><div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
-                        <li class="collection-item"><div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a></div></li>
+                        <li class="collection-item">
+                            <div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                            </div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                            </div>
+                        </li>
 
                     </ul>
-
-                    <!--<h5>Who's with me?</h5>-->
-                    <!--<a href="#">Connect to facebook.</a>-->
-
 
 
                 </div>
@@ -678,14 +706,9 @@
             </div>
         </div>
 
-        <!--<div class="col s1">-->
 
-        <!--</div>-->
         <div class="col s12 m12 l4 x4">
             <br>
-
-
-
 
 
             <div class="row">
@@ -698,52 +721,44 @@
                         </div>
                     </div>
                 </div>
-                <div  style="padding-bottom: 80px;" class="col s10 offset-s1">
+                <div style="padding-bottom: 80px;" class="col s10 offset-s1">
 
-                    <ul id="currentlycomparing" style=" overflow-y: auto; max-height: 600px;" class="collection with-header">
-                        <li class="collection-header"><a><h6  style="color: #3b5998;">Currently comparing</h6></a>
-                            <!--<ul class="collection">-->
-                                <!--</ul>-->
-                            <!--<p cl1ass="center grey-text">-->
-                            <!--<a href="#">Connect to Facebook</a>-->
-                            <!--</p>-->
+                    <ul id="currentlycomparing" style=" overflow-y: auto; max-height: 600px;"
+                        class="collection with-header">
+                        <li class="collection-header"><a><h6 style="color: #3b5998;">Currently comparing</h6></a>
+
                         </li>
-                        <li class="collection-item dismissable"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">remove</i></a></div></li>
-                        <li class="collection-item dismissable"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">remove</i></a></div></li>
-                        <li class="collection-item dismissable"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">remove</i></a></div></li>
-                        <li class="collection-item  dismissable"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">remove</i></a></div></li>
-
-                        <!--<li>-->
-
-                        <!--&lt;!&ndash;<div style="padding-left: 3%" class="fb-login-button" data-max-rows="1" data-size="small" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>&ndash;&gt;-->
-                        <!--<div class="fb-login-button" data-max-rows="2" data-size="large" data-button-type="continue_with" data-show-faces="true" data-auto-logout-link="false" data-use-continue-as="false"></div>-->
-                        <!--</li>-->
+                        <li class="collection-item dismissable">
+                            <div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">remove</i></a>
+                            </div>
+                        </li>
+                        <li class="collection-item dismissable">
+                            <div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">remove</i></a>
+                            </div>
+                        </li>
+                        <li class="collection-item dismissable">
+                            <div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">remove</i></a>
+                            </div>
+                        </li>
+                        <li class="collection-item  dismissable">
+                            <div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">remove</i></a>
+                            </div>
+                        </li>
 
 
                     </ul>
-                    <ul id="listfacebookfriends" style=" overflow-y: auto; max-height: 600px;" class="collection with-header">
+                    <ul id="listfacebookfriends" style=" overflow-y: auto; max-height: 600px;"
+                        class="collection with-header">
                         <li class="collection-header"><a><h6 onclick="LoadFBUI()">Connect to facebook</h6></a>
-                            <!--<p class="center grey-text">-->
-                                <!--<a href="#">Connect to Facebook</a>-->
-                            <!--</p>-->
-                        </li>
-                        <!--<li>-->
 
-                            <!--&lt;!&ndash;<div style="padding-left: 3%" class="fb-login-button" data-max-rows="1" data-size="small" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>&ndash;&gt;-->
-                            <!--<div class="fb-login-button" data-max-rows="2" data-size="large" data-button-type="continue_with" data-show-faces="true" data-auto-logout-link="false" data-use-continue-as="false"></div>-->
-                            <!--</li>-->
+                        </li>
 
 
                     </ul>
-                    <!--<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="true" data-auto-logout-link="false" data-use-continue-as="true"></div>-->
-                    <!--<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false"></div>-->
                     <ul id="otheraddedfriends" style="max-height: 250px;" class="collection with-header">
                         <li class="collection-header"><h6><a href="#modal1">Other friends</a></h6>
 
 
-                            <!--<p class="center grey-text">-->
-                            <!--<a href="#">Connect to Facebook</a>-->
-                            <!--</p>-->
                         </li>
 
 
@@ -759,8 +774,6 @@
 </main>
 
 
-
-<!-- Modal Structure -->
 <div id="modal1" class="modal">
     <div class="modal-content">
         <h4>Add A Friend</h4>
@@ -777,14 +790,11 @@
 
                 <a class="btn waves-effect waves-light">Add</a>
 
-                </form>
+            </form>
         </div>
     </div>
 
 
-    <!--<div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-    </div>-->
 </div>
 <div id="modalsrs" class="modal">
     <div class="modal-content">
