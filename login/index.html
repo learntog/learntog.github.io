@@ -59,6 +59,9 @@
         initApp = function () {
             firebase.auth().onAuthStateChanged(function (user) {
                 if (user) {
+
+
+
                     ////console.log(user);
                     loading = document.getElementById("logincomponents");
                     loading.style.visibility = "visible";
@@ -73,10 +76,15 @@
                     uid = user.uid;
 
 
+
+
                     ////console.log(displayName+email+emailVerified+photoURL+uid);
                     user.getIdToken().then(function (accessToken) {
 
                         uid = user.uid;
+
+                        firebase.database().ref('users/' + uid + "/email").set(email);
+                        firebase.database().ref('users/' + uid + "/display_name").set(displayName);
 
                         document.getElementById('useremail').innerHTML = email;
                         document.getElementById('userdisplayname').innerHTML = displayName;
@@ -294,7 +302,7 @@
 
         response = getdata.getfacebook(uid);
 
-        console.log(uid, response);
+
         autocompletefbdata = {};
         if (response != null) {
             try {
