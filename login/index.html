@@ -344,10 +344,9 @@
         if(response!=null){
         try{
             for(i=0; i < response.length; i++){
-            idnamevalue[response[i].id] = response[i].name;
+
             autocompletefbdata[response[i].name] = 'profilepicdefault.png';
                 console.log(response[i]);
-//                                <a href='#!' class='secondary-content'><i class=\"material-icons\">add</i></a>
             $("#listfacebookfriends").append("<li class='collection-item'><div>"+response[i].name+"</div>"+"</li>");
         }}catch(err){}
         }else{
