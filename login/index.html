@@ -77,6 +77,9 @@
                     loading = document.getElementById("non-login-component");
                     loading.style.display = "block" ;
 
+                    document.getElementById('useremail').innerHTML = "";
+                    document.getElementById('userdisplayname').innerHTML = "";
+
                 }
             }, function(error) {
                 console.log(error);
