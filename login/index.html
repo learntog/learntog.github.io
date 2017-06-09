@@ -35,14 +35,15 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.0/fullcalendar.min.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
-    <script src="date.js"></script>
+    <script src="../js/data.js"></script>
 
     <script>
 
+        uid = "";
         function thisWeekDay(x){
             var now = new Date();
-//        //console.log(x, now.getDay());
-//        //console.log(now.setDate(now.getDate() - (now.getDay() - x)));
+//        ////console.log(x, now.getDay());
+//        ////console.log(now.setDate(now.getDate() - (now.getDay() - x)));
             if(x==now.getDay()){return now;}
 
             else if(x < now.getDay()){
@@ -59,7 +60,7 @@
         initApp = function() {
             firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
-                    //console.log(user);
+                    ////console.log(user);
                     loading = document.getElementById("logincomponents");
                     loading.style.visibility = "visible" ;
                     loading = document.getElementById("non-login-component");
@@ -70,10 +71,13 @@
                     var email = user.email;
                     var emailVerified = user.emailVerified;
                     var photoURL = user.photoURL;
-                    var uid = user.uid;
+                    uid = user.uid;
 
-                    //console.log(displayName+email+emailVerified+photoURL+uid);
+
+                    ////console.log(displayName+email+emailVerified+photoURL+uid);
                     user.getIdToken().then(function(accessToken) {
+
+                        uid = user.uid;
 
                         document.getElementById('useremail').innerHTML = email;
                         document.getElementById('userdisplayname').innerHTML = displayName;
@@ -102,7 +106,7 @@
                         start.setMinutes(min);
 
                         var unit = cld[0];
-                        console.log(unit, unitcolor);
+                        //console.log(unit, unitcolor);
                         if(unitcolor[unit]==null){
                             unitcolor[unit] = getRandomColor();
                         }
@@ -128,7 +132,7 @@
                         start.setMinutes(min);
 
 //                        var unit = cld[0];
-//                        console.log(unit, unitcolor);
+//                        //console.log(unit, unitcolor);
 //                        if(unitcolor[unit]==null){
 //                            unitcolor[unit] = getRandomColor();
 //                        }
@@ -150,7 +154,7 @@
                     // User is signed in.
                 } else {
                     // User is signed out.
-                    //console.log("Signed out.. ");
+                    ////console.log("Signed out.. ");
 
                     loading = document.getElementById("logincomponents");
                     loading.style.display = "none" ;
@@ -162,7 +166,7 @@
 
                 }
             }, function(error) {
-                //console.log(error);
+                ////console.log(error);
             });
         };
 
@@ -217,7 +221,7 @@
                     allDaySlot: false,
                     displayEventTime: true,
                     eventClick: function (event) {
-//                        //console.log(event);
+//                        ////console.log(event);
                         document.getElementById('eventdescription').innerHTML = event.description;
                         document.getElementById('eventtime').innerHTML = event.start._d;
                         $('#moreinfodialog').modal('open');
@@ -267,12 +271,12 @@
                 newEvent.description = "Hello world this is my unit";
 //                newEvent.start = new Date();
 
-                //console.log("Start: " + start);
+                ////console.log("Start: " + start);
                 newEvent.start = start;
-//                //console.log(duration);
+//                ////console.log(duration);
 
 //
-//                //console.log("End: " + end);
+//                ////console.log("End: " + end);
                 newEvent.end = new Date(start.getTime() + (duration*60*60*1000));
                 newEvent.allDay = false;
                 newEvent.color = color;
@@ -331,23 +335,59 @@
         firebase.auth().signOut();
     }
 
+    function ShowFbFriend() {
+
+        console.log(uid);
+        response = getdata.getfacebook(uid);
+
+        if(response!=null){
+        try{
+            for(i=0; i < response.data.length; i++){
+            idnamevalue[response.data[i].id] = response.data[i].name;
+            autocompletefbdata[response.data[i].name] = 'profilepicdefault.png';
+//                                <a href='#!' class='secondary-content'><i class=\"material-icons\">add</i></a>
+            $("#listfacebookfriends").append("<li class='collection-item'><div>"+response.data[i].name+"</div>"+"</li>");
+        }}catch(err){}
+        }else{
+            //show the fb button...
+        }
+
+
+
+        $('#autocomplete-input-1').autocomplete({
+            data: autocompletefbdata,
+            limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
+            onAutocomplete: function(val) {
+                alert("Compare with "+val+"?");
+                // Callback function when value is autcompleted.
+            },
+            minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
+        });
+
+    }
     function LoadFBUI() {
-        //console.log('Hello');
+        ////console.log('Hello');
         FB.login(function(response) {
-            //console.log(response);
+            ////console.log(response);
             if (response.authResponse) {
 //                window.location.reload();
-                uid = response.authResponse.userID;
+                fuid = response.authResponse.userID;
                 FB.api(
                         "/me/friends",
                         function (response) {
-                            //console.log(response);
+                            ////console.log(response);
                             if (response && !response.error) {
                                 /* handle the result */
 //                            <li class="collection-item"></li>
 
-                                autocompletefbdata = {};
+                                getdata.setfacebook(uid, response.data);
+                                ShowFbFriend();
+
+                                /*autocompletefbdata = {};
                                 idnamevalue = {};
+
+
+
                                 for(i=0; i < response.data.length; i++){
                                     idnamevalue[response.data[i].id] = response.data[i].name;
                                     autocompletefbdata[response.data[i].name] = 'profilepicdefault.png';
@@ -365,7 +405,7 @@
                                         // Callback function when value is autcompleted.
                                     },
                                     minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
-                                });
+                                });*/
                             }
                         }
                 );
@@ -393,7 +433,7 @@
 
     function checkLoginState() {
         FB.getLoginStatus(function(response) {
-            //console.log(response);
+            ////console.log(response);
 //        statusChangeCallback(response);
         });
     }
@@ -676,7 +716,7 @@
 
                     </ul>
                     <ul id="listfacebookfriends" style=" overflow-y: auto; max-height: 600px;" class="collection with-header">
-                        <li class="collection-header"><a><h6  style="color: red" onclick="LoadFBUI()">Facebook Friends</h6></a>
+                        <li class="collection-header"><a><h6 onclick="LoadFBUI()">Connect to facebook</h6></a>
                             <!--<p class="center grey-text">-->
                                 <!--<a href="#">Connect to Facebook</a>-->
                             <!--</p>-->
@@ -746,7 +786,7 @@
 
     </div>
 
-
+</div>
 
 <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
 <script>

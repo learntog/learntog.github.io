@@ -3,18 +3,25 @@
  */
 
 var getdata = {
-    getfacebook: function () {
-       if(localStorage.getItem("facebook_friends")!==undefined){
-           return JSON.parse(localStorage.getItem("facebook_friends"));
+    getfacebook: function (uid) {
+       if(localStorage.getItem(uid+"facebook_friends")!==undefined){
+           return JSON.parse(localStorage.getItem(uid+"facebook_friends"));
+       }else{
+           return null;
        }
     },
 
-    setfacebook: function (data) {
+    setfacebook: function (uid, data) {
         if(typeof data == 'string'){
-            localStorage.setItem("facebook_friends", data);
+            localStorage.setItem(uid+"facebook_friends", data);
         }else{
-            localStorage.setItem("facebook_friends", JSON.stringify(data));
+            localStorage.setItem(uid+"facebook_friends", JSON.stringify(data));
         }
+    },
+
+    clearfacebook: function (uid) {
+        localStorage.removeItem(uid+'facebook_friends');
+
     }
 
 };
