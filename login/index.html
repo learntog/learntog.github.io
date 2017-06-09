@@ -41,8 +41,8 @@
 
         function thisWeekDay(x){
             var now = new Date();
-//        console.log(x, now.getDay());
-//        console.log(now.setDate(now.getDate() - (now.getDay() - x)));
+//        //console.log(x, now.getDay());
+//        //console.log(now.setDate(now.getDate() - (now.getDay() - x)));
             if(x==now.getDay()){return now;}
 
             else if(x < now.getDay()){
@@ -59,7 +59,7 @@
         initApp = function() {
             firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
-                    console.log(user);
+                    //console.log(user);
                     loading = document.getElementById("logincomponents");
                     loading.style.visibility = "visible" ;
                     loading = document.getElementById("non-login-component");
@@ -72,7 +72,7 @@
                     var photoURL = user.photoURL;
                     var uid = user.uid;
 
-                    console.log(displayName+email+emailVerified+photoURL+uid);
+                    //console.log(displayName+email+emailVerified+photoURL+uid);
                     user.getIdToken().then(function(accessToken) {
 
                         document.getElementById('useremail').innerHTML = email;
@@ -83,6 +83,7 @@
 
                     timetable = [ "FIT1045*Laboratory32*Thu*13:00*CL_23Col-G47*2", "FIT1045*Lecture03-P1*Mon*17:00*CL_20Chn-H5*1", "FIT1045*Lecture03-P2*Tue*16:00*CL_21Col-E1*1", "FIT1045*PASSWorkshop04*Fri*15:00*CL_20Chn-E353*1", "FIT1045*Tutorial12*Wed*09:00*CL_14Rnf-G16*2", "FIT1047*Laboratory18*Thu*18:00*CL_14Rnf-G11A*2", "FIT1047*Lecture02-P1*Tue*14:00*-*1", "FIT1047*Lecture02-P2*Wed*16:00*-*1", "FIT1050*Laboratory03*Wed*17:00*CL_22All-103*3", "FIT1050*Lecture01*Mon*10:00*CL_21Col-E1*1", "MAT1830*Lecture01-P2*Thu*12:00*CL_25Exh-C1*1", "MAT1830*Lecture01-P3*Fri*16:00*CL_25Exh-C1*1", "MAT1830*Lecture01-P1*Wed*12:00*CL_25Exh-C1*1", "MAT1830*Support-Class12*Tue*17:30*CL_7Inn-CG20*1.5" ];
 
+                    unitcolor = {};
 
                     for(i=0; i < timetable.length; i++){
                         var cl = timetable[i];
@@ -97,9 +98,16 @@
                         var start = thisWeekDay(weektoday[day]);
                         start.setHours(hour);
                         start.setMinutes(min);
-                        console.log(start);
 
-                        createEventCalendarWithTime(getRandomColor(), start, null, cld[0], cld[5]);
+                        var unit = cld[0];
+                        console.log(unit, unitcolor);
+                        if(unitcolor[unit]==null){
+                            unitcolor[unit] = getRandomColor();
+                        }
+
+
+
+                        createEventCalendarWithTime(unitcolor[unit], start, null, cld[0], cld[5]);
 
 
                     }
@@ -115,7 +123,7 @@
                     // User is signed in.
                 } else {
                     // User is signed out.
-                    console.log("Signed out.. ");
+                    //console.log("Signed out.. ");
 
                     loading = document.getElementById("logincomponents");
                     loading.style.display = "none" ;
@@ -127,7 +135,7 @@
 
                 }
             }, function(error) {
-                console.log(error);
+                //console.log(error);
             });
         };
 
@@ -182,7 +190,7 @@
                     allDaySlot: false,
                     displayEventTime: true,
                     eventClick: function (event) {
-//                        console.log(event);
+//                        //console.log(event);
                         document.getElementById('eventdescription').innerHTML = event.description;
                         document.getElementById('eventtime').innerHTML = event.start._d;
                         $('#moreinfodialog').modal('open');
@@ -225,15 +233,20 @@
 
             }
         }
-        function createEventCalendarWithTime(color, start, end, title, duration) {
+        function createEventCalendarWithTime(color, start, e, title, duration) {
             try {
                 newEvent = {};
                 newEvent.title = title;
                 newEvent.description = "Hello world this is my unit";
 //                newEvent.start = new Date();
 
+                //console.log("Start: " + start);
                 newEvent.start = start;
-                newEvent.end = new Date(newEvent.start + (duration * 60 * 1000));
+//                //console.log(duration);
+
+//
+//                //console.log("End: " + end);
+                newEvent.end = new Date(start.getTime() + (duration*60*60*1000));
                 newEvent.allDay = false;
                 newEvent.color = color;
                 newEvent.duration = "duration";
@@ -292,16 +305,16 @@
     }
 
     function LoadFBUI() {
-        console.log('Hello');
+        //console.log('Hello');
         FB.login(function(response) {
-            console.log(response);
+            //console.log(response);
             if (response.authResponse) {
 //                window.location.reload();
                 uid = response.authResponse.userID;
                 FB.api(
                         "/me/friends",
                         function (response) {
-                            console.log(response);
+                            //console.log(response);
                             if (response && !response.error) {
                                 /* handle the result */
 //                            <li class="collection-item"></li>
@@ -353,7 +366,7 @@
 
     function checkLoginState() {
         FB.getLoginStatus(function(response) {
-            console.log(response);
+            //console.log(response);
 //        statusChangeCallback(response);
         });
     }
