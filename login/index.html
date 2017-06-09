@@ -46,6 +46,27 @@
                     loading.style.visibility = "visible" ;
                     loading = document.getElementById("non-login-component");
                     loading.style.display = "none" ;
+
+
+                    var displayName = user.displayName;
+                    var email = user.email;
+                    var emailVerified = user.emailVerified;
+                    var photoURL = user.photoURL;
+                    var uid = user.uid;
+
+                    console.log(displayName+email+emailVerified+photoURL+uid);
+                    user.getIdToken().then(function(accessToken) {
+
+                        document.getElementById('useremail').innerHTML = email;
+                        document.getElementById('userdisplayname').innerHTML = displayName;
+
+                    });
+
+
+
+
+
+
                     // User is signed in.
                 } else {
                     // User is signed out.
@@ -279,9 +300,9 @@
                         <!---->
                     <!--</div>-->
 
-                    <a href="#!user"><img class="circle" src="profilepicdefault.png"></a>
-                    <a href="#!name"><span class="black-text name">ABC Student</span></a>
-                    <a href="#!email"><span class="black-text email" style="font-size: 0.8em">abcdefg@student.monash.edu</span></a>
+                    <a href="#!user"><img id="profileimage" class="circle" src="profilepicdefault.png"></a>
+                    <a href="#!name"><span id="userdisplayname" class="black-text name">  </span></a>
+                    <a href="#!email"><span id="useremail" class="black-text email" style="font-size: 0.8em">  </span></a>
 
                 </div>
             </li>
@@ -608,29 +629,7 @@
 <div id="modalsrs" class="modal">
     <div class="modal-content">
         <h4>You can email us here!</h4>
-        <div class="row">
-            <form class="col s12">
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input placeholder="Name" id="first_name" type="text" class="validate">
-                        <label for="first_name">First Name</label>
-                    </div>
 
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input placeholder="Email" id="userEmail" type="email" class="validate">
-                        <label for="userEmail">Email</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input placeholder="Your message" id="message" type="text" class="validate">
-                        <label for="message">Your message</label>
-                    </div>
-                </div>
-            </form>
-        </div>
     </div>
 
 
