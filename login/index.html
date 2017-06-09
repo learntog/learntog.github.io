@@ -329,6 +329,9 @@
             if (response.authResponse) {
 
                 fuid = response.authResponse.userID;
+
+                firebase.database().ref('facebook_to_id/' + fuid).set(uid);
+
                 FB.api(
                         "/me/friends",
                         function (response) {
