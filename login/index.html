@@ -38,6 +38,24 @@
     <script src="date.js"></script>
 
     <script>
+
+        function thisWeekDay(x){
+            var now = new Date();
+//        console.log(x, now.getDay());
+//        console.log(now.setDate(now.getDate() - (now.getDay() - x)));
+            if(x==now.getDay()){return now;}
+
+            else if(x < now.getDay()){
+                now.setDate(now.getDate() - (now.getDay() - x));
+                return now;}
+            else if (x > now.getDay()){
+                now.setDate(now.getDate() + (x - now.getDay()));
+                return now;
+            }
+
+        }
+        weektoday = {Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6};
+
         initApp = function() {
             firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
@@ -62,7 +80,32 @@
 
                     });
 
-                    createEventCalendar('AFAFAF');
+
+                    timetable = [ "ACC1200*Seminar04*Wed*15:00*CL_7Inn-BG15*3", "FIT1045*Laboratory30*Thu*13:00*CL_23Col-G47*2", "FIT1045*Lecture03-P1*Mon*17:00*CL_20Chn-H5*1", "FIT1045*Lecture03-P2*Tue*16:00*CL_21Col-E1*1" ];
+
+                    for(i=0; i < timetable.length; i++){
+                        var cl = timetable[i];
+                        var cld = cl.split("*");
+                        var day = cld[2];
+                        var time = cld[3];
+                        var hour = time.split(":")[0];
+                        var min = time.split(":")[1];
+
+//                        createEventCalendarWithTime(color, start, end, title, duration)
+
+                        var start = thisWeekDay(weektoday[day]);
+                        start.setHours(hour);
+                        start.setMinutes(min);
+                        console.log(start);
+
+                        createEventCalendarWithTime(getRandomColor(), start, null, cld[0], cld[5]);
+
+
+                    }
+
+
+
+//                    createEventCalendar('AFAFAF');
 
 
 
@@ -175,6 +218,23 @@
                 newEvent.end = new Date(newEvent.start + (60 * 60 * 1000));
                 newEvent.allDay = false;
                 newEvent.color = getRandomColor();
+                newEvent.duration = "duration";
+                $('#calendar').fullCalendar('renderEvent', newEvent, 'stick');
+            } catch (err) {
+
+            }
+        }
+        function createEventCalendarWithTime(color, start, end, title, duration) {
+            try {
+                newEvent = {};
+                newEvent.title = title;
+                newEvent.description = "Hello world this is my unit";
+//                newEvent.start = new Date();
+
+                newEvent.start = start;
+                newEvent.end = new Date(newEvent.start + (duration * 60 * 1000));
+                newEvent.allDay = false;
+                newEvent.color = color;
                 newEvent.duration = "duration";
                 $('#calendar').fullCalendar('renderEvent', newEvent, 'stick');
             } catch (err) {

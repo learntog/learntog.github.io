@@ -72,6 +72,24 @@
 <h1>Welcome to Unilyf - Connect and Learntogether</h1>
 <div id="firebaseui-auth-container"></div>
 
+<script>
+    function thisWeekDay(x){
+        var now = new Date();
+//        console.log(x, now.getDay());
+//        console.log(now.setDate(now.getDate() - (now.getDay() - x)));
+        if(x==now.getDay()){return now;}
+
+        else if(x < now.getDay()){
+            now.setDate(now.getDate() - (now.getDay() - x));
+        return now;}
+        else if (x > now.getDay()){
+            now.setDate(now.getDate() + (x - now.getDay()));
+        return now;
+        }
+
+    }
+</script>
+
 
 </body>
 </html>
