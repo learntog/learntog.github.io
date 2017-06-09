@@ -45,16 +45,16 @@
                     loading = document.getElementById("logincomponents");
                     loading.style.visibility = "visible" ;
                     loading = document.getElementById("non-login-component");
-                    loading.style.visibility = "hidden" ;
+                    loading.style.display = "none" ;
                     // User is signed in.
                 } else {
                     // User is signed out.
                     console.log("Signed out.. ");
 
                     loading = document.getElementById("logincomponents");
-                    loading.style.visibility = "hidden" ;
+                    loading.style.display = "none" ;
                     loading = document.getElementById("non-login-component");
-                    loading.style.visibility = "visible" ;
+                    loading.style.display = "block" ;
 
                 }
             }, function(error) {
@@ -339,7 +339,7 @@
 
 <main>
 
-    <h4 id="non-login-component" class="center"><a href="../home.html">Login</a></h4>
+    <h4 style="display: none" id="non-login-component" class="center"><a href="../home.html">Login</a></h4>
 
     <div class="row" id="logincomponents" style="visibility: hidden; padding-bottom: 80px;">
 
