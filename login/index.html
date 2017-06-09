@@ -62,6 +62,7 @@
 
                     });
 
+                    createEventCalendar('AFAFAF');
 
 
 
@@ -124,7 +125,7 @@
                 calendar.fullCalendar({
                     editable: false,
                     handleWindowResize: true,
-                    weekends: false, // Hide weekends
+//                    weekends: false, // Hide weekends
                     defaultView: 'agendaWeek', // Only show week view
 //                    height: 700,
                     contentHeight: 'auto',
@@ -156,12 +157,21 @@
             //
         });
 
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
         function createEventCalendar(color) {
             try {
                 newEvent = {};
                 newEvent.title = "Hello";
                 newEvent.description = "Hello world this is my unit";
-                newEvent.start = new Date();
+//                newEvent.start = new Date();
+
+                var d = new Date();
+                x = getRandomInt(8,18);
+                d.setHours(x);
+                newEvent.start = d;
                 newEvent.end = new Date(newEvent.start + (60 * 60 * 1000));
                 newEvent.allDay = false;
                 newEvent.color = getRandomColor();
