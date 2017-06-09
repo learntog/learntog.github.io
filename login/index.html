@@ -39,8 +39,7 @@
         uid = "";
         function thisWeekDay(x) {
             var now = new Date();
-//        ////console.log(x, now.getDay());
-//        ////console.log(now.setDate(now.getDate() - (now.getDay() - x)));
+
             if (x == now.getDay()) {
                 return now;
             }
@@ -117,41 +116,9 @@
 
 
                     }
-                    /*for(i=0; i < timetablearn.length; i++){
-                     var cl = timetablearn[i];
-                     var cld = cl.split("*");
-                     var day = cld[2];
-                     var time = cld[3];
-                     var hour = time.split(":")[0];
-                     var min = time.split(":")[1];
 
-                     //                        createEventCalendarWithTime(color, start, end, title, duration)
-
-                     var start = thisWeekDay(weektoday[day]);
-                     start.setHours(hour);
-                     start.setMinutes(min);
-
-                     //                        var unit = cld[0];
-                     //                        //console.log(unit, unitcolor);
-                     //                        if(unitcolor[unit]==null){
-                     //                            unitcolor[unit] = getRandomColor();
-                     //                        }
-
-
-
-                     createEventCalendarWithTime('grey', start, null, cld[0], cld[5]);
-
-
-                     }*/
-
-
-//                    createEventCalendar('AFAFAF');
-
-
-                    // User is signed in.
                 } else {
-                    // User is signed out.
-                    ////console.log("Signed out.. ");
+
 
                     loading = document.getElementById("logincomponents");
                     loading.style.display = "none";
@@ -229,11 +196,6 @@
                 //
             }
 
-
-            //createEventCalendar();
-
-
-            //
         });
 
         function getRandomInt(min, max) {
@@ -245,7 +207,7 @@
                 newEvent = {};
                 newEvent.title = "Hello";
                 newEvent.description = "Hello world this is my unit";
-//                newEvent.start = new Date();
+
 
                 var d = new Date();
                 x = getRandomInt(8, 18);
@@ -265,14 +227,9 @@
                 newEvent = {};
                 newEvent.title = title;
                 newEvent.description = "Hello world this is my unit";
-//                newEvent.start = new Date();
 
-                ////console.log("Start: " + start);
                 newEvent.start = start;
-//                ////console.log(duration);
 
-//
-//                ////console.log("End: " + end);
                 newEvent.end = new Date(start.getTime() + (duration * 60 * 60 * 1000));
                 newEvent.allDay = false;
                 newEvent.color = color;
@@ -288,12 +245,6 @@
             var cols = ['FFF07C', 'D99AC5', 'F7C59F', 'D6E681', 'C4E7D4', '00A878', '52D1DC', 'DDC4DD', '824C71', '8E9AAF', '6369D1', '4E598C']
             return "#" + cols[getRandomInt(0, cols.length - 1)];
 
-//            var letters = '0123456789ABCDEF';
-//            var color = '#';
-//            for (var i = 0; i < 6; i++) {
-//                color += letters[Math.floor(Math.random() * 16)];
-//            }
-//            return color;
         }
 
 
@@ -358,10 +309,10 @@
 
         $('#autocomplete-input-1').autocomplete({
             data: autocompletefbdata,
-            limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
+            limit: 20,
             onAutocomplete: function (val) {
                 alert("Compare with " + val + "?");
-                // Callback function when value is autcompleted.
+
             },
             minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
         });
