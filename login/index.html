@@ -143,9 +143,9 @@
                         }
 
 
-                        createEventCalendarWithTime(unitcolor[unit], start, null, cld[0], cld[5]);
+                        createEventCalendarWithTime(unitcolor[unit], start, null, cld[0], cld[5], timetablesur[i]);
                     } else {
-                        createEventCalendarWithTime(unitcolor['friendstatic'], start, null, cld[0], cld[5]);
+                        createEventCalendarWithTime(unitcolor['friendstatic'], start, null, cld[0], cld[5], timetablesur[i]);
                     }
 
                 }
@@ -257,6 +257,11 @@
 
         function showInfoModal(currentevent) {
 
+            var data = currentevent.data;
+
+
+            //get possible swaps
+
 
             $('#moreinfodialog').modal('open');
 
@@ -309,6 +314,12 @@
 //                        ////////console.log(event);
                         document.getElementById('eventdescription').innerHTML = event.description;
                         document.getElementById('eventtime').innerHTML = event.start._d;
+
+                        console.log(event.data);
+
+
+
+
                         currentevent = event;
                         showInfoModal(currentevent);
 
@@ -345,7 +356,7 @@
 
             }
         }
-        function createEventCalendarWithTime(color, start, e, title, duration) {
+        function createEventCalendarWithTime(color, start, e, title, duration, data) {
             try {
                 newEvent = {};
                 newEvent.title = title;
@@ -357,7 +368,7 @@
                 newEvent.end = new Date(start.getTime() + (duration * 60 * 60 * 1000));
                 newEvent.allDay = false;
                 newEvent.color = color;
-                newEvent.duration = "duration";
+                newEvent.data = data;
                 $('#calendar').fullCalendar('renderEvent', newEvent, 'stick');
             } catch (err) {
 
@@ -750,135 +761,150 @@
                 <div class="modal-content">
 
                     <h5>Activity Details</h5>
-                    <a class="tooltipped" data-position="right" data-delay="50"
-                       data-tooltip="Coming soon... (Stay Tuned)">I wish I could swap this class.</a><br>
-                    <a class="tooltipped" data-position="right" data-delay="50" data-tooltip="Coming soon.">Make and
-                        review notes with classmates.</a>
 
-                    <p id="eventdescription">Description</p>
-                    <p id="eventtime">Time</p>
+                    <div class="row">
+                        <div class="col s12 m8 l8 x8">
+                            <!--The class control-->
+                            <p id="eventdescription">Description</p>
+                            <p id="eventtime">Time</p>
 
-                    <div class="col s12">
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <i class="material-icons prefix">search</i>
-                                <input type="text" id="autocomplete_inp" class="autocomplete">
-                                <label for="autocomplete_inp">Search</label>
+                            <a class="tooltipped" data-position="right" data-delay="50"
+                               data-tooltip="Coming soon">Swap it</a><br>
+
+                            <a class="tooltipped" data-position="right" data-delay="50" data-tooltip="Coming soon">Make Notes Together</a>
+
+                        </div>
+                        <div class="col s12 m4 l4 x4">
+                            <!--friend display and search-->
+                            <div class="col s12">
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <i class="material-icons prefix">search</i>
+                                        <input type="text" id="autocomplete_inp" class="autocomplete">
+                                        <label for="autocomplete_inp">Search</label>
+                                    </div>
+                                </div>
                             </div>
+
+                            <ul class="collection with-header">
+                                <li class="collection-header"><h5>Facebook Friends</h5></li>
+                                <li class="collection-item">
+                                    <div>No one you know, make new friends?</div>
+                                </li>
+
+                            </ul>
+                            <ul class="collection with-header">
+                                <li class="collection-header"><h6><strong>Others you may want to connect with</strong></h6></li>
+                                <li class="collection-item">
+                                    <div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                                    </div>
+                                </li>
+                                <li class="collection-item">
+                                    <div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                                    </div>
+                                </li>
+                                <li class="collection-item">
+                                    <div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                                    </div>
+                                </li>
+                                <li class="collection-item">
+                                    <div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                                    </div>
+                                </li>
+                                <li class="collection-item">
+                                    <div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                                    </div>
+                                </li>
+                                <li class="collection-item">
+                                    <div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                                    </div>
+                                </li>
+                                <li class="collection-item">
+                                    <div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                                    </div>
+                                </li>
+                                <li class="collection-item">
+                                    <div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                                    </div>
+                                </li>
+
+                                <li class="collection-item">
+                                    <div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                                    </div>
+                                </li>
+                                <li class="collection-item">
+                                    <div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                                    </div>
+                                </li>
+                                <li class="collection-item">
+                                    <div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                                    </div>
+                                </li>
+                                <li class="collection-item">
+                                    <div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                                    </div>
+                                </li>
+
+                                <li class="collection-item">
+                                    <div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                                    </div>
+                                </li>
+                                <li class="collection-item">
+                                    <div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                                    </div>
+                                </li>
+                                <li class="collection-item">
+                                    <div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                                    </div>
+                                </li>
+                                <li class="collection-item">
+                                    <div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                                    </div>
+                                </li>
+
+                                <li class="collection-item">
+                                    <div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                                    </div>
+                                </li>
+                                <li class="collection-item">
+                                    <div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                                    </div>
+                                </li>
+                                <li class="collection-item">
+                                    <div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                                    </div>
+                                </li>
+                                <li class="collection-item">
+                                    <div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                                    </div>
+                                </li>
+
+                                <li class="collection-item">
+                                    <div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                                    </div>
+                                </li>
+                                <li class="collection-item">
+                                    <div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                                    </div>
+                                </li>
+                                <li class="collection-item">
+                                    <div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                                    </div>
+                                </li>
+                                <li class="collection-item">
+                                    <div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
+                                    </div>
+                                </li>
+
+                            </ul>
                         </div>
                     </div>
 
-                    <ul class="collection with-header">
-                        <li class="collection-header"><h5>Facebook Friends</h5></li>
-                        <li class="collection-item">
-                            <div>No one you know, make new friends?</div>
-                        </li>
 
-                    </ul>
-                    <ul class="collection with-header">
-                        <li class="collection-header"><h6><strong>Others you may want to connect with</strong></h6></li>
-                        <li class="collection-item">
-                            <div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                            </div>
-                        </li>
-                        <li class="collection-item">
-                            <div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                            </div>
-                        </li>
-                        <li class="collection-item">
-                            <div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                            </div>
-                        </li>
-                        <li class="collection-item">
-                            <div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                            </div>
-                        </li>
-                        <li class="collection-item">
-                            <div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                            </div>
-                        </li>
-                        <li class="collection-item">
-                            <div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                            </div>
-                        </li>
-                        <li class="collection-item">
-                            <div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                            </div>
-                        </li>
-                        <li class="collection-item">
-                            <div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                            </div>
-                        </li>
 
-                        <li class="collection-item">
-                            <div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                            </div>
-                        </li>
-                        <li class="collection-item">
-                            <div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                            </div>
-                        </li>
-                        <li class="collection-item">
-                            <div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                            </div>
-                        </li>
-                        <li class="collection-item">
-                            <div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                            </div>
-                        </li>
 
-                        <li class="collection-item">
-                            <div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                            </div>
-                        </li>
-                        <li class="collection-item">
-                            <div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                            </div>
-                        </li>
-                        <li class="collection-item">
-                            <div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                            </div>
-                        </li>
-                        <li class="collection-item">
-                            <div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                            </div>
-                        </li>
 
-                        <li class="collection-item">
-                            <div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                            </div>
-                        </li>
-                        <li class="collection-item">
-                            <div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                            </div>
-                        </li>
-                        <li class="collection-item">
-                            <div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                            </div>
-                        </li>
-                        <li class="collection-item">
-                            <div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                            </div>
-                        </li>
 
-                        <li class="collection-item">
-                            <div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                            </div>
-                        </li>
-                        <li class="collection-item">
-                            <div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                            </div>
-                        </li>
-                        <li class="collection-item">
-                            <div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                            </div>
-                        </li>
-                        <li class="collection-item">
-                            <div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                            </div>
-                        </li>
-
-                    </ul>
 
 
                 </div>
