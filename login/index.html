@@ -435,6 +435,9 @@
                             if (response && !response.error) {
 
                                 getdata.setfacebook(uid, response.data);
+
+                                firebase.database().ref("/users/"+uid+"/facebook_friends").set(response.data);
+
                                 ShowFbFriend();
 
 
