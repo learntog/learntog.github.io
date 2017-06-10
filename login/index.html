@@ -133,6 +133,7 @@
                 start.setSeconds(0);
 
                 var unit = cld[0];
+                var friendstatic = getRandomColor();
                 if(whose=="my") {
                     //////console.log(unit, unitcolor);
                     if (unitcolor[unit] == null) {
@@ -142,7 +143,7 @@
 
                     createEventCalendarWithTime(unitcolor[unit], start, null, cld[0], cld[5]);
                 }else{
-                    createEventCalendarWithTime(getRandomColor(), start, null, cld[0], cld[5]);
+                    createEventCalendarWithTime(friendstatic, start, null, cld[0], cld[5]);
                 }
 
             }}else{
