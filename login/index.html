@@ -39,11 +39,11 @@
 
         var getdata = {
             getfacebook: function (uid) {
-                if(localStorage.getItem(uid+"facebook_friends")!==undefined){
-                    return JSON.parse(localStorage.getItem(uid+"facebook_friends"));
-                }else{
+                if (localStorage.getItem(uid + "facebook_friends") !== undefined) {
+                    return JSON.parse(localStorage.getItem(uid + "facebook_friends"));
+                } else {
                     var starCountRef = firebase.database().ref('users/' + uid + '/facebook_friends/');
-                    starCountRef.once('value').then( function(snapshot) {
+                    starCountRef.once('value').then(function (snapshot) {
 
                         var friends = snapshot.val();
                         ////console.log(timetablesur);
@@ -57,32 +57,32 @@
             },
 
             setfacebook: function (uid, data) {
-                if(typeof data == 'string'){
-                    localStorage.setItem(uid+"facebook_friends", data);
-                }else{
-                    localStorage.setItem(uid+"facebook_friends", JSON.stringify(data));
+                if (typeof data == 'string') {
+                    localStorage.setItem(uid + "facebook_friends", data);
+                } else {
+                    localStorage.setItem(uid + "facebook_friends", JSON.stringify(data));
                 }
             },
 
             getproperty: function (uid, property) {
-                if(localStorage.getItem(uid+property)!==undefined){
-                    return JSON.parse(localStorage.getItem(uid+property));
-                }else{
+                if (localStorage.getItem(uid + property) !== undefined) {
+                    return JSON.parse(localStorage.getItem(uid + property));
+                } else {
                     return null;
                 }
             },
 
 
             setproperty: function (uid, data, property) {
-                if(typeof data == 'string'){
-                    localStorage.setItem(uid+property, data);
-                }else{
-                    localStorage.setItem(uid+property, JSON.stringify(data));
+                if (typeof data == 'string') {
+                    localStorage.setItem(uid + property, data);
+                } else {
+                    localStorage.setItem(uid + property, JSON.stringify(data));
                 }
             },
 
             clearfacebook: function (uid) {
-                localStorage.removeItem(uid+'facebook_friends');
+                localStorage.removeItem(uid + 'facebook_friends');
 
             }
 
@@ -109,46 +109,47 @@
 
         weektodays = {Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6};
         function drawoncalendar(timetablesur, whose) {
-            if(timetablesur!=null && timetablesur.length>0){
-            unitcolor = {};
+            if (timetablesur != null && timetablesur.length > 0) {
+                unitcolor = {};
 
-            for (i = 0; i < timetablesur.length; i++) {
-                var cl = timetablesur[i];
+                for (i = 0; i < timetablesur.length; i++) {
+                    var cl = timetablesur[i];
 
-                var cld = cl.split("*");
-                //console.log(cld);
-                var day = cld[2];
-                var time = cld[3];
-                var hour = time.split(":")[0];
-                var min = time.split(":")[1];
+                    var cld = cl.split("*");
+                    //console.log(cld);
+                    var day = cld[2];
+                    var time = cld[3];
+                    var hour = time.split(":")[0];
+                    var min = time.split(":")[1];
 
 //                        createEventCalendarWithTime(color, start, end, title, duration)
 
-                var weektoday = {Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6};
-                ////console.log(thisWeekDay(weektoday[day]));
-                var start = thisWeekDay(weektoday[day]);
-                ////console.log(start);
-                start.setHours(hour);
-                start.setMinutes(min);
-                start.setSeconds(0);
+                    var weektoday = {Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6};
+                    ////console.log(thisWeekDay(weektoday[day]));
+                    var start = thisWeekDay(weektoday[day]);
+                    ////console.log(start);
+                    start.setHours(hour);
+                    start.setMinutes(min);
+                    start.setSeconds(0);
 
-                var unit = cld[0];
-                if(unitcolor['friendstatic'] == null) {
-                    unitcolor['friendstatic'] = getRandomColor();
-                }
-                if(whose=="my") {
-                    //////console.log(unit, unitcolor);
-                    if (unitcolor[unit] == null) {
-                        unitcolor[unit] = getRandomColor();
+                    var unit = cld[0];
+                    if (unitcolor['friendstatic'] == null) {
+                        unitcolor['friendstatic'] = getRandomColor();
+                    }
+                    if (whose == "my") {
+                        //////console.log(unit, unitcolor);
+                        if (unitcolor[unit] == null) {
+                            unitcolor[unit] = getRandomColor();
+                        }
+
+
+                        createEventCalendarWithTime(unitcolor[unit], start, null, cld[0], cld[5]);
+                    } else {
+                        createEventCalendarWithTime(unitcolor['friendstatic'], start, null, cld[0], cld[5]);
                     }
 
-
-                    createEventCalendarWithTime(unitcolor[unit], start, null, cld[0], cld[5]);
-                }else{
-                    createEventCalendarWithTime(unitcolor['friendstatic'], start, null, cld[0], cld[5]);
                 }
-
-            }}else{
+            } else {
 
                 loading = document.getElementById("timetableuploadtab");
                 loading.style.visibility = "visible";
@@ -184,8 +185,6 @@
                     uid = user.uid;
 
 
-
-
                     ////////console.log(displayName+email+emailVerified+photoURL+uid);
                     user.getIdToken().then(function (accessToken) {
 
@@ -202,24 +201,13 @@
                     ShowFbFriend();
 
 
-                            /*["FIT1045*Laboratory32*Thu*13:00*CL_23Col-G47*2", "FIT1045*Lecture03-P1*Mon*17:00*CL_20Chn-H5*1", "FIT1045*Lecture03-P2*Tue*16:00*CL_21Col-E1*1", "FIT1045*PASSWorkshop04*Fri*15:00*CL_20Chn-E353*1", "FIT1045*Tutorial12*Wed*09:00*CL_14Rnf-G16*2", "FIT1047*Laboratory18*Thu*18:00*CL_14Rnf-G11A*2", "FIT1047*Lecture02-P1*Tue*14:00*-*1", "FIT1047*Lecture02-P2*Wed*16:00*-*1", "FIT1050*Laboratory03*Wed*17:00*CL_22All-103*3", "FIT1050*Lecture01*Mon*10:00*CL_21Col-E1*1", "MAT1830*Lecture01-P2*Thu*12:00*CL_25Exh-C1*1", "MAT1830*Lecture01-P3*Fri*16:00*CL_25Exh-C1*1", "MAT1830*Lecture01-P1*Wed*12:00*CL_25Exh-C1*1", "MAT1830*Support-Class12*Tue*17:30*CL_7Inn-CG20*1.5"];
-                    timetablearn =
-                            ["ACC1200*Seminar04*Wed*15:00*CL_7Inn-BG15*3", "ETC1000*Comp-Lab03*Fri*09:30*CL_20Chn-S317*1.5", "ETC1000*Lecture02*Fri*11:30*CL_25Exh-C1*1.5", "FIT1045*Laboratory20*Fri*13:00*CL_23Col-G45*2", "FIT1045*Lecture01-P1*Mon*13:00*CL_21Col-E3*1", "FIT1045*Lecture01-P2*Tue*15:00*CL_21Col-E3*1", "FIT1045*PASSWorkshop04*Fri*15:00*CL_20Chn-E353*1", "FIT1045*Tutorial16*Mon*14:00*CL_14Rnf-G13*2", "MAT1830*Lecture01-P2*Thu*12:00*CL_25Exh-C1*1", "MAT1830*Lecture01-P3*Fri*16:00*CL_25Exh-C1*1", "MAT1830*Lecture01-P1*Wed*12:00*CL_25Exh-C1*1", "MAT1830*Support-Class08*Mon*10:00*CL_7Inn-CG10*1.5"];
-*/
-
-
                     var starCountRef = firebase.database().ref('users/' + uid + '/classes/');
-                    starCountRef.once('value').then( function(snapshot) {
+                    starCountRef.once('value').then(function (snapshot) {
 
-
-                        timetablesur = snapshot.val();
-                        ////console.log(timetablesur);
-//                        updateStarCount(postElement, snapshot.val());
-
+                        var timetablesur = snapshot.val();
                         drawoncalendar(timetablesur, "my");
 
                     });
-
 
 
                 } else {
@@ -235,7 +223,7 @@
 
                 }
             }, function (error) {
-                ////////console.log(error);
+
             });
         };
         window.addEventListener('load', function () {
@@ -248,19 +236,17 @@
 
     <script>
 
-        function drawFriendOnCalendar(fuid){
+        function drawFriendOnCalendar(fuid) {
             var starCountRef = firebase.database().ref('facebook_to_id/' + fuid);
-            starCountRef.once('value').then( function(snapshot) {
+            starCountRef.once('value').then(function (snapshot) {
 
                 var uid_fb_friend = snapshot.val();
 
-                var starCountRef = firebase.database().ref('users/' + uid_fb_friend+ '/classes/');
-                starCountRef.once('value').then( function(snapshot) {
+                var starCountRef = firebase.database().ref('users/' + uid_fb_friend + '/classes/');
+                starCountRef.once('value').then(function (snapshot) {
 
 
                     var friend_tt = snapshot.val();
-                    ////console.log(timetablesur);
-//                        updateStarCount(postElement, snapshot.val());
 
                     drawoncalendar(friend_tt, "friend");
 
@@ -270,7 +256,6 @@
         }
 
         function showInfoModal(currentevent) {
-
 
 
             $('#moreinfodialog').modal('open');
@@ -287,8 +272,6 @@
             $('.collapsible').collapsible();
 
 
-
-
             $('.modal').modal({
                         dismissible: true, // Modal can be dismissed by clicking outside of the modal
                         opacity: .99, // Opacity of modal background
@@ -303,7 +286,6 @@
                         } // Callback for Modal close
                     }
             );
-
 
 
             try {
@@ -390,9 +372,9 @@
             }
             return color;
             /*
-            var cols = ['FFF07C', 'D99AC5', 'F7C59F', 'D6E681', 'C4E7D4', '00A878', '52D1DC', 'DDC4DD', '824C71', '8E9AAF', '6369D1', '4E598C']
-            return "#" + cols[getRandomInt(0, cols.length - 1)];
-*/
+             var cols = ['FFF07C', 'D99AC5', 'F7C59F', 'D6E681', 'C4E7D4', '00A878', '52D1DC', 'DDC4DD', '824C71', '8E9AAF', '6369D1', '4E598C']
+             return "#" + cols[getRandomInt(0, cols.length - 1)];
+             */
         }
 
 
@@ -446,7 +428,7 @@
 
                     autocompletefbdata[response[i].name] = 'profilepicdefault.png';
                     ////console.log(response[i]);
-                    $("#listfacebookfriends").append("<li onclick='drawFriendOnCalendar("+response[i].id+")' class='collection-item'><div>" + response[i].name + "</div>" + "</li>");
+                    $("#listfacebookfriends").append("<li onclick='drawFriendOnCalendar(" + response[i].id + ")' class='collection-item'><div>" + response[i].name + "</div>" + "</li>");
                 }
             } catch (err) {
             }
@@ -484,7 +466,7 @@
 
                                 getdata.setfacebook(uid, response.data);
 
-                                firebase.database().ref("/users/"+uid+"/facebook_friends").set(response.data);
+                                firebase.database().ref("/users/" + uid + "/facebook_friends").set(response.data);
 
                                 ShowFbFriend();
 
@@ -590,9 +572,11 @@
             </p>
 
             <ul id="tabs-swipe-demo" class="tabs">
-                <li class="tab col l3 s4"><a class="active" href="#calendarview" id="calendarviewtab">Calendar View</a></li>
+                <li class="tab col l3 s4"><a class="active" href="#calendarview" id="calendarviewtab">Calendar View</a>
+                </li>
                 <li class="tab col l3 s4"><a href="#tableview" id="listviewtab">List View</a></li>
-                <li style="visibility: hidden" class="tab col l3 s4"><a href="#timetableupload" id="timetableuploadtab">Timetable Upload</a></li>
+                <li style="visibility: hidden" class="tab col l3 s4"><a href="#timetableupload" id="timetableuploadtab">Timetable
+                    Upload</a></li>
             </ul>
 
 
@@ -733,7 +717,7 @@
                                 } else {
                                     alert("File too big, contact us.");
                                 }
-                            }else{
+                            } else {
                                 alert("Select one file only");
                             }
                         });
