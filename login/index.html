@@ -609,33 +609,29 @@
                 </div>
 
                 <script>
-                    function addfilelist(){
+                    function addfilelist() {
                         var dropZone = document.getElementById('dropZone');
 
                         // Optional.   Show the copy icon when dragging over.  Seems to only work for chrome.
-                        dropZone.addEventListener('dragover', function(e) {
+                        dropZone.addEventListener('dragover', function (e) {
                             e.stopPropagation();
                             e.preventDefault();
                             e.dataTransfer.dropEffect = 'copy';
                         });
 
-
-                        var fileInput = document.getElementById('fileInput');
-                        fileInput.addEventListener('change', function(e) {
-                            var file = fileInput.files[0];
-
-                            if(file.size < 2000000) {
+                        function upload(file) {
+                            if (file.size < 2000000) {
                                 var storageRef = firebase.storage().ref();
-                                var mountainImagesRef = storageRef.child('usertimetable/'+uid);
+                                var mountainImagesRef = storageRef.child('usertimetable/' + uid);
                                 /*mountainImagesRef.put(file).then(function (snapshot) {
                                  console.log('Uploaded a blob or file!');
                                  });*/
                                 task = mountainImagesRef.put(file);
-                                task.on('state_changed', function(snapshot){
+                                task.on('state_changed', function (snapshot) {
                                     // Observe state change events such as progress, pause, and resume
                                     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                                     var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                                    document.getElementById('progressbarupload').style.width=""+progress+'%';
+                                    document.getElementById('progressbarupload').style.width = "" + progress + '%';
                                     console.log('Upload is ' + progress + '% done');
                                     switch (snapshot.state) {
                                         case firebase.storage.TaskState.PAUSED: // or 'paused'
@@ -645,78 +641,47 @@
                                             console.log('Upload is running');
                                             break;
                                     }
-                                }, function(error) {
+                                }, function (error) {
                                     // Handle unsuccessful uploads
-                                }, function() {
+                                }, function () {
                                     // Handle successful uploads on complete
                                     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
                                     var downloadURL = task.snapshot.downloadURL;
                                     console.log(downloadURL);
                                     console.log("Uploaded successfully. ");
 
+                                    firebase.database().ref('requests/' + uid + "").set({status: "UPLOAD"});
+
                                 });
-                            }else{
+                            } else {
                                 alert("Too big..");
                             }
+                        }
+
+                        var fileInput = document.getElementById('fileInput');
+                        fileInput.addEventListener('change', function (e) {
+                            var file = fileInput.files[0];
+                            upload(file);
+
                         });
 
                         // Get file data on drop
-                        dropZone.addEventListener('drop', function(e) {
+                        dropZone.addEventListener('drop', function (e) {
                             e.stopPropagation();
                             e.preventDefault();
                             var files = e.dataTransfer.files; // Array of all files
 
-                            for (var i=0, file; file=files[i]; i++) {
-                                console.log(file);
+                            if (files.length == 1) {
+                                var file = files[0];
 
 
-                                if(file.size < 2000000) {
-                                    var storageRef = firebase.storage().ref();
-                                    var mountainImagesRef = storageRef.child('usertimetable/'+uid);
-//                                            +file.name);
-                                    /*mountainImagesRef.put(file).then(function (snapshot) {
-                                     console.log('Uploaded a blob or file!');
-                                     });*/
-                                    task = mountainImagesRef.put(file);
-                                    task.on('state_changed', function(snapshot){
-                                        // Observe state change events such as progress, pause, and resume
-                                        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                                        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                                        document.getElementById('progressbarupload').style.width=""+progress+'%';
-                                        console.log('Upload is ' + progress + '% done');
-                                        switch (snapshot.state) {
-                                            case firebase.storage.TaskState.PAUSED: // or 'paused'
-                                                console.log('Upload is paused');
-                                                break;
-                                            case firebase.storage.TaskState.RUNNING: // or 'running'
-                                                console.log('Upload is running');
-                                                break;
-                                        }
-                                    }, function(error) {
-                                        // Handle unsuccessful uploads
-                                    }, function() {
-                                        // Handle successful uploads on complete
-                                        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-                                        var downloadURL = task.snapshot.downloadURL;
-                                        console.log(downloadURL);
-                                        console.log("Uploaded successfully. ");
-
-                                    });
-                                }else{
-                                    alert("Too big..");
+                                if (file.size < 2000000) {
+                                    upload(file);
+                                } else {
+                                    alert("File too big, contact us.");
                                 }
-                                /*if (file.type.match(/image.*!/)) {
-                                 var reader = new FileReader();
-
-                                 reader.onload = function(e2) {
-                                 // finished reading file data.
-                                 var img = document.createElement('img');
-                                 img.src= e2.target.result;
-                                 document.body.appendChild(img);
-                                 }
-
-                                 reader.readAsDataURL(file); // start reading the file data.
-                                 }*/
+                            }else{
+                                alert("Select one file only");
                             }
                         });
                     }
@@ -730,7 +695,7 @@
 
                     <!---->
 
-                    <input id="fileInput" style="width: 30%; opacity: 0.4;" type="file">
+                    <input id="fileInput" style="opacity: 0.4;" type="file">
                     <br><br><br><br>
                     <p>Or drag and drop here</p>
 
