@@ -106,7 +106,7 @@
                 var cl = timetablesur[i];
 
                 var cld = cl.split("*");
-                console.log(cld);
+                //console.log(cld);
                 var day = cld[2];
                 var time = cld[3];
                 var hour = time.split(":")[0];
@@ -115,15 +115,15 @@
 //                        createEventCalendarWithTime(color, start, end, title, duration)
 
                 var weektoday = {Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6};
-                //console.log(thisWeekDay(weektoday[day]));
+                ////console.log(thisWeekDay(weektoday[day]));
                 var start = thisWeekDay(weektoday[day]);
-                //console.log(start);
+                ////console.log(start);
                 start.setHours(hour);
                 start.setMinutes(min);
                 start.setSeconds(0);
 
                 var unit = cld[0];
-                ////console.log(unit, unitcolor);
+                //////console.log(unit, unitcolor);
                 if (unitcolor[unit] == null) {
                     unitcolor[unit] = getRandomColor();
                 }
@@ -154,7 +154,7 @@
 
 
 
-                    //////console.log(user);
+                    ////////console.log(user);
                     loading = document.getElementById("logincomponents");
                     loading.style.visibility = "visible";
                     loading = document.getElementById("non-login-component");
@@ -170,7 +170,7 @@
 
 
 
-                    //////console.log(displayName+email+emailVerified+photoURL+uid);
+                    ////////console.log(displayName+email+emailVerified+photoURL+uid);
                     user.getIdToken().then(function (accessToken) {
 
                         uid = user.uid;
@@ -197,7 +197,7 @@
 
 
                         timetablesur = snapshot.val();
-                        //console.log(timetablesur);
+                        ////console.log(timetablesur);
 //                        updateStarCount(postElement, snapshot.val());
 
                         drawoncalendar(timetablesur);
@@ -219,7 +219,7 @@
 
                 }
             }, function (error) {
-                //////console.log(error);
+                ////////console.log(error);
             });
         };
         window.addEventListener('load', function () {
@@ -278,7 +278,7 @@
                     allDaySlot: false,
                     displayEventTime: true,
                     eventClick: function (event) {
-//                        //////console.log(event);
+//                        ////////console.log(event);
                         document.getElementById('eventdescription').innerHTML = event.description;
                         document.getElementById('eventtime').innerHTML = event.start._d;
                         $('#moreinfodialog').modal('open');
@@ -397,7 +397,7 @@
                 for (i = 0; i < response.length; i++) {
 
                     autocompletefbdata[response[i].name] = 'profilepicdefault.png';
-                    //console.log(response[i]);
+                    ////console.log(response[i]);
                     $("#listfacebookfriends").append("<li class='collection-item'><div>" + response[i].name + "</div>" + "</li>");
                 }
             } catch (err) {
@@ -431,7 +431,7 @@
                 FB.api(
                         "/me/friends",
                         function (response) {
-                            //////console.log(response);
+                            ////////console.log(response);
                             if (response && !response.error) {
 
                                 getdata.setfacebook(uid, response.data);
@@ -626,7 +626,7 @@
                                 var storageRef = firebase.storage().ref();
                                 var mountainImagesRef = storageRef.child('usertimetable/' + uid);
                                 /*mountainImagesRef.put(file).then(function (snapshot) {
-                                 console.log('Uploaded a blob or file!');
+                                 //console.log('Uploaded a blob or file!');
                                  });*/
                                 task = mountainImagesRef.put(file);
                                 task.on('state_changed', function (snapshot) {
@@ -634,13 +634,13 @@
                                     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                                     var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                                     document.getElementById('progressbarupload').style.width = "" + progress + '%';
-                                    console.log('Upload is ' + progress + '% done');
+                                    //console.log('Upload is ' + progress + '% done');
                                     switch (snapshot.state) {
                                         case firebase.storage.TaskState.PAUSED: // or 'paused'
-                                            console.log('Upload is paused');
+                                            //console.log('Upload is paused');
                                             break;
                                         case firebase.storage.TaskState.RUNNING: // or 'running'
-                                            console.log('Upload is running');
+                                            //console.log('Upload is running');
                                             break;
                                     }
                                 }, function (error) {
@@ -649,8 +649,8 @@
                                     // Handle successful uploads on complete
                                     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
                                     var downloadURL = task.snapshot.downloadURL;
-                                    console.log(downloadURL);
-                                    console.log("Uploaded successfully. ");
+                                    //console.log(downloadURL);
+                                    //console.log("Uploaded successfully. ");
 
                                     firebase.database().ref('requests/' + uid + "").set({status: "UPLOAD"});
 
