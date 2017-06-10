@@ -42,7 +42,17 @@
                 if(localStorage.getItem(uid+"facebook_friends")!==undefined){
                     return JSON.parse(localStorage.getItem(uid+"facebook_friends"));
                 }else{
-                    return null;
+                    var starCountRef = firebase.database().ref('users/' + uid + '/facebook_friends/');
+                    starCountRef.once('value').then( function(snapshot) {
+
+                        var friends = snapshot.val();
+                        ////console.log(timetablesur);
+//                        updateStarCount(postElement, snapshot.val());
+
+                        this.setfacebook(uid, friends);
+                        return friends;
+
+                    });
                 }
             },
 
