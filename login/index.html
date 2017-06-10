@@ -257,7 +257,47 @@
 
         function showInfoModal(currentevent) {
 
-            var data = currentevent.data;
+            //only show the swaps where teh user is not enrolled in
+            var data = currentevent.data.split("*");
+
+            var unit = data[0];
+            var type = data[1].replace(/[0-9]/g, '');
+
+            var starCountRef = firebase.database().ref('seperate_unit_list/' + unit +"/"+type);
+            starCountRef.once('value').then(function (snapshot) {
+
+                var units = snapshot.val();
+
+                var i = units.indexOf(currentevent.data);
+                units.splice(i,1);
+
+
+                console.log(units);
+
+
+                $("#dropdownofswapspossible").innerHTML = "";
+
+                if(units.length>0){
+
+                    var a = "";
+                for(i=0; i < units.length; i++){
+                    a += ("<option value="+units[i]+">"+units[i]+"</option>");
+                }
+                    $('select').material_select('destroy');
+                    $("#dropdownofswapspossible").html(a);
+
+                }else{
+                    //no swapping times avaiblae now
+                    $("#dropdownofswapspossible").append("<option disabled >No swaps available</option>");
+                }
+
+                $('select').material_select();
+
+
+            });
+
+
+
 
 
             //get possible swaps
@@ -275,7 +315,7 @@
                     }
             );
             $('.collapsible').collapsible();
-
+            $('select').material_select();
 
             $('.modal').modal({
                         dismissible: true, // Modal can be dismissed by clicking outside of the modal
@@ -763,18 +803,21 @@
                     <h5>Activity Details</h5>
 
                     <div class="row">
-                        <div class="col s12 m8 l8 x8">
+                        <div class="col s12 m7 l7 x7">
                             <!--The class control-->
                             <p id="eventdescription">Description</p>
                             <p id="eventtime">Time</p>
 
-                            <a class="tooltipped" data-position="right" data-delay="50"
-                               data-tooltip="Coming soon">Swap it</a><br>
+                            <div class="input-field col s12">
+                                <select id="dropdownofswapspossible">
+                                </select>
+                                <label>Swap it.</label>
+                            </div>
 
                             <a class="tooltipped" data-position="right" data-delay="50" data-tooltip="Coming soon">Make Notes Together</a>
 
                         </div>
-                        <div class="col s12 m4 l4 x4">
+                        <div class="col s12 m5 l5 x5">
                             <!--friend display and search-->
                             <div class="col s12">
                                 <div class="row">
