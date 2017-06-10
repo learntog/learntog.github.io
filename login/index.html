@@ -241,6 +241,36 @@
 
 
     <script>
+
+        function drawFriendOnCalendar(fuid){
+            var starCountRef = firebase.database().ref('facebook_to_id/' + fuid);
+            starCountRef.once('value').then( function(snapshot) {
+
+                var uid_fb_friend = snapshot.val();
+
+                var starCountRef = firebase.database().ref('users/' + uid_fb_friend+ '/classes/');
+                starCountRef.once('value').then( function(snapshot) {
+
+
+                    var friend_tt = snapshot.val();
+                    ////console.log(timetablesur);
+//                        updateStarCount(postElement, snapshot.val());
+
+                    drawoncalendar(friend_tt);
+
+                });
+
+            });
+        }
+
+        function showInfoModal(currentevent) {
+
+
+
+            $('#moreinfodialog').modal('open');
+
+
+        }
         $(document).ready(function () {
             $('.button-collapse').sideNav({
                         menuWidth: 230,
@@ -291,7 +321,9 @@
 //                        ////////console.log(event);
                         document.getElementById('eventdescription').innerHTML = event.description;
                         document.getElementById('eventtime').innerHTML = event.start._d;
-                        $('#moreinfodialog').modal('open');
+                        currentevent = event;
+                        showInfoModal(currentevent);
+
 
                     }
 //                allDayText: 'Online/TBD'
@@ -408,7 +440,7 @@
 
                     autocompletefbdata[response[i].name] = 'profilepicdefault.png';
                     ////console.log(response[i]);
-                    $("#listfacebookfriends").append("<li class='collection-item'><div>" + response[i].name + "</div>" + "</li>");
+                    $("#listfacebookfriends").append("<li onclick='drawFriendOnCalendar("+response[i].id+")' class='collection-item'><div>" + response[i].name + "</div>" + "</li>");
                 }
             } catch (err) {
             }
