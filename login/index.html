@@ -133,7 +133,9 @@
                 start.setSeconds(0);
 
                 var unit = cld[0];
-                unitcolor['friendstatic'] = getRandomColor();
+                if(unitcolor['friendstatic'] == null) {
+                    unitcolor['friendstatic'] = getRandomColor();
+                }
                 if(whose=="my") {
                     //////console.log(unit, unitcolor);
                     if (unitcolor[unit] == null) {
