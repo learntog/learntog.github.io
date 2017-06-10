@@ -108,7 +108,7 @@
         uid = "";
 
         weektodays = {Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6};
-        function drawoncalendar(timetablesur) {
+        function drawoncalendar(timetablesur, whose) {
             if(timetablesur!=null && timetablesur.length>0){
             unitcolor = {};
 
@@ -133,14 +133,17 @@
                 start.setSeconds(0);
 
                 var unit = cld[0];
-                //////console.log(unit, unitcolor);
-                if (unitcolor[unit] == null) {
-                    unitcolor[unit] = getRandomColor();
+                if(whose=="my") {
+                    //////console.log(unit, unitcolor);
+                    if (unitcolor[unit] == null) {
+                        unitcolor[unit] = getRandomColor();
+                    }
+
+
+                    createEventCalendarWithTime(unitcolor[unit], start, null, cld[0], cld[5]);
+                }else{
+                    createEventCalendarWithTime(getRandomColor(), start, null, cld[0], cld[5]);
                 }
-
-
-                createEventCalendarWithTime(unitcolor[unit], start, null, cld[0], cld[5]);
-
 
             }}else{
 
@@ -210,7 +213,7 @@
                         ////console.log(timetablesur);
 //                        updateStarCount(postElement, snapshot.val());
 
-                        drawoncalendar(timetablesur);
+                        drawoncalendar(timetablesur, "my");
 
                     });
 
@@ -256,7 +259,7 @@
                     ////console.log(timetablesur);
 //                        updateStarCount(postElement, snapshot.val());
 
-                    drawoncalendar(friend_tt);
+                    drawoncalendar(friend_tt, "friend");
 
                 });
 
