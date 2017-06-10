@@ -104,8 +104,9 @@
 
             for (i = 0; i < timetablesur.length; i++) {
                 var cl = timetablesur[i];
+
                 var cld = cl.split("*");
-                //console.log(cld);
+                console.log(cld);
                 var day = cld[2];
                 var time = cld[3];
                 var hour = time.split(":")[0];
@@ -322,6 +323,7 @@
 
                 newEvent.start = start;
 
+                duration = duration.replace("~", ".");
                 newEvent.end = new Date(start.getTime() + (duration * 60 * 60 * 1000));
                 newEvent.allDay = false;
                 newEvent.color = color;
