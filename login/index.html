@@ -281,7 +281,7 @@
 
                     var a = "";
                 for(i=0; i < units.length; i++){
-                    a += ("<option value="+units[i]+">"+units[i]+"</option>");
+                    a += ("<option value="+units[i]+">"+units[i][2][3]+"</option>");
                 }
                     $('select').material_select('destroy');
                     $("#dropdownofswapspossible").html(a);
