@@ -38,24 +38,9 @@
     <script>
 
         var getdata = {
-            getfacebook: function (uid) {
-                if (localStorage.getItem(uid + "facebook_friends") !== undefined) {
-                    return JSON.parse(localStorage.getItem(uid + "facebook_friends"));
-                } else {
-                    var starCountRef = firebase.database().ref('users/' + uid + '/facebook_friends/');
-                    starCountRef.once('value').then(function (snapshot) {
-
-                        var friends = snapshot.val();
-                        ////console.log(timetablesur);
-//                        updateStarCount(postElement, snapshot.val());
-
-                        this.setfacebook(uid, friends);
-                        return friends;
-
-                    });
-                }
+            ret: function(val){
+                return val;
             },
-
             setfacebook: function (uid, data) {
                 if (typeof data == 'string') {
                     localStorage.setItem(uid + "facebook_friends", data);
@@ -63,12 +48,40 @@
                     localStorage.setItem(uid + "facebook_friends", JSON.stringify(data));
                 }
             },
+            getfacebook: function (uid) {
+                if (localStorage.getItem(uid + "facebook_friends") != null) {
+                    return JSON.parse(localStorage.getItem(uid + "facebook_friends"));
+                } else {
+                    var starCountRef = firebase.database().ref('users/' + uid + '/facebook_friends/');
+                    starCountRef.once('value').then(function (snapshot) {
+
+                        var friends = snapshot.val();
+                        getdata.setfacebook(uid, friends);
+                        return friends;
+
+                    });
+                }
+            },
+
+
 
             getproperty: function (uid, property) {
-                if (localStorage.getItem(uid + property) !== undefined) {
+                //console.log(localStorage.getItem(uid + property));
+                if (localStorage.getItem(uid + property) != null) {
+                    //console.log("inif");
                     return JSON.parse(localStorage.getItem(uid + property));
                 } else {
-                    return null;
+                    //console.log("inekse");
+                    if(property=='classes'){
+                        //console.log("in");
+                        var starCountRef = firebase.database().ref('users/' + uid + '/classes/');
+                        starCountRef.once('value').then(function (snapshot) {
+
+                            var classes = snapshot.val();
+                            getdata.setproperty(uid, classes, property);
+                            location.reload();
+                        });
+                    }
                 }
             },
 
@@ -201,13 +214,25 @@
                     ShowFbFriend();
 
 
-                    var starCountRef = firebase.database().ref('users/' + uid + '/classes/');
+                    timetablesur = getdata.getproperty(uid, "classes");
+                    console.log(timetablesur);
+                    if(timetablesur===undefined){
+                        timetablesur = getdata.getproperty(uid, "classes");
+                    }
+                    console.log(timetablesur);
+                    if(timetablesur===undefined){
+                        //Error
+                    }else {
+                        console.log(timetablesur);
+                        drawoncalendar(timetablesur, "my");
+                    }
+                    /*var starCountRef = firebase.database().ref('users/' + uid + '/classes/');
                     starCountRef.once('value').then(function (snapshot) {
 
                         timetablesur = snapshot.val();
                         drawoncalendar(timetablesur, "my");
 
-                    });
+                    });*/
 
 
                 } else {
