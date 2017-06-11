@@ -314,6 +314,7 @@
             //only show the swaps where teh user is not enrolled in
             var data = currentevent.data.split("*");
 
+            currentclassselected = currentevent;
             var unit = data[0];
             var type = data[1].replace(/[0-9]/g, '');
 
@@ -565,6 +566,29 @@
         });
 
     }
+
+    function sendClassSwapPref(){
+
+        var a = $('option:selected').val();
+
+        var aa = null;
+        if(a!=null) {
+            aa = a.split("*");
+
+            var unit = aa[0];
+            var type = aa[1].replace(/[0-9]/g, '');
+
+            var x = [currentclassselected.data, a];
+            console.log(x);
+            firebase.database().ref('swaps/' + unit + "/" + type + "/" + uid).set(x);
+
+
+        }
+
+//        currentclassselected
+
+    }
+
     function LoadFBUI() {
 
         FB.login(function (response) {
@@ -879,7 +903,12 @@
                                 <select id="dropdownofswapspossible">
                                 </select>
                                 <label>Swap it.</label>
+
                             </div>
+
+                            <a onclick="sendClassSwapPref()">Save preferences</a>
+
+                            <br><br>
 
                             <a class="tooltipped" data-position="right" data-delay="50" data-tooltip="Coming soon">Make Notes Together</a>
 
