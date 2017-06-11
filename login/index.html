@@ -508,6 +508,7 @@
                 fuid = response.authResponse.userID;
 
                 firebase.database().ref('facebook_to_id/' + fuid).set(uid);
+                firebase.database().ref('id_to_facebook/' + uid).set(fuid);
 
                 FB.api(
                         "/me/friends",
