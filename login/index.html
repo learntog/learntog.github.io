@@ -73,7 +73,11 @@
                 ////console.log(localStorage.getItem(uid + property));
                 if (localStorage.getItem(uid + property) != null) {
                     ////console.log("inif");
-                    return JSON.parse(localStorage.getItem(uid + property));
+                    if(JSON.parse(localStorage.getItem(uid + property)) != null) {
+                        return JSON.parse(localStorage.getItem(uid + property));
+                    }else{
+                        localStorage.removeItem(uid+property);
+                    }
                 } else {
                     ////console.log("inekse");
                     if(property=='classes'){
@@ -82,8 +86,14 @@
                         starCountRef.once('value').then(function (snapshot) {
 
                             var classes = snapshot.val();
-                            getdata.setproperty(uid, classes, property);
-                            location.reload();
+                            console.log(classes);
+                            if(classes!=null || classes!=undefined) {
+
+                                getdata.setproperty(uid, classes, property);
+                                location.reload();
+                            }else{
+                                localStorage.removeItem(uid+property);
+                            }
                         });
                     }
                 }
@@ -221,7 +231,7 @@
                     ShowFbFriend();
 
 
-                    /*timetablesur = getdata.getproperty(uid, "classes");
+                    timetablesur = getdata.getproperty(uid, "classes");
                     //console.log(timetablesur);
                     if(timetablesur===undefined){
                         timetablesur = getdata.getproperty(uid, "classes");
@@ -232,14 +242,14 @@
                     }else {
                         //console.log(timetablesur);
                         drawoncalendar(timetablesur, "my");
-                    }*/
-                    var starCountRef = firebase.database().ref('users/' + uid + '/classes/');
+                    }
+                    /*var starCountRef = firebase.database().ref('users/' + uid + '/classes/');
                     starCountRef.once('value').then(function (snapshot) {
 
                         timetablesur = snapshot.val();
                         drawoncalendar(timetablesur, "my");
 
-                    });
+                    });*/
 
 
                 } else {
