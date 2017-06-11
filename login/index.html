@@ -204,7 +204,7 @@
                     var starCountRef = firebase.database().ref('users/' + uid + '/classes/');
                     starCountRef.once('value').then(function (snapshot) {
 
-                        var timetablesur = snapshot.val();
+                        timetablesur = snapshot.val();
                         drawoncalendar(timetablesur, "my");
 
                     });
@@ -255,6 +255,26 @@
             });
         }
 
+        function elementin(l, e){
+            var found = false;
+            for(i=0; i<l.length; i++){
+                if(l[i]===e){return true;}
+            }
+            return found;
+        }
+        function getnondup(units, timetablesur){
+            var o = [];
+            for (i=0; i<units.length; i++){
+                console.log(!elementin(timetablesur, units[i]));
+                if(!elementin(timetablesur, units[i])){
+                    o.push(units[i]);
+                    console.log(o);
+                }
+            }
+            console.log(o);
+            return o;
+        }
+
         function showInfoModal(currentevent) {
 
             //only show the swaps where teh user is not enrolled in
@@ -275,23 +295,35 @@
                 console.log(units);
 
 
+
+
+
+                var o = units;
+
+
                 $("#dropdownofswapspossible").innerHTML = "";
 
-                if(units.length>0){
-
+                if(o.length>0){
                     var a = "";
-                for(i=0; i < units.length; i++){
-                    var unitd = units[i].split("*");
-                    console.log(unitd);
-                    console.log("<option value="+units[i]+">"+unitd[i][2]+unitd[i][3]+"</option>");
-                    a += ("<option value='"+units[i]+"'>"+unitd[2]+" "+unitd[3]+"</option>");
+                for(i=0; i < o.length; i++){
+
+                    if(!elementin(timetablesur, o[i])) {
+
+                        var unitd = o[i].split("*");
+                        console.log(unitd);
+                        a += ("<option value='" + units[i] + "'>" + unitd[2] + " " + unitd[3] + "</option>");
+                    }
                 }
                     $('select').material_select('destroy');
-                    $("#dropdownofswapspossible").html(a);
+                    if(a!=""){
+                    $("#dropdownofswapspossible").html(a);}
+                    else{
+                        $("#dropdownofswapspossible").html("<option disabled >No swaps available</option>");
+                    }
 
                 }else{
                     //no swapping times avaiblae now
-                    $("#dropdownofswapspossible").append("<option disabled >No swaps available</option>");
+                    $("#dropdownofswapspossible").html("<option disabled >No swaps available</option>");
                 }
 
                 $('select').material_select();
