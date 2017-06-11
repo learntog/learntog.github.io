@@ -162,7 +162,10 @@
                     }
 
                 }
-            } else {
+            } else if(whose=='friend' && timetablesur==null){
+                alert("Your friend hasn't uploaded their timetable");
+
+            }else {
 
                 loading = document.getElementById("timetableuploadtab");
                 loading.style.visibility = "visible";
