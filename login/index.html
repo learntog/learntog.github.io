@@ -221,7 +221,7 @@
                     ShowFbFriend();
 
 
-                    timetablesur = getdata.getproperty(uid, "classes");
+                    /*timetablesur = getdata.getproperty(uid, "classes");
                     //console.log(timetablesur);
                     if(timetablesur===undefined){
                         timetablesur = getdata.getproperty(uid, "classes");
@@ -232,14 +232,14 @@
                     }else {
                         //console.log(timetablesur);
                         drawoncalendar(timetablesur, "my");
-                    }
-                    /*var starCountRef = firebase.database().ref('users/' + uid + '/classes/');
+                    }*/
+                    var starCountRef = firebase.database().ref('users/' + uid + '/classes/');
                     starCountRef.once('value').then(function (snapshot) {
 
                         timetablesur = snapshot.val();
                         drawoncalendar(timetablesur, "my");
 
-                    });*/
+                    });
 
 
                 } else {
