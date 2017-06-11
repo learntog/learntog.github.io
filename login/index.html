@@ -281,7 +281,10 @@
 
                     var a = "";
                 for(i=0; i < units.length; i++){
-                    a += ("<option value="+units[i]+">"+units[i][2][3]+"</option>");
+                    var unitd = units[i].split("*");
+                    console.log(unitd);
+                    console.log("<option value="+units[i]+">"+unitd[i][2]+unitd[i][3]+"</option>");
+                    a += ("<option value='"+units[i]+"'>"+unitd[2]+" "+unitd[3]+"</option>");
                 }
                     $('select').material_select('destroy');
                     $("#dropdownofswapspossible").html(a);
