@@ -222,6 +222,7 @@
 
                         firebase.database().ref('users/' + uid + "/email").set(email);
                         firebase.database().ref('users/' + uid + "/display_name").set(displayName);
+                        firebase.database().ref("id_to_name/"+uid).set(displayName);
 
                         document.getElementById('useremail').innerHTML = email;
                         document.getElementById('userdisplayname').innerHTML = displayName;
@@ -235,9 +236,14 @@
 
                     if(timetablesur===undefined){
                         timetablesur = getdata.getproperty(uid, "classes");
+                    }else {
+
+                        drawoncalendar(timetablesur, "my");
                     }
 
-                    drawoncalendar(timetablesur, "my");
+                    if(timetablesur==undefined){
+                        drawoncalendar(timetablesur, "my");
+                    }
                     console.log(timetablesur);
 
 
@@ -381,6 +387,45 @@
 
             });
 
+//            TODO: my fb friends to user id data must be stored.
+
+            var mates = currentevent.data;
+
+            var starCountRef = firebase.database().ref('classes/' + mates + '/users/');
+            starCountRef.once('value').then(function (snapshot) {
+
+                var mates = snapshot.val();
+
+                if(mates.length>=1){
+
+                    $("#other_class_friends").html("<p></p>");
+
+                for(i=0; i < mates.length; i++) {
+                    //get name and append it..
+
+                    if(mates[i]!=uid){
+                    var star= firebase.database().ref('users/' + mates[i] + '/display_name/');
+                    star.once('value').then(function (snapshot) {
+
+                        var htm = "<li class=\"collection-item\">" +
+                                "<div>"+snapshot.val()+"<a href=\"#!\" class=\"secondary-content\"><i class=\"material-icons\">compare</i></a></div></li>"
+
+                        $("#other_class_friends").append(htm);
+
+                    });}
+                }
+                    //console.log(listoffriendsinclass);
+
+
+
+
+
+                }else{
+                    //No one else in the class..
+                }
+            });
+
+
 
 
 
@@ -494,6 +539,7 @@
                 newEvent.allDay = false;
                 newEvent.color = color;
                 newEvent.data = data;
+                newEvent.e = e; //TODO add disable fb friends click on calendar.
                 $('#calendar').fullCalendar('renderEvent', newEvent, 'stick');
             } catch (err) {
 
@@ -792,6 +838,7 @@
                         <div class="collapsible-header">FIT1047 - Lab</div>
                         <div class="collapsible-body"><span> <b>Location</b> <br>Thursday 6-8pm, 25 Exhibition Walk <br><br> <b>Peers:</b> <br> Ishan, Arni.. </span>
                         </div>
+                    </li>
                 </ul>
             </div>
 
@@ -950,108 +997,7 @@
                                 </li>
 
                             </ul>
-                            <ul class="collection with-header">
-                                <li class="collection-header"><h6><strong>Others you may want to connect with</strong></h6></li>
-                                <li class="collection-item">
-                                    <div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                                    </div>
-                                </li>
-                                <li class="collection-item">
-                                    <div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                                    </div>
-                                </li>
-                                <li class="collection-item">
-                                    <div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                                    </div>
-                                </li>
-                                <li class="collection-item">
-                                    <div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                                    </div>
-                                </li>
-                                <li class="collection-item">
-                                    <div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                                    </div>
-                                </li>
-                                <li class="collection-item">
-                                    <div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                                    </div>
-                                </li>
-                                <li class="collection-item">
-                                    <div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                                    </div>
-                                </li>
-                                <li class="collection-item">
-                                    <div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                                    </div>
-                                </li>
-
-                                <li class="collection-item">
-                                    <div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                                    </div>
-                                </li>
-                                <li class="collection-item">
-                                    <div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                                    </div>
-                                </li>
-                                <li class="collection-item">
-                                    <div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                                    </div>
-                                </li>
-                                <li class="collection-item">
-                                    <div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                                    </div>
-                                </li>
-
-                                <li class="collection-item">
-                                    <div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                                    </div>
-                                </li>
-                                <li class="collection-item">
-                                    <div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                                    </div>
-                                </li>
-                                <li class="collection-item">
-                                    <div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                                    </div>
-                                </li>
-                                <li class="collection-item">
-                                    <div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                                    </div>
-                                </li>
-
-                                <li class="collection-item">
-                                    <div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                                    </div>
-                                </li>
-                                <li class="collection-item">
-                                    <div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                                    </div>
-                                </li>
-                                <li class="collection-item">
-                                    <div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                                    </div>
-                                </li>
-                                <li class="collection-item">
-                                    <div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                                    </div>
-                                </li>
-
-                                <li class="collection-item">
-                                    <div>Josh<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                                    </div>
-                                </li>
-                                <li class="collection-item">
-                                    <div>Brendan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                                    </div>
-                                </li>
-                                <li class="collection-item">
-                                    <div>Aryanna<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                                    </div>
-                                </li>
-                                <li class="collection-item">
-                                    <div>Ethan<a href="#!" class="secondary-content"><i class="material-icons">compare</i></a>
-                                    </div>
-                                </li>
+                            <ul id="other_class_friends" class="collection with-header">
 
                             </ul>
                         </div>
