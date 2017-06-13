@@ -170,7 +170,7 @@
                         }
 
 
-                        createEventCalendarWithTime(unitcolor[unit], start, null, cld[0], cld[5], timetablesur[i]);
+                        createEventCalendarWithTime(unitcolor[unit], start, "---", cld[0], cld[5], timetablesur[i]);
                     } else {
                         createEventCalendarWithTime(unitcolor['friendstatic'], start, null, cld[0], cld[5], timetablesur[i]);
                     }
@@ -482,16 +482,18 @@
                     displayEventTime: true,
                     eventClick: function (event) {
 //                        //////////console.log(event);
-                        document.getElementById('eventdescription').innerHTML = event.description;
-                        document.getElementById('eventtime').innerHTML = event.start._d;
 
-                        //console.log(event.data);
+                        if(event.e!=null) {
+
+                            document.getElementById('eventdescription').innerHTML = event.description;
+                            document.getElementById('eventtime').innerHTML = event.start._d;
+
+                            //console.log(event.data);
 
 
-
-
-                        currentevent = event;
-                        showInfoModal(currentevent);
+                            currentevent = event;
+                            showInfoModal(currentevent);
+                        }
 
 
                     }
