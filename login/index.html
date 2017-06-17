@@ -394,7 +394,7 @@
                     toggleload();
 
                     console.log("/users/" + uid_fb_friend + "/viewedby/" + uid);
-                    firebase.database().ref("/users/" + uid_fb_friend + "/viewedby/" + uid).set({time: new Date().toJSON()});
+                    firebase.database().ref("/users/" + uid_fb_friend + "/viewedby/" + uid).set({time: new Date().toString()});
 
                     drawoncalendar(friend_tt, "friend");
 
