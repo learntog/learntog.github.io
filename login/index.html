@@ -43,7 +43,7 @@
         }
 
         var getdata = {
-            ret: function(val){
+            ret: function (val) {
                 return val;
             },
             setfacebook: function (uid, data) {
@@ -69,30 +69,29 @@
             },
 
 
-
             getproperty: function (uid, property) {
                 ////console.log(localStorage.getItem(uid + property));
                 if (localStorage.getItem(uid + property) != null) {
                     console.log("fetched from local");
-                    if(JSON.parse(localStorage.getItem(uid + property)) != null) {
+                    if (JSON.parse(localStorage.getItem(uid + property)) != null) {
                         return JSON.parse(localStorage.getItem(uid + property));
-                    }else{
-                        localStorage.removeItem(uid+property);
+                    } else {
+                        localStorage.removeItem(uid + property);
                     }
                 } else {
                     ////console.log("inekse");
-                    if(property=='classes'){
+                    if (property == 'classes') {
                         ////console.log("in");
                         var starCountRef = firebase.database().ref('users/' + uid + '/classes/');
                         starCountRef.once('value').then(function (snapshot) {
 
                             var classes = snapshot.val();
                             console.log("fetching from database");
-                            if(classes!=null || classes!=undefined) {
+                            if (classes != null || classes != undefined) {
 
                                 getdata.setproperty(uid, classes, property);
                                 location.reload();
-                            }else{
+                            } else {
                                 return null;
                             }
                         });
@@ -177,10 +176,10 @@
                     }
 
                 }
-            } else if(whose=='friend' && timetablesur==null){
+            } else if (whose == 'friend' && timetablesur == null) {
                 alert("Your friend hasn't uploaded their timetable");
 
-            }else {
+            } else {
 
                 loading = document.getElementById("timetableuploadtab");
                 loading.style.visibility = "visible";
@@ -223,7 +222,7 @@
 
                         firebase.database().ref('users/' + uid + "/email").set(email);
                         firebase.database().ref('users/' + uid + "/display_name").set(displayName);
-                        firebase.database().ref("id_to_name/"+uid).set(displayName);
+                        firebase.database().ref("id_to_name/" + uid).set(displayName);
 
                         document.getElementById('useremail').innerHTML = email;
                         document.getElementById('userdisplayname').innerHTML = displayName;
@@ -235,33 +234,33 @@
 
                     timetablesur = getdata.getproperty(uid, "classes");
 
-                    if(timetablesur===undefined){
+                    if (timetablesur === undefined) {
                         timetablesur = getdata.getproperty(uid, "classes");
-                    }else {
+                    } else {
 
                         drawoncalendar(timetablesur, "my");
                     }
 
-                    if(timetablesur==undefined){
+                    if (timetablesur == undefined) {
                         drawoncalendar(timetablesur, "my");
                     }
                     console.log(timetablesur);
 
 
                     /*console.log(timetablesur);
-                    if(timetablesur===undefined){
-                        //Error
-                    }else {
-                        //console.log(timetablesur);
-                        drawoncalendar(timetablesur, "my");
-                    }*/
+                     if(timetablesur===undefined){
+                     //Error
+                     }else {
+                     //console.log(timetablesur);
+                     drawoncalendar(timetablesur, "my");
+                     }*/
                     /*var starCountRef = firebase.database().ref('users/' + uid + '/classes/');
-                    starCountRef.once('value').then(function (snapshot) {
+                     starCountRef.once('value').then(function (snapshot) {
 
-                        timetablesur = snapshot.val();
-                        drawoncalendar(timetablesur, "my");
+                     timetablesur = snapshot.val();
+                     drawoncalendar(timetablesur, "my");
 
-                    });*/
+                     });*/
 
 
                 } else {
@@ -271,7 +270,6 @@
                     loading.style.display = "none";
                     loading = document.getElementById("firebaseui-auth-container");
                     loading.style.display = "block";
-
 
 
                     document.getElementById('useremail').innerHTML = "";
@@ -313,18 +311,20 @@
             });
         }
 
-        function elementin(l, e){
+        function elementin(l, e) {
             var found = false;
-            for(i=0; i<l.length; i++){
-                if(l[i]===e){return true;}
+            for (i = 0; i < l.length; i++) {
+                if (l[i] === e) {
+                    return true;
+                }
             }
             return found;
         }
-        function getnondup(units, timetablesur){
+        function getnondup(units, timetablesur) {
             var o = [];
-            for (i=0; i<units.length; i++){
+            for (i = 0; i < units.length; i++) {
                 //console.log(!elementin(timetablesur, units[i]));
-                if(!elementin(timetablesur, units[i])){
+                if (!elementin(timetablesur, units[i])) {
                     o.push(units[i]);
                     //console.log(o);
                 }
@@ -342,19 +342,16 @@
             var unit = data[0];
             var type = data[1].replace(/[0-9]/g, '');
 
-            var starCountRef = firebase.database().ref('seperate_unit_list/' + unit +"/"+type);
+            var starCountRef = firebase.database().ref('seperate_unit_list/' + unit + "/" + type);
             starCountRef.once('value').then(function (snapshot) {
 
                 var units = snapshot.val();
 
                 var i = units.indexOf(currentevent.data);
-                units.splice(i,1);
+                units.splice(i, 1);
 
 
                 //console.log(units);
-
-
-
 
 
                 var o = units;
@@ -362,25 +359,26 @@
 
                 $("#dropdownofswapspossible").innerHTML = "";
 
-                if(o.length>0){
+                if (o.length > 0) {
                     var a = "";
-                for(i=0; i < o.length; i++){
+                    for (i = 0; i < o.length; i++) {
 
-                    if(!elementin(timetablesur, o[i])) {
+                        if (!elementin(timetablesur, o[i])) {
 
-                        var unitd = o[i].split("*");
-                        //console.log(unitd);
-                        a += ("<option value='" + units[i] + "'>" + unitd[2] + " " + unitd[3] + "</option>");
+                            var unitd = o[i].split("*");
+                            //console.log(unitd);
+                            a += ("<option value='" + units[i] + "'>" + unitd[2] + " " + unitd[3] + "</option>");
+                        }
                     }
-                }
                     $('select').material_select('destroy');
-                    if(a!=""){
-                    $("#dropdownofswapspossible").html(a);}
-                    else{
+                    if (a != "") {
+                        $("#dropdownofswapspossible").html(a);
+                    }
+                    else {
                         $("#dropdownofswapspossible").html("<option disabled >No swaps available</option>");
                     }
 
-                }else{
+                } else {
                     //no swapping times avaiblae now
                     $("#dropdownofswapspossible").html("<option disabled >No swaps available</option>");
                 }
@@ -399,38 +397,32 @@
 
                 var mates = snapshot.val();
 
-                if(mates.length>=1){
+                if (mates.length >= 1) {
 
                     $("#other_class_friends").html("<p></p>");
 
-                for(i=0; i < mates.length; i++) {
-                    //get name and append it..
+                    for (i = 0; i < mates.length; i++) {
+                        //get name and append it..
 
-                    if(mates[i]!=uid){
-                    var star= firebase.database().ref('users/' + mates[i] + '/display_name/');
-                    star.once('value').then(function (snapshot) {
+                        if (mates[i] != uid) {
+                            var star = firebase.database().ref('users/' + mates[i] + '/display_name/');
+                            star.once('value').then(function (snapshot) {
 
-                        var htm = "<li class=\"collection-item\">" +
-                                "<div>"+snapshot.val()+"<a href=\"#!\" class=\"secondary-content\"><i class=\"material-icons\">compare</i></a></div></li>"
+                                var htm = "<li class=\"collection-item\">" +
+                                        "<div>" + snapshot.val() + "<a href=\"#!\" class=\"secondary-content\"><i class=\"material-icons\">compare</i></a></div></li>"
 
-                        $("#other_class_friends").append(htm);
+                                $("#other_class_friends").append(htm);
 
-                    });}
-                }
+                            });
+                        }
+                    }
                     //console.log(listoffriendsinclass);
 
 
-
-
-
-                }else{
+                } else {
                     //No one else in the class..
                 }
             });
-
-
-
-
 
 
             //get possible swaps
@@ -486,7 +478,7 @@
                     eventClick: function (event) {
 //                        //////////console.log(event);
 
-                        if(event.e!=null) {
+                        if (event.e != null) {
 
                             document.getElementById('eventdescription').innerHTML = event.description;
                             document.getElementById('eventtime').innerHTML = event.start._d;
@@ -583,8 +575,6 @@
             border: none;
         }
 
-
-
         .opaque {
             opacity: 0.15;
         }
@@ -606,10 +596,12 @@
 
         myfbfriends = [];
 
-        for(i=0; i < response.length; i++){
-            myfbfriends.push(response[i].id);
-        }
+        if(response!=null) {
 
+            for (i = 0; i < response.length; i++) {
+                myfbfriends.push(response[i].id);
+            }
+        }
 
 
         console.log(myfbfriends);
@@ -643,12 +635,12 @@
 
     }
 
-    function sendClassSwapPref(){
+    function sendClassSwapPref() {
 
         var a = $('option:selected').val();
 
         var aa = null;
-        if(a!=null) {
+        if (a != null) {
             aa = a.split("*");
 
             var unit = aa[0];
@@ -995,7 +987,8 @@
 
                             <br><br>
 
-                            <a class="tooltipped" data-position="right" data-delay="50" data-tooltip="Coming soon">Make Notes Together</a>
+                            <a class="tooltipped" data-position="right" data-delay="50" data-tooltip="Coming soon">Make
+                                Notes Together</a>
 
                         </div>
                         <div class="col s12 m5 l5 x5">
@@ -1022,12 +1015,6 @@
                             </ul>
                         </div>
                     </div>
-
-
-
-
-
-
 
 
                 </div>
