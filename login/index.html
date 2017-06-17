@@ -32,6 +32,7 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.0/fullcalendar.min.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+
     <!--<script src="../js/data.js"></script>-->
     <script src="../js/analytics.js"></script>
 
@@ -204,7 +205,7 @@
                     //////////console.log(user);
                     loading = document.getElementById("logincomponents");
                     loading.style.visibility = "visible";
-                    loading = document.getElementById("non-login-component");
+                    loading = document.getElementById("firebaseui-auth-container");
                     loading.style.display = "none";
 
 
@@ -268,8 +269,10 @@
 
                     loading = document.getElementById("logincomponents");
                     loading.style.display = "none";
-                    loading = document.getElementById("non-login-component");
+                    loading = document.getElementById("firebaseui-auth-container");
                     loading.style.display = "block";
+
+
 
                     document.getElementById('useremail').innerHTML = "";
                     document.getElementById('userdisplayname').innerHTML = "";
@@ -601,6 +604,16 @@
 
         response = getdata.getfacebook(uid);
 
+        myfbfriends = [];
+
+        for(i=0; i < response.length; i++){
+            myfbfriends.push(response[i].id);
+        }
+
+
+
+        console.log(myfbfriends);
+
 
         autocompletefbdata = {};
         if (response != null) {
@@ -663,6 +676,8 @@
                 firebase.database().ref('facebook_to_id/' + fuid).set(uid);
                 firebase.database().ref('id_to_facebook/' + uid).set(fuid);
 
+                //TODO add unique code calendar use.
+
                 FB.api(
                         "/me/friends",
                         function (response) {
@@ -670,6 +685,7 @@
                             if (response && !response.error) {
 
                                 getdata.setfacebook(uid, response.data);
+
 
                                 firebase.database().ref("/users/" + uid + "/facebook_friends").set(response.data);
 
@@ -765,7 +781,9 @@
 
 <main>
 
-    <h4 style="display: none" id="non-login-component" class="center"><a href="../home.html">Login</a></h4>
+
+    <h4 style="display: none" id="firebaseui-auth-container" class="center"><a href="../home.html">Login</a></h4>
+
 
     <div class="row" id="logincomponents" style="visibility: hidden; padding-bottom: 80px;">
 
