@@ -70,12 +70,12 @@
 
             getdatafromdb: function (uid, property) {
                 if (property == 'classes') {
-                    ////console.log("in");
+                    //////console.log("in");
                     var starCountRef = firebase.database().ref('users/' + uid + '/classes/');
                     starCountRef.once('value').then(function (snapshot) {
 
                         var classes = snapshot.val();
-                        console.log("fetching from database");
+                        //console.log("fetching from database");
                         if (classes != null || classes != undefined) {
                             getdata.setproperty(uid, classes, property);
                             timetablesur = classes;
@@ -96,9 +96,9 @@
                 return localStorage.getItem(uid + property) == null || localStorage.getItem(uid + property) == "";
             },
             getproperty: function (uid, property) {
-                console.log(localStorage.getItem(uid + property));
+                //console.log(localStorage.getItem(uid + property));
                 if (localStorage.getItem(uid + property) != null && JSON.parse(localStorage.getItem(uid + property)) != null) {
-                    console.log("in if: fetched from local");
+                    //console.log("in if: fetched from local");
                     return JSON.parse(localStorage.getItem(uid + property));
                 }
                 else {
@@ -151,7 +151,7 @@
                     var cl = timetablesur[i];
 
                     var cld = cl.split("*");
-                    ////console.log(cld);
+                    //////console.log(cld);
                     var day = cld[2];
                     var time = cld[3];
                     var hour = time.split(":")[0];
@@ -160,9 +160,9 @@
 //                        createEventCalendarWithTime(color, start, end, title, duration)
 
                     var weektoday = {Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6};
-                    //////console.log(thisWeekDay(weektoday[day]));
+                    ////////console.log(thisWeekDay(weektoday[day]));
                     var start = thisWeekDay(weektoday[day]);
-                    //////console.log(start);
+                    ////////console.log(start);
                     start.setHours(hour);
                     start.setMinutes(min);
                     start.setSeconds(0);
@@ -172,7 +172,7 @@
                         unitcolor['friendstatic'] = getRandomColor();
                     }
                     if (whose == "my") {
-                        ////////console.log(unit, unitcolor);
+                        //////////console.log(unit, unitcolor);
                         if (unitcolor[unit] == null) {
                             unitcolor[unit] = getRandomColor();
                         }
@@ -212,7 +212,7 @@
 
 
 
-                    //////////console.log(user);
+                    ////////////console.log(user);
 //                    ShowSomething(document.getElementById("logincomponents"));
 //                    loading.style.visibility = "visible";
                     //HideSomething(document.getElementById("firebaseui-auth-container"));
@@ -226,7 +226,7 @@
                     uid = user.uid;
 
 
-                    //////////console.log(displayName+email+emailVerified+photoURL+uid);
+                    ////////////console.log(displayName+email+emailVerified+photoURL+uid);
                     user.getIdToken().then(function (accessToken) {
 
                         uid = user.uid;
@@ -242,18 +242,18 @@
 
                     ShowFbFriend();
 
-                    console.log(getdata.isaproperty(uid, "classes"));
+                    //console.log(getdata.isaproperty(uid, "classes"));
                     var message = document.getElementById('importantmessage');
                     var alllogin = document.getElementById('logincomponents');
                     if (getdata.isaproperty(uid, "classes")) {
 
-                        console.log("No data available locally");
+                        //console.log("No data available locally");
                         //check requests tree.. set up an event listener
                         //TODO If data exists in local storage
                         var starCountRef = firebase.database().ref('requests/' + uid + '/status');
                         starCountRef.on('value', function (snapshot) {
                             var a = snapshot.val();
-                            console.log(a);
+                            //console.log(a);
 
                             if (a == null) { //upload,download,success,error
                                 ShowSomething(document.getElementById("logincomponents"));
@@ -290,7 +290,7 @@
                                 ShowSomething(document.getElementById("listviewtab"));
 
                                 $('ul.tabs').tabs('select_tab', 'calendarviewtab');*/
-//                                console.log(timetablesur);
+//                                //console.log(timetablesur);
 //                                drawoncalendar(timetablesur, "my");
 //                                alert("You're now on your way!");
                                 //check if data exist -> localstorage
@@ -299,7 +299,7 @@
                         });
                     } else {
                         //JUST LOAD DATA from localstorage.
-                        console.log("Data available locally");
+                        //console.log("Data available locally");
 
 
                         ShowSomething(alllogin);
@@ -329,14 +329,14 @@
 //                    if (timetablesur == undefined) {
 //                        drawoncalendar(timetablesur, "my");
 //                    }
-//                    console.log(timetablesur);
+//                    //console.log(timetablesur);
 
 
-                    /*console.log(timetablesur);
+                    /*//console.log(timetablesur);
                      if(timetablesur===undefined){
                      //Error
                      }else {
-                     //console.log(timetablesur);
+                     ////console.log(timetablesur);
                      drawoncalendar(timetablesur, "my");
                      }*/
                     /*var starCountRef = firebase.database().ref('users/' + uid + '/classes/');
@@ -408,13 +408,13 @@
         function getnondup(units, timetablesur) {
             var o = [];
             for (i = 0; i < units.length; i++) {
-                //console.log(!elementin(timetablesur, units[i]));
+                ////console.log(!elementin(timetablesur, units[i]));
                 if (!elementin(timetablesur, units[i])) {
                     o.push(units[i]);
-                    //console.log(o);
+                    ////console.log(o);
                 }
             }
-            //console.log(o);
+            ////console.log(o);
             return o;
         }
 
@@ -436,7 +436,7 @@
                 units.splice(i, 1);
 
 
-                //console.log(units);
+                ////console.log(units);
 
 
                 var o = units;
@@ -451,7 +451,7 @@
                         if (!elementin(timetablesur, o[i])) {
 
                             var unitd = o[i].split("*");
-                            //console.log(unitd);
+                            ////console.log(unitd);
                             a += ("<option value='" + units[i] + "'>" + unitd[2] + " " + unitd[3] + "</option>");
                         }
                     }
@@ -501,7 +501,7 @@
                             });
                         }
                     }
-                    //console.log(listoffriendsinclass);
+                    ////console.log(listoffriendsinclass);
 
 
                 } else {
@@ -546,7 +546,7 @@
             try {
 
                 calendar = $('#calendar');
-                console.log(calendar);
+                //console.log(calendar);
                 calendar.fullCalendar({
                     editable: false,
                     handleWindowResize: true,
@@ -563,14 +563,14 @@
                     allDaySlot: false,
                     displayEventTime: true,
                     eventClick: function (event) {
-//                        //////////console.log(event);
+//                        ////////////console.log(event);
 
                         if (event.e != null) {
 
                             document.getElementById('eventdescription').innerHTML = event.description;
                             document.getElementById('eventtime').innerHTML = event.start._d;
 
-                            //console.log(event.data);
+                            ////console.log(event.data);
 
 
                             currentevent = event;
@@ -583,7 +583,7 @@
                 });
             } catch (err) {
                 //
-                console.log(err);
+                //console.log(err);
             }
 
         });
@@ -692,7 +692,7 @@
         }
 
 
-        console.log(myfbfriends);
+        //console.log(myfbfriends);
 
 
         autocompletefbdata = {};
@@ -701,7 +701,7 @@
                 for (i = 0; i < response.length; i++) {
 
                     autocompletefbdata[response[i].name] = null;
-                    //////console.log(response[i]);
+                    ////////console.log(response[i]);
                     $("#listfacebookfriends").append("<li onclick='drawFriendOnCalendar(" + response[i].id + ")' class='collection-item'><div>" + response[i].name + "</div>" + "</li>");
                 }
             } catch (err) {
@@ -744,7 +744,7 @@
             var type = aa[1].replace(/[0-9]/g, '');
 
             var x = [currentclassselected.data, a];
-            console.log(x);
+            //console.log(x);
             firebase.database().ref('swaps/' + unit + "/" + type + "/" + uid).set(x);
 
 
@@ -770,7 +770,7 @@
                 FB.api(
                     "/me/friends",
                     function (response) {
-                        //////////console.log(response);
+                        ////////////console.log(response);
                         if (response && !response.error) {
 
                             getdata.setfacebook(uid, response.data);
@@ -978,7 +978,7 @@
                                 var storageRef = firebase.storage().ref();
                                 var mountainImagesRef = storageRef.child('usertimetable/' + uid);
                                 /*mountainImagesRef.put(file).then(function (snapshot) {
-                                 ////console.log('Uploaded a blob or file!');
+                                 //////console.log('Uploaded a blob or file!');
                                  });*/
                                 task = mountainImagesRef.put(file);
                                 task.on('state_changed', function (snapshot) {
@@ -986,13 +986,13 @@
                                     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                                     var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                                     document.getElementById('progressbarupload').style.width = "" + progress + '%';
-                                    ////console.log('Upload is ' + progress + '% done');
+                                    //////console.log('Upload is ' + progress + '% done');
                                     switch (snapshot.state) {
                                         case firebase.storage.TaskState.PAUSED: // or 'paused'
-                                            ////console.log('Upload is paused');
+                                            //////console.log('Upload is paused');
                                             break;
                                         case firebase.storage.TaskState.RUNNING: // or 'running'
-                                            ////console.log('Upload is running');
+                                            //////console.log('Upload is running');
                                             break;
                                     }
                                 }, function (error) {
@@ -1001,8 +1001,8 @@
                                     // Handle successful uploads on complete
                                     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
                                     var downloadURL = task.snapshot.downloadURL;
-                                    ////console.log(downloadURL);
-                                    ////console.log("Uploaded successfully. ");
+                                    //////console.log(downloadURL);
+                                    //////console.log("Uploaded successfully. ");
 
                                     firebase.database().ref('requests/' + uid + "").set({status: "UPLOAD"});
 
