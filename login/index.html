@@ -247,15 +247,16 @@
                         var starCountRef = firebase.database().ref('requests/' + uid + '/status');
                         starCountRef.on('value', function (snapshot) {
                             var a = snapshot.val();
-                            if (a == null || a.indexOf("ERR") != -1) { //upload,download,success,error
-                                if (a.indexOf("ERR") != -1) {
-                                    alert("Error: Contact Us \n" + a);
-                                }
+                            console.log(a);
+                            if (a == null) { //upload,download,success,error
+
                                 drawoncalendar(null, "my");
+                            }else if(a!=null && a.indexOf("ERR") != -1){
+                                alert("Error: Contact Us \n" + a);
                             }
                             else if (a == "UPLOAD") {
                                 alert("Upload");
-                                loading = document.getElementById("timetableuploadtab");
+                                document.getElementById("timetableuploadtab").style.visibility = "hidden";
                                 loading.style.visibility = "hidden";
 
                                 //TODO add hiding all tabs code
@@ -831,8 +832,10 @@
         <div class="col s12 m12  l8 x8">
 
 
+
             <p>My calendar can be accessed by unique code <a onclick="createEventCalendar('red')"><strong>A352J</strong></a>
             </p>
+
 
             <ul id="tabs-swipe-demo" class="tabs">
                 <li class="tab col l3 s4"><a class="active" href="#calendarview" id="calendarviewtab">Calendar View</a>
