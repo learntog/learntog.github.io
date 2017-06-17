@@ -79,8 +79,10 @@
                         if (classes != null || classes != undefined) {
                             getdata.setproperty(uid, classes, property);
                             timetablesur = classes;
-                            drawoncalendar(timetablesur, "my");
+//                            drawoncalendar(timetablesur, "my");
+                            location.reload();
                         } else {
+                            alert("Contact us.. quote (that impossible null returned from getdatafromdb)");
                             return null;
 
                         }
@@ -201,6 +203,9 @@
             }
 
         }
+        function WriteText(message, data) {
+            message.innerHTML = data;
+        }
         initApp = function () {
             firebase.auth().onAuthStateChanged(function (user) {
                 if (user) {
@@ -208,10 +213,10 @@
 
 
                     //////////console.log(user);
-                    loading = document.getElementById("logincomponents");
-                    loading.style.visibility = "visible";
-                    loading = document.getElementById("firebaseui-auth-container");
-                    loading.style.display = "none";
+//                    ShowSomething(document.getElementById("logincomponents"));
+//                    loading.style.visibility = "visible";
+                    //HideSomething(document.getElementById("firebaseui-auth-container"));
+//                    loading.style.display = "none";
 
 
                     var displayName = user.displayName;
@@ -238,6 +243,8 @@
                     ShowFbFriend();
 
                     console.log(getdata.isaproperty(uid, "classes"));
+                    var message = document.getElementById('importantmessage');
+                    var alllogin = document.getElementById('logincomponents');
                     if (getdata.isaproperty(uid, "classes")) {
 
                         console.log("No data available locally");
@@ -247,25 +254,42 @@
                         starCountRef.on('value', function (snapshot) {
                             var a = snapshot.val();
                             console.log(a);
-                            if (a == null) { //upload,download,success,error
 
+                            if (a == null) { //upload,download,success,error
+                                ShowSomething(document.getElementById("logincomponents"));
                                 drawoncalendar(null, "my");
                             } else if (a != null && a.indexOf("ERR") != -1) {
                                 alert("Error: Contact Us \n" + a);
+                                ShowSomething(document.getElementById("logincomponents"));
+                                ShowSomething(message);
+                                WriteText(message, "Error occured while processing your timetable, contact us.");
+                                drawoncalendar(null, "my");
+
                             }
                             else if (a == "UPLOAD") {
-                                alert("Upload");
-                                document.getElementById("timetableuploadtab").style.visibility = "hidden";
-                                loading.style.visibility = "hidden";
+                                alert("Uploaded successfully");
+                                HideSomething(alllogin);
+                                ShowSomething(message);
+                                WriteText(message, "Uploaded successfully, will be processed soon.");
 
                                 //TODO add hiding all tabs code
                             }
                             else if (a == "DOWNLOADED") {
                                 alert("Your file is currently being proccessed!");
+                                HideSomething(alllogin);
+                                ShowSomething(message);
+                                WriteText(message, "Your file is being processed right now, hang tight..");
+
                             }
                             else if (a == "SUCCESS") {
                                 timetablesur = getdata.getdatafromdb(uid, "classes");
-                                document.getElementById('importantmessage').style.display = "block"
+                                /*ShowSomething(alllogin);
+                                HideSomething(message);
+
+                                ShowSomething(document.getElementById("calendarviewtab"));
+                                ShowSomething(document.getElementById("listviewtab"));
+
+                                $('ul.tabs').tabs('select_tab', 'calendarviewtab');*/
 //                                console.log(timetablesur);
 //                                drawoncalendar(timetablesur, "my");
 //                                alert("You're now on your way!");
@@ -276,8 +300,20 @@
                     } else {
                         //JUST LOAD DATA from localstorage.
                         console.log("Data available locally");
+
+
+                        ShowSomething(alllogin);
+                        ShowSomething(document.getElementById('calendar'));
+                        HideSomething(message);
+
+                        ShowSomething(document.getElementById("calendarviewtab"));
+                        ShowSomething(document.getElementById("listviewtab"));
+                        ShowSomething(document.getElementById('calendar'));
+
                         timetablesur = getdata.getproperty(uid, "classes");
                         drawoncalendar(timetablesur, "my");
+
+                        $('ul.tabs').tabs('select_tab', 'calendarviewtab');
                     }
 //
 //
@@ -508,7 +544,9 @@
 
 
             try {
+
                 calendar = $('#calendar');
+                console.log(calendar);
                 calendar.fullCalendar({
                     editable: false,
                     handleWindowResize: true,
@@ -545,6 +583,7 @@
                 });
             } catch (err) {
                 //
+                console.log(err);
             }
 
         });
@@ -661,7 +700,7 @@
             try {
                 for (i = 0; i < response.length; i++) {
 
-                    autocompletefbdata[response[i].name] = 'profilepicdefault.png';
+                    autocompletefbdata[response[i].name] = null;
                     //////console.log(response[i]);
                     $("#listfacebookfriends").append("<li onclick='drawFriendOnCalendar(" + response[i].id + ")' class='collection-item'><div>" + response[i].name + "</div>" + "</li>");
                 }
@@ -678,6 +717,8 @@
             onAutocomplete: function (val) {
                 alert("Compare with " + val + "?");
 
+
+
             },
             minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
         });
@@ -686,6 +727,10 @@
 
     function HideSomething(a) {
         a.style.display = "none";
+    }
+    function ShowSomething(a) {
+        a.style.display = "block";
+        a.style.visibility = "visible";
     }
     function sendClassSwapPref() {
 
@@ -848,7 +893,7 @@
                     Upload</a></li>
             </ul>
 
-            <div id="non-timetable">
+
                 <br>
 
                 <div class="col s12" id="calendarview">
@@ -908,7 +953,7 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+
 
             <div class="col s12 " id="timetableupload">
 
