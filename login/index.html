@@ -854,6 +854,7 @@
                     var starCountRef = firebase.database().ref('users/' + uid + '/viewedby/');
                     starCountRef.once('value').then(function (snapshot) {
 
+                        $('#viewing_recent').html("");
                         console.log(a);
                         var a = snapshot.val();
                         for (var each in a) {
