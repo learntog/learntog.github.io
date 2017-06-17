@@ -23,3 +23,38 @@
                 </script>
                 <!--<script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>-->
             </div>
+
+
+
+
+
+
+if (mates[i] != uid) {
+
+
+                            var sta = firebase.database().ref('id_to_facebook/' + mates[i]);
+                            sta.once('value').then(function (snapshot) {
+
+
+                                var a = snapshot.val();
+                                if (a != null) {
+                                    processedfbfriends[mates[i]] = a;
+                                    if (myfbfriends[a] != null) {
+                                        var htm = "<li class=\"collection-item\">" +
+                                                "<div>" + myfbfriends[a] + "<a target='_blank' href=\"//facebook.com/" + a + "\" class=\"secondary-content\"><i class=\"material-icons\">compare</i></a></div></li>"
+
+                                        $("#class_fb_friends").append(htm);
+                                    }
+                                }
+                            });
+
+                            var star = firebase.database().ref('users/' + mates[i] + '/display_name/');
+                            star.once('value').then(function (snapshot) {
+
+                                var htm = "<li class=\"collection-item\">" +
+                                    "<div>" + snapshot.val() + "<a href=\"#!\" class=\"secondary-content\"><i class=\"material-icons\">compare</i></a></div></li>"
+
+                                $("#other_class_friends").append(htm);
+
+                            });
+                        }

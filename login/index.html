@@ -89,6 +89,9 @@
                     });
 //
                 }
+                if (property == 'idtofid') {
+
+                }
             },
 
 
@@ -389,6 +392,10 @@
                     var friend_tt = snapshot.val();
 
                     toggleload();
+
+                    console.log("/users/" + uid_fb_friend + "/viewedby/" + uid);
+                    firebase.database().ref("/users/" + uid_fb_friend + "/viewedby/" + uid).set({time: new Date().toJSON()});
+
                     drawoncalendar(friend_tt, "friend");
 
                 });
@@ -494,35 +501,8 @@
                     for (i = 0; i < mates.length; i++) {
                         //get name and append it..
 
-                        if (mates[i] != uid) {
+                        //TODO find an effective way of storing thses.
 
-
-                            var sta = firebase.database().ref('id_to_facebook/' + mates[i]);
-                            sta.once('value').then(function (snapshot) {
-
-
-                                var a = snapshot.val();
-                                if (a != null) {
-                                    processedfbfriends[mates[i]] = a;
-                                    if (myfbfriends[a] != null) {
-                                        var htm = "<li class=\"collection-item\">" +
-                                                "<div>" + myfbfriends[a] + "<a target='_blank' href=\"//facebook.com/" + a + "\" class=\"secondary-content\"><i class=\"material-icons\">compare</i></a></div></li>"
-
-                                        $("#class_fb_friends").append(htm);
-                                    }
-                                }
-                            });
-
-                            var star = firebase.database().ref('users/' + mates[i] + '/display_name/');
-                            star.once('value').then(function (snapshot) {
-
-                                var htm = "<li class=\"collection-item\">" +
-                                    "<div>" + snapshot.val() + "<a href=\"#!\" class=\"secondary-content\"><i class=\"material-icons\">compare</i></a></div></li>"
-
-                                $("#other_class_friends").append(htm);
-
-                            });
-                        }
                     }
                     ////console.log(listoffriendsinclass);
 
@@ -716,6 +696,10 @@
             }
         }
 
+        for (var id in myfbfriends) {
+            idtofidlookup = getdata.getproperty(uid, 'idtofid');
+        }
+
 
         console.log(myfbfriends);
 
@@ -863,6 +847,25 @@
                 $(document).ready(function () {
                     $('.modal').modal();
                 });
+
+                function showPreviousViews() {
+
+
+                    var starCountRef = firebase.database().ref('users/' + uid + '/viewedby/');
+                    starCountRef.once('value').then(function (snapshot) {
+
+                        console.log(a);
+                        var a = snapshot.val();
+                        for (var each in a) {
+                            $('#viewing_recent').append("<tr><td>" + each + "</td><td>" + a[each].time + "</td></tr>");
+                        }
+                    });
+
+                    $('#modalsrs').modal('open');
+
+
+                }
+
             </script>
 
 
@@ -884,6 +887,13 @@
             <ul class="show-on-med-and-down">
                 <li><a href="#" data-activates="slide-out" class="button-collapse"><i
                         class="material-icons right">menu</i></a></li>
+            </ul>
+
+            <ul class="right hide-on-med-and-down">
+                <!--<li><a href="sass.html"><i class="material-icons">remove_red_eye</i></a></li>-->
+                <li><a onclick="showPreviousViews()" href="#"><i class="material-icons">view_module</i></a></li>
+                <!--<li><a href="collapsible.html"><i class="material-icons">refresh</i></a></li>
+                <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>-->
             </ul>
 
 
@@ -1219,7 +1229,15 @@
 </div>
 <div id="modalsrs" class="modal">
     <div class="modal-content">
-        <h4>You can email us here!</h4>
+        <h4>Recently viewed</h4>
+        <table id="viewing_recent">
+            <thead>
+            <tr>
+                <td>Who</td>
+                <td>When</td>
+            </tr>
+            </thead>
+        </table>
 
     </div>
 
