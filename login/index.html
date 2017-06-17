@@ -42,15 +42,15 @@
             $("#calendar").toggleClass("opaque");
         }
 
+
         var getdata = {
-            ret: function (val) {
-                return val;
-            },
+            a: 1234,
             setfacebook: function (uid, data) {
                 if (typeof data == 'string') {
                     localStorage.setItem(uid + "facebook_friends", data);
                 } else {
                     localStorage.setItem(uid + "facebook_friends", JSON.stringify(data));
+
                 }
             },
             getfacebook: function (uid) {
@@ -68,43 +68,50 @@
                 }
             },
 
+            getdatafromdb: function (uid, property) {
+                if (property == 'classes') {
+                    ////console.log("in");
+                    var starCountRef = firebase.database().ref('users/' + uid + '/classes/');
+                    starCountRef.once('value').then(function (snapshot) {
 
-            getproperty: function (uid, property) {
-                ////console.log(localStorage.getItem(uid + property));
-                if (localStorage.getItem(uid + property) != null) {
-                    console.log("fetched from local");
-                    if (JSON.parse(localStorage.getItem(uid + property)) != null) {
-                        return JSON.parse(localStorage.getItem(uid + property));
-                    } else {
-                        localStorage.removeItem(uid + property);
-                    }
-                } else {
-                    ////console.log("inekse");
-                    if (property == 'classes') {
-                        ////console.log("in");
-                        var starCountRef = firebase.database().ref('users/' + uid + '/classes/');
-                        starCountRef.once('value').then(function (snapshot) {
+                        var classes = snapshot.val();
+                        console.log("fetching from database");
+                        if (classes != null || classes != undefined) {
+                            getdata.setproperty(uid, classes, property);
+                            timetablesur = classes;
+                            drawoncalendar(timetablesur, "my");
+                        } else {
+                            return null;
 
-                            var classes = snapshot.val();
-                            console.log("fetching from database");
-                            if (classes != null || classes != undefined) {
-
-                                getdata.setproperty(uid, classes, property);
-                                location.reload();
-                            } else {
-                                return null;
-                            }
-                        });
-                    }
+                        }
+                    });
+//
                 }
             },
 
 
+
+            isaproperty: function (uid, property) {
+                return localStorage.getItem(uid+property) == null || localStorage.getItem(uid+property) == "" ;
+            },
+            getproperty: function (uid, property) {
+                console.log(localStorage.getItem(uid + property));
+                if (localStorage.getItem(uid + property) != null && JSON.parse(localStorage.getItem(uid + property)) != null) {
+                    console.log("in if: fetched from local");
+                    return JSON.parse(localStorage.getItem(uid + property));
+                }
+                else {
+                    return null;
+                }
+            },
+
             setproperty: function (uid, data, property) {
-                if (typeof data == 'string') {
+                if (typeof data == 'string' && data != null) {
                     localStorage.setItem(uid + property, data);
                 } else {
-                    localStorage.setItem(uid + property, JSON.stringify(data));
+                    if(data!=null) {
+                        localStorage.setItem(uid + property, JSON.stringify(data));
+                    }
                 }
             },
 
@@ -231,20 +238,61 @@
 
                     ShowFbFriend();
 
+                    console.log(getdata.isaproperty(uid, "classes"));
+                    if(getdata.isaproperty(uid, "classes")) {
 
-                    timetablesur = getdata.getproperty(uid, "classes");
+                        console.log("No data available locally");
+                        //check requests tree.. set up an event listener
+                        //TODO If data exists in local storage
+                        var starCountRef = firebase.database().ref('requests/' + uid + '/status');
+                        starCountRef.on('value', function (snapshot) {
+                            var a = snapshot.val();
+                            if (a == null || a.indexOf("ERR") != -1) { //upload,download,success,error
+                                if (a.indexOf("ERR") != -1) {
+                                    alert("Error: Contact Us \n" + a);
+                                }
+                                drawoncalendar(null, "my");
+                            }
+                            else if (a == "UPLOAD") {
+                                alert("Upload");
+                                loading = document.getElementById("timetableuploadtab");
+                                loading.style.visibility = "hidden";
 
-                    if (timetablesur === undefined) {
+                                //TODO add hiding all tabs code
+                            }
+                            else if (a == "DOWNLOADED") {
+                                alert("Your file is currently being proccessed!");
+                            }
+                            else if (a == "SUCCESS") {
+                                timetablesur = getdata.getdatafromdb(uid, "classes");
+//                                console.log(timetablesur);
+//                                drawoncalendar(timetablesur, "my");
+//                                alert("You're now on your way!");
+                                //check if data exist -> localstorage
+                            }
+//                        alert(snapshot.val());
+                        });
+                    }else{
+                        //JUST LOAD DATA from localstorage.
+                        console.log("Data available locally");
                         timetablesur = getdata.getproperty(uid, "classes");
-                    } else {
-
                         drawoncalendar(timetablesur, "my");
                     }
-
-                    if (timetablesur == undefined) {
-                        drawoncalendar(timetablesur, "my");
-                    }
-                    console.log(timetablesur);
+//
+//
+//                    timetablesur = getdata.getproperty(uid, "classes");
+//
+//                    if (timetablesur === undefined) {
+//                        timetablesur = getdata.getproperty(uid, "classes");
+//                    } else {
+//
+//                        drawoncalendar(timetablesur, "my");
+//                    }
+//
+//                    if (timetablesur == undefined) {
+//                        drawoncalendar(timetablesur, "my");
+//                    }
+//                    console.log(timetablesur);
 
 
                     /*console.log(timetablesur);
