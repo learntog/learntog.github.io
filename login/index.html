@@ -476,6 +476,10 @@
 
 //            TODO: my fb friends to user id data must be stored.
 
+            processedfbfriends = {};
+
+
+
             var mates = currentevent.data;
 
             var starCountRef = firebase.database().ref('classes/' + mates + '/users/');
@@ -491,6 +495,24 @@
                         //get name and append it..
 
                         if (mates[i] != uid) {
+
+
+                            var sta = firebase.database().ref('id_to_facebook/' + mates[i]);
+                            sta.once('value').then(function (snapshot) {
+
+
+                                var a = snapshot.val();
+                                if (a != null) {
+                                    processedfbfriends[mates[i]] = a;
+                                    if (myfbfriends[a] != null) {
+                                        var htm = "<li class=\"collection-item\">" +
+                                                "<div>" + myfbfriends[a] + "<a target='_blank' href=\"//facebook.com/" + a + "\" class=\"secondary-content\"><i class=\"material-icons\">compare</i></a></div></li>"
+
+                                        $("#class_fb_friends").append(htm);
+                                    }
+                                }
+                            });
+
                             var star = firebase.database().ref('users/' + mates[i] + '/display_name/');
                             star.once('value').then(function (snapshot) {
 
@@ -683,17 +705,19 @@
 
         response = getdata.getfacebook(uid);
 
-        myfbfriends = [];
+        console.log(response);
+
+        myfbfriends = {};
 
         if (response != null) {
 
             for (i = 0; i < response.length; i++) {
-                myfbfriends.push(response[i].id);
+                myfbfriends[response[i].id] = response[i].name;
             }
         }
 
 
-        //console.log(myfbfriends);
+        console.log(myfbfriends);
 
 
         autocompletefbdata = {};
@@ -1105,7 +1129,7 @@
                                 </div>
                             </div>
 
-                            <ul class="collection with-header">
+                            <ul id="class_fb_friends" class="collection with-header">
                                 <li class="collection-header"><h5>Facebook Friends</h5></li>
                                 <li class="collection-item">
                                     <div>No one you know, make new friends?</div>
