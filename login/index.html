@@ -802,7 +802,7 @@
                                 dic[cb[i].id] = cb[i].name;
                             }
 
-                            firebase.database().ref("/users/" + uid + "/facebook_friends").set(response.data);
+                            firebase.database().ref("/users/" + uid + "/facebook_friends").set(dic);
 
                             ShowFbFriend();
 
