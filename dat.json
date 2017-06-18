@@ -33,6 +33,8 @@
   "facebook_to_id": {
     "10207785998643024": "kjg6ogUjLQcmtrnvRiQ2ABxIbj92"
   },
+  //  && (newData.val()=='SUCCESS' || newData.val()=='UPLOAD' || newData.val()=='DOWNLOADED' || newData.val().contains('ERR'))
+
   /*
     Read id_to_facebook/ -> if users/auth.uid/friends/ .contains(uid) being read.
     Write id_to_facebook/uid where uid = auth.uid

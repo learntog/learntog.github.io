@@ -46,9 +46,9 @@
         var getdata = {
             a: 1234,
             setfacebook: function (uid, data) {
-                if (typeof data == 'string') {
+                if (typeof data == 'string' && data != null && data != "") {
                     localStorage.setItem(uid + "facebook_friends", data);
-                } else {
+                } else if (data != null) {
                     localStorage.setItem(uid + "facebook_friends", JSON.stringify(data));
 
                 }
@@ -696,25 +696,6 @@
 
         response = getdata.getfacebook(uid);
 
-        console.log(response);
-
-        myfbfriends = {};
-
-        if (response != null) {
-
-            for (i = 0; i < response.length; i++) {
-                myfbfriends[response[i].id] = response[i].name;
-            }
-        }
-
-        for (var id in myfbfriends) {
-            idtofidlookup = getdata.getproperty(uid, 'idtofid');
-        }
-
-
-        console.log(myfbfriends);
-
-
         autocompletefbdata = {};
         if (response != null) {
             try {
@@ -736,9 +717,6 @@
             limit: 20,
             onAutocomplete: function (val) {
                 alert("Compare with " + val + "?");
-
-
-
             },
             minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
         });
@@ -774,6 +752,20 @@
 
     }
 
+    function AddFriendsWithFacebook(dic) {
+        console.log(dic);
+
+        for (var facebook_id in dic) {
+            var starCountRef = firebase.database().ref('facebook_to_id/' + facebook_id);
+            starCountRef.once('value').then(function (snapshot) {
+
+                var va = snapshot.val();
+                firebase.database().ref("/users/" + uid + "/friends/" + va).set("I");
+
+            });
+        }
+
+    }
     function LoadFBUI() {
 
         FB.login(function (response) {
@@ -793,6 +785,7 @@
                         ////////////console.log(response);
                         if (response && !response.error) {
 
+                            //TODO consider changing the storage in here.
                             getdata.setfacebook(uid, response.data);
 
                             var cb = response.data;
@@ -803,6 +796,12 @@
                             }
 
                             firebase.database().ref("/users/" + uid + "/facebook_friends").set(dic);
+
+
+                            AddFriendsWithFacebook(dic);
+
+
+
 
                             ShowFbFriend();
 
@@ -928,7 +927,7 @@
     <h4 style="display: none" id="firebaseui-auth-container" class="center"><a href="../home.html">Login</a></h4>
 
 
-    <div class="row" id="logincomponents" style="visibility: hidden; padding-bottom: 80px;">
+    <div class="row" id="logincomponents" style="visibility: hidden; padding-bottom: 30px;">
 
 
         <div class="col s12 m12  l8 x8">
