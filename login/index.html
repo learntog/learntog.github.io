@@ -60,6 +60,7 @@
                     var starCountRef = firebase.database().ref('users/' + uid + '/facebook_friends/');
                     starCountRef.once('value').then(function (snapshot) {
 
+                        //TODO convert this to list here from dictionary format.
                         var friends = snapshot.val();
                         getdata.setfacebook(uid, friends);
                         return friends;
