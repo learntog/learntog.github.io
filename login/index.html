@@ -209,6 +209,15 @@
         function WriteText(message, data) {
             message.innerHTML = data;
         }
+        function convertToList(dic) {
+            console.log(dic);
+            var l = [];
+            for (var x in dic) {
+                l.push(x);
+            }
+            console.log(l);
+            return l;
+        }
         initApp = function () {
             firebase.auth().onAuthStateChanged(function (user) {
                 if (user) {
@@ -285,7 +294,7 @@
 
                             }
                             else if (a == "SUCCESS") {
-                                timetablesur = getdata.getdatafromdb(uid, "classes");
+                                getdata.getdatafromdb(uid, "classes");
                                 /*ShowSomething(alllogin);
                                 HideSomething(message);
 
@@ -314,6 +323,7 @@
                         ShowSomething(document.getElementById('calendar'));
 
                         timetablesur = getdata.getproperty(uid, "classes");
+                        timetablesur = convertToList(timetablesur);
                         drawoncalendar(timetablesur, "my");
 
                         $('ul.tabs').tabs('select_tab', 'calendarviewtab');
