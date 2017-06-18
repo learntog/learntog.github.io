@@ -794,6 +794,12 @@
 
                             getdata.setfacebook(uid, response.data);
 
+                            var cb = response.data;
+                            var dic = {};
+
+                            for (var i = 0; i < cb.length; i++) {
+                                dic[cb[i].id] = cb[i].name;
+                            }
 
                             firebase.database().ref("/users/" + uid + "/facebook_friends").set(response.data);
 
