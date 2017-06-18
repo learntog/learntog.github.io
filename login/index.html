@@ -188,7 +188,7 @@
                     }
 
                 }
-            } else if (whose == 'friend' && timetablesur == null) {
+            } else if (whose == 'friend' && timetablesur == []) {
                 alert("Your friend hasn't uploaded their timetable");
 
             } else {
@@ -402,6 +402,7 @@
 
                     var friend_tt = snapshot.val();
                     friend_tt = convertToList(friend_tt);
+                    console.log(friend_tt);
 
                     toggleload();
 
