@@ -760,7 +760,9 @@
             starCountRef.once('value').then(function (snapshot) {
 
                 var va = snapshot.val();
-                firebase.database().ref("/users/" + uid + "/friends/" + va).set("I");
+                if (va != null) {
+                    firebase.database().ref("/users/" + uid + "/friends/" + va).set("I");
+                }
 
             });
         }
