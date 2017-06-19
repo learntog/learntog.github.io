@@ -160,33 +160,41 @@
                     var cl = timetablesur[i];
 
                     var cld = cl.split("*");
-                    var day = cld[2];
-                    var time = cld[3];
-                    var hour = time.split(":")[0];
-                    var min = time.split(":")[1];
+
+                    var semester2 = cld[cld.length - 1].split("!!")[0].indexOf('1') == -1;
 
 
-                    var weektoday = {Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6};
+                    if (semester2) {
+                        var day = cld[2];
+                        var time = cld[3];
+                        var hour = time.split(":")[0];
+                        var min = time.split(":")[1];
 
-                    var start = thisWeekDay(weektoday[day]);
 
-                    start.setHours(hour);
-                    start.setMinutes(min);
-                    start.setSeconds(0);
+                        var weektoday = {Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6};
 
-                    var unit = cld[0];
-                    if (unitcolor['friendstatic'] == null) {
-                        unitcolor['friendstatic'] = getRandomColor();
-                    }
+                        var start = thisWeekDay(weektoday[day]);
 
-                    if (whose == "my") {
-                        //////////console.log(unit, unitcolor);
-                        if (unitcolor[unit] == null) {
-                            unitcolor[unit] = getRandomColor();
+                        start.setHours(hour);
+                        start.setMinutes(min);
+                        start.setSeconds(0);
+
+                        var unit = cld[0];
+                        if (unitcolor['friendstatic'] == null) {
+                            unitcolor['friendstatic'] = getRandomColor();
                         }
-                        createEventCalendarWithTime(unitcolor[unit], start, "---", cld[0], cld[5], timetablesur[i]);
+
+                        if (whose == "my") {
+                            //////////console.log(unit, unitcolor);
+                            if (unitcolor[unit] == null) {
+                                unitcolor[unit] = getRandomColor();
+                            }
+                            createEventCalendarWithTime(unitcolor[unit], start, "---", cld[0], cld[5], timetablesur[i]);
+                        } else {
+                            createEventCalendarWithTime(unitcolor['friendstatic'], start, null, cld[0], cld[5], timetablesur[i]);
+                        }
                     } else {
-                        createEventCalendarWithTime(unitcolor['friendstatic'], start, null, cld[0], cld[5], timetablesur[i]);
+                        //non semester 1 class.
                     }
 
                 }
