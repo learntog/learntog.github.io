@@ -684,6 +684,7 @@
             var starCountRef = firebase.database().ref('facebook_to_id/' + facebook_id);
             starCountRef.once('value').then(function (snapshot) {
                 var va = snapshot.val();
+                console.log(va);
                 if (va != null) {
                     firebase.database().ref("/users/" + uid + "/friends/" + va).set("I");
                     GenerateMyFriendLookup(va, facebook_id);
