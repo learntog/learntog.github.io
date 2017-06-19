@@ -618,7 +618,7 @@
         autocompletefbdata = {};
         if (response != null) {
             //TODO show logout facebook button.
-            $("#listfacebookfriends").html("");
+            $("#listfacebookfriends").html("<li class=\"collection-header\"><a><h6 onclick=\"LoadFBUI()\">Connect to facebook</h6></a></li>");
             try {
                 for (i = 0; i < response.length; i++) {
 
@@ -1077,8 +1077,7 @@
 
                     <ul id="listfacebookfriends" style=" overflow-y: auto; max-height: 600px;"
                         class="collection with-header">
-                        <li class="collection-header"><a><h6 onclick="LoadFBUI()">Connect to facebook</h6></a>
-                        </li>
+
 
                     </ul>
                     <ul id="otheraddedfriends" style="max-height: 250px;" class="collection with-header">
