@@ -5,23 +5,25 @@
     <title>Connect and Learn together</title>
 
     <!-- Basic SEO metadata -->
-    <meta property="description" content=""/>
-    <meta property="keywords" content=""/>
-    <meta name="copyright" content=""/>
+    <meta property="description"
+          content="Where Monash Students Connect and Learntogether. Compare timetables at Monash University. and collaborate with friends"/>
+    <meta property="keywords" content="Unilyf Monash, Learntog Monash, Compare timetable with friends Monash"/>
+    <meta name="copyright" content="_________"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0"/>
 
 
-    <meta property="og:url" content="http://www.your-domain.com/your-page.html"/>
+    <meta property="og:url" content="https://learntog.github.io/login/"/>
     <meta property="og:type" content="website"/>
-    <meta property="og:title" content="Your Website Title"/>
-    <meta property="og:description" content="Your description"/>
-    <meta property="og:image" content="http://www.your-domain.com/path/image.jpg"/>
+    <meta property="og:title" content="Unilyf Monash - Connect and LearnTogether"/>
+    <meta property="og:description" content="Where Monash University students connect with each other and learn."/>
+    <meta property="og:image" content=""/>
+    <!--TODO add the og:image parameter-->
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.0/fullcalendar.css'/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--<link rel="stylesheet" href="calendar.css"/>-->
+
 
 
     <script
@@ -33,7 +35,7 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.0/fullcalendar.min.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
 
-    <!--<script src="../js/data.js"></script>-->
+
     <script src="../js/analytics.js"></script>
 
     <script>
@@ -44,7 +46,6 @@
 
 
         var getdata = {
-            a: 1234,
             setfacebook: function (uid, data) {
                 if (typeof data == 'string' && data != null && data != "") {
                     localStorage.setItem(uid + "facebook_friends", data);
@@ -71,42 +72,45 @@
 
             getdatafromdb: function (uid, property) {
                 if (property == 'classes') {
-                    //////console.log("in");
                     var starCountRef = firebase.database().ref('users/' + uid + '/classes/');
                     starCountRef.once('value').then(function (snapshot) {
 
                         var classes = snapshot.val();
-                        //console.log("fetching from database");
                         if (classes != null || classes != undefined) {
                             getdata.setproperty(uid, classes, property);
                             timetablesur = classes;
-//                            drawoncalendar(timetablesur, "my");
                             location.reload();
                         } else {
                             alert("Contact us.. quote (that impossible null returned from getdatafromdb)");
                             return null;
-
                         }
                     });
-//
                 }
-                if (property == 'idtofid') {
+                if (property == 'friends') {
+                    console.log('in friends');
+                    var starCountRe = firebase.database().ref('users/' + uid + '/friends/');
+                    starCountRe.once('value').then(function (snapshot) {
 
+                        var friends = snapshot.val();
+                        //console.log("fetching from database");
+                        if (friends != null || friends != undefined) {
+                            getdata.setproperty(uid, friends, "friends");
+                            myfriends = friends;
+                        }
+                    });
                 }
             },
-
 
             isaproperty: function (uid, property) {
                 return localStorage.getItem(uid + property) == null || localStorage.getItem(uid + property) == "";
             },
             getproperty: function (uid, property) {
-                //console.log(localStorage.getItem(uid + property));
+
                 if (localStorage.getItem(uid + property) != null && JSON.parse(localStorage.getItem(uid + property)) != null) {
-                    //console.log("in if: fetched from local");
                     return JSON.parse(localStorage.getItem(uid + property));
                 }
                 else {
-                    return null;
+                    getdata.getdatafromdb(uid, property);
                 }
             },
 
@@ -144,6 +148,7 @@
             }
 
         }
+
         uid = "";
 
         weektodays = {Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6};
@@ -155,18 +160,16 @@
                     var cl = timetablesur[i];
 
                     var cld = cl.split("*");
-                    //////console.log(cld);
                     var day = cld[2];
                     var time = cld[3];
                     var hour = time.split(":")[0];
                     var min = time.split(":")[1];
 
-//                        createEventCalendarWithTime(color, start, end, title, duration)
 
                     var weektoday = {Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6};
-                    ////////console.log(thisWeekDay(weektoday[day]));
+
                     var start = thisWeekDay(weektoday[day]);
-                    ////////console.log(start);
+
                     start.setHours(hour);
                     start.setMinutes(min);
                     start.setSeconds(0);
@@ -175,13 +178,12 @@
                     if (unitcolor['friendstatic'] == null) {
                         unitcolor['friendstatic'] = getRandomColor();
                     }
+
                     if (whose == "my") {
                         //////////console.log(unit, unitcolor);
                         if (unitcolor[unit] == null) {
                             unitcolor[unit] = getRandomColor();
                         }
-
-
                         createEventCalendarWithTime(unitcolor[unit], start, "---", cld[0], cld[5], timetablesur[i]);
                     } else {
                         createEventCalendarWithTime(unitcolor['friendstatic'], start, null, cld[0], cld[5], timetablesur[i]);
@@ -189,6 +191,7 @@
 
                 }
             } else if (whose == 'friend' && (timetablesur == [] || timetablesur.length == 0)) {
+                //TODO do a better check here
                 alert("Your friend hasn't uploaded their timetable");
 
             } else {
@@ -200,7 +203,6 @@
                 document.getElementById("listviewtab").style.display = "none";
 
                 addfilelist();
-                //no timetable exists.
 
                 $('ul.tabs').tabs('select_tab', 'timetableupload');
 
@@ -211,26 +213,16 @@
             message.innerHTML = data;
         }
         function convertToList(dic) {
-            console.log(dic);
             var l = [];
             for (var x in dic) {
                 l.push(x);
             }
-            console.log(l);
             return l;
         }
+
         initApp = function () {
             firebase.auth().onAuthStateChanged(function (user) {
                 if (user) {
-
-
-
-                    ////////////console.log(user);
-//                    ShowSomething(document.getElementById("logincomponents"));
-//                    loading.style.visibility = "visible";
-                    //HideSomething(document.getElementById("firebaseui-auth-container"));
-//                    loading.style.display = "none";
-
 
                     var displayName = user.displayName;
                     var email = user.email;
@@ -238,8 +230,6 @@
                     var photoURL = user.photoURL;
                     uid = user.uid;
 
-
-                    ////////////console.log(displayName+email+emailVerified+photoURL+uid);
                     user.getIdToken().then(function (accessToken) {
 
                         uid = user.uid;
@@ -255,18 +245,16 @@
 
                     ShowFbFriend();
 
-                    //console.log(getdata.isaproperty(uid, "classes"));
+                    myfriends = getdata.getproperty(uid, 'friends');
+
                     var message = document.getElementById('importantmessage');
                     var alllogin = document.getElementById('logincomponents');
                     if (getdata.isaproperty(uid, "classes")) {
 
-                        //console.log("No data available locally");
-                        //check requests tree.. set up an event listener
-                        //TODO If data exists in local storage
                         var starCountRef = firebase.database().ref('requests/' + uid + '/status');
                         starCountRef.on('value', function (snapshot) {
                             var a = snapshot.val();
-                            //console.log(a);
+
 
                             if (a == null) { //upload,download,success,error
                                 ShowSomething(document.getElementById("logincomponents"));
@@ -296,24 +284,10 @@
                             }
                             else if (a == "SUCCESS") {
                                 getdata.getdatafromdb(uid, "classes");
-                                /*ShowSomething(alllogin);
-                                HideSomething(message);
-
-                                ShowSomething(document.getElementById("calendarviewtab"));
-                                ShowSomething(document.getElementById("listviewtab"));
-
-                                $('ul.tabs').tabs('select_tab', 'calendarviewtab');*/
-//                                //console.log(timetablesur);
-//                                drawoncalendar(timetablesur, "my");
-//                                alert("You're now on your way!");
-                                //check if data exist -> localstorage
                             }
-//                        alert(snapshot.val());
+//
                         });
                     } else {
-                        //JUST LOAD DATA from localstorage.
-                        //console.log("Data available locally");
-
 
                         ShowSomething(alllogin);
                         ShowSomething(document.getElementById('calendar'));
@@ -329,41 +303,11 @@
 
                         $('ul.tabs').tabs('select_tab', 'calendarviewtab');
                     }
-//
-//
-//                    timetablesur = getdata.getproperty(uid, "classes");
-//
-//                    if (timetablesur === undefined) {
-//                        timetablesur = getdata.getproperty(uid, "classes");
-//                    } else {
-//
-//                        drawoncalendar(timetablesur, "my");
-//                    }
-//
-//                    if (timetablesur == undefined) {
-//                        drawoncalendar(timetablesur, "my");
-//                    }
-//                    //console.log(timetablesur);
-
-
-                    /*//console.log(timetablesur);
-                     if(timetablesur===undefined){
-                     //Error
-                     }else {
-                     ////console.log(timetablesur);
-                     drawoncalendar(timetablesur, "my");
-                     }*/
-                    /*var starCountRef = firebase.database().ref('users/' + uid + '/classes/');
-                     starCountRef.once('value').then(function (snapshot) {
-
-                     timetablesur = snapshot.val();
-                     drawoncalendar(timetablesur, "my");
-
-                     });*/
-
 
                 } else {
 
+                    //User is logged out.
+                    //TODO check this more carefully for event listenening.
 
                     loading = document.getElementById("logincomponents");
                     loading.style.display = "none";
@@ -376,7 +320,7 @@
 
                 }
             }, function (error) {
-
+                alert("Error signing in\n" + error);
             });
         };
         window.addEventListener('load', function () {
@@ -391,6 +335,8 @@
 
         function drawFriendOnCalendar(fuid) {
             toggleload();
+            //TODO add read permission denied, val not found check. Pass on null to drawfunction.
+            //TODO store the facebook friend -> uid locally.
             var starCountRef = firebase.database().ref('facebook_to_id/' + fuid);
             starCountRef.once('value').then(function (snapshot) {
 
@@ -417,30 +363,20 @@
         }
 
         function elementin(l, e) {
-            var found = false;
-            for (i = 0; i < l.length; i++) {
-                if (l[i] === e) {
-                    return true;
-                }
-            }
-            return found;
+            return e in l;
         }
         function getnondup(units, timetablesur) {
             var o = [];
             for (i = 0; i < units.length; i++) {
-                ////console.log(!elementin(timetablesur, units[i]));
                 if (!elementin(timetablesur, units[i])) {
                     o.push(units[i]);
-                    ////console.log(o);
                 }
             }
-            ////console.log(o);
             return o;
         }
 
         function showInfoModal(currentevent) {
 
-            //only show the swaps where teh user is not enrolled in
             var data = currentevent.data.split("*");
 
             currentclassselected = currentevent;
@@ -457,11 +393,7 @@
                     units.splice(i, 1);
                 }
 
-                ////console.log(units);
-
-
                 var o = units;
-
 
                 $("#dropdownofswapspossible").innerHTML = "";
 
@@ -485,7 +417,6 @@
                     }
 
                 } else {
-                    //no swapping times avaiblae now
                     $("#dropdownofswapspossible").html("<option disabled >No swaps available</option>");
                 }
 
@@ -494,67 +425,47 @@
 
             });
 
-//            TODO: my fb friends to user id data must be stored.
-
-            processedfbfriends = {};
-
-
 
             var mates = currentevent.data;
 
             var starCountRef = firebase.database().ref('classes/' + mates + '/users/');
             starCountRef.once('value').then(function (snapshot) {
-
                 var mates = snapshot.val();
-
                 if (mates.length >= 1) {
-
                     $("#other_class_friends").html("<p></p>");
-
                     for (i = 0; i < mates.length; i++) {
-                        //get name and append it..
-
                         //TODO find an effective way of storing thses.
-
                     }
-                    ////console.log(listoffriendsinclass);
-
-
                 } else {
                     //No one else in the class..
                 }
             });
 
-
-            //get possible swaps
-
-
             $('#moreinfodialog').modal('open');
 
-
         }
+
         $(document).ready(function () {
             $('.button-collapse').sideNav({
                     menuWidth: 230,
-                    draggable: true// Default is 240
-//                        closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+                draggable: true
                 }
             );
             $('.collapsible').collapsible();
             $('select').material_select();
 
             $('.modal').modal({
-                    dismissible: true, // Modal can be dismissed by clicking outside of the modal
-                    opacity: .99, // Opacity of modal background
-                    inDuration: 300, // Transition in duration
-                    outDuration: 200, // Transition out duration
-                    startingTop: '4%', // Starting top style attribute
-                    endingTop: '10%', // Ending top style attribute
-                    ready: function (modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+                dismissible: true,
+                opacity: .99,
+                inDuration: 300,
+                outDuration: 200,
+                startingTop: '4%',
+                endingTop: '10%',
+                ready: function (modal, trigger) {
 
                     },
                     complete: function () {
-                    } // Callback for Modal close
+                    }
                 }
             );
 
@@ -562,44 +473,34 @@
             try {
 
                 calendar = $('#calendar');
-                //console.log(calendar);
                 calendar.fullCalendar({
                     editable: false,
                     handleWindowResize: true,
-                    weekends: false, // Hide weekends
-                    defaultView: 'agendaWeek', // Only show week view
-//                    height: 700,
+                    weekends: false,
+                    defaultView: 'agendaWeek',
                     contentHeight: 'auto',
-                    header: false,   // Hide buttons/titles
-                    minTime: '08:00:00', // Start time for the calendar
-                    maxTime: '21:00:00', // End time for the calendar
+                    header: false,
+                    minTime: '08:00:00',
+                    maxTime: '21:00:00',
                     columnFormat: {
-                        week: 'ddd' // Only show day of the week names
+                        week: 'ddd'
                     },
                     allDaySlot: false,
                     displayEventTime: true,
                     eventClick: function (event) {
-//                        ////////////console.log(event);
 
                         if (event.e != null) {
 
                             document.getElementById('eventdescription').innerHTML = event.description;
                             document.getElementById('eventtime').innerHTML = event.start._d;
 
-                            ////console.log(event.data);
-
-
                             currentevent = event;
                             showInfoModal(currentevent);
                         }
 
-
                     }
-//                allDayText: 'Online/TBD'
                 });
             } catch (err) {
-                //
-                //console.log(err);
             }
 
         });
@@ -607,26 +508,7 @@
         function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
-        function createEventCalendar(color) {
-            try {
-                newEvent = {};
-                newEvent.title = "Hello";
-                newEvent.description = "Hello world this is my unit";
 
-
-                var d = new Date();
-                x = getRandomInt(8, 18);
-                d.setHours(x);
-                newEvent.start = d;
-                newEvent.end = new Date(newEvent.start + (60 * 60 * 1000));
-                newEvent.allDay = false;
-                newEvent.color = getRandomColor();
-                newEvent.duration = "duration";
-                $('#calendar').fullCalendar('renderEvent', newEvent, 'stick');
-            } catch (err) {
-
-            }
-        }
         function createEventCalendarWithTime(color, start, e, title, duration, data) {
             try {
                 newEvent = {};
@@ -640,7 +522,8 @@
                 newEvent.allDay = false;
                 newEvent.color = color;
                 newEvent.data = data;
-                newEvent.e = e; //TODO add disable fb friends click on calendar.
+                newEvent.e = e;
+
                 $('#calendar').fullCalendar('renderEvent', newEvent, 'stick');
             } catch (err) {
 
@@ -700,17 +583,18 @@
 
         autocompletefbdata = {};
         if (response != null) {
+            //TODO show logout facebook button.
             try {
                 for (i = 0; i < response.length; i++) {
 
                     autocompletefbdata[response[i].name] = null;
-                    ////////console.log(response[i]);
+                    //TODO add a checkbox event change listner to show/hide.
                     $("#listfacebookfriends").append("<li onclick='drawFriendOnCalendar(" + response[i].id + ")' class='collection-item'><div>" + response[i].name + "</div>" + "</li>");
                 }
             } catch (err) {
             }
         } else {
-            //show the fb button...
+            //TODO show connect to facebook button.
         }
 
 
@@ -718,9 +602,10 @@
             data: autocompletefbdata,
             limit: 20,
             onAutocomplete: function (val) {
+                //TODO do something with the value
                 alert("Compare with " + val + "?");
             },
-            minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
+            minLength: 1,
         });
 
     }
@@ -739,54 +624,40 @@
         var aa = null;
         if (a != null) {
             aa = a.split("*");
-
             var unit = aa[0];
             var type = aa[1].replace(/[0-9]/g, '');
-
             var x = [currentclassselected.data, a];
-            //console.log(x);
             firebase.database().ref('swaps/' + unit + "/" + type + "/" + uid).set(x);
-
-
         }
-
-//        currentclassselected
-
     }
 
     function AddFriendsWithFacebook(dic) {
-        console.log(dic);
 
         for (var facebook_id in dic) {
             var starCountRef = firebase.database().ref('facebook_to_id/' + facebook_id);
             starCountRef.once('value').then(function (snapshot) {
-
                 var va = snapshot.val();
                 if (va != null) {
                     firebase.database().ref("/users/" + uid + "/friends/" + va).set("I");
                 }
-
             });
         }
 
     }
     function LoadFBUI() {
-
         FB.login(function (response) {
-
             if (response.authResponse) {
-
                 fuid = response.authResponse.userID;
-
                 firebase.database().ref('facebook_to_id/' + fuid).set(uid);
                 firebase.database().ref('id_to_facebook/' + uid).set(fuid);
+
 
                 //TODO add unique code calendar use.
 
                 FB.api(
                     "/me/friends",
                     function (response) {
-                        ////////////console.log(response);
+
                         if (response && !response.error) {
 
                             //TODO consider changing the storage in here.
@@ -801,14 +672,9 @@
 
                             firebase.database().ref("/users/" + uid + "/facebook_friends").set(dic);
 
-
                             AddFriendsWithFacebook(dic);
 
-
-
-
                             ShowFbFriend();
-
 
                         }
                     }
@@ -837,10 +703,6 @@
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
-    function checkLoginState() {
-        FB.getLoginStatus(function (response) {
-        });
-    }
     uid = 0;
 
 
@@ -854,12 +716,10 @@
             <li>
                 <div class="userView">
 
-
                     <a href="#!user"><img id="profileimage" class="circle" src="profilepicdefault.png"></a>
                     <a href="#!name"><span id="userdisplayname" class="black-text name">  </span></a>
                     <a href="#!email"><span id="useremail" class="black-text email"
                                             style="font-size: 0.8em">  </span></a>
-
                 </div>
             </li>
 
@@ -870,10 +730,9 @@
 
                 function showPreviousViews() {
 
-
                     var starCountRef = firebase.database().ref('users/' + uid + '/viewedby/');
                     starCountRef.once('value').then(function (snapshot) {
-
+                        //TODO convert uid to names.
                         $('#viewing_recent').html("");
                         console.log(a);
                         var a = snapshot.val();
@@ -881,19 +740,18 @@
                             $('#viewing_recent').append("<tr><td>" + each + "</td><td>" + a[each].time + "</td></tr>");
                         }
                     });
-
                     $('#modalsrs').modal('open');
-
-
                 }
 
                 function clearLocalStorage() {
+                    //TODO improve this function a little bit for regular data cleansing.
                     localStorage.clear();
                 }
 
             </script>
 
 
+            <!--TODO disable some links when not logged in-->
             <li><a class="subheader">Actions</a></li>
 
             <li><a onclick="clearLocalStorage()" href="#"><i class="material-icons">create</i>Edit</a></li>
@@ -916,12 +774,8 @@
             </ul>
 
             <ul class="right hide-on-med-and-down">
-                <!--<li><a href="sass.html"><i class="material-icons">remove_red_eye</i></a></li>-->
                 <li><a onclick="showPreviousViews()" href="#"><i class="material-icons">remove_red_eye</i></a></li>
-                <!--<li><a href="collapsible.html"><i class="material-icons">refresh</i></a></li>
-                <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>-->
             </ul>
-
 
         </div>
 
@@ -932,20 +786,14 @@
 <main>
 
 
-    <h4 id="importantmessage" style="display: none">Hello</h4>
+    <h4 id="importantmessage" style="display: none"></h4>
     <h4 style="display: none" id="firebaseui-auth-container" class="center"><a href="../home.html">Login</a></h4>
 
 
     <div class="row" id="logincomponents" style="visibility: hidden; padding-bottom: 30px;">
-
-
         <div class="col s12 m12  l8 x8">
-
-
             <p>My calendar can be accessed by unique code <a onclick="createEventCalendar('red')"><strong>A352J</strong></a>
             </p>
-
-
             <ul id="tabs-swipe-demo" class="tabs">
                 <li class="tab col l3 s4"><a class="active" href="#calendarview" id="calendarviewtab">Calendar View</a>
                 </li>
@@ -953,7 +801,6 @@
                 <li style="visibility: hidden" class="tab col l3 s4"><a href="#timetableupload" id="timetableuploadtab">Timetable
                     Upload</a></li>
             </ul>
-
 
                 <br>
 
@@ -980,24 +827,23 @@
                     </div>
                     <div class="col l12 s12 center">
 
-                        <!--add calendar control here-->
-
+                        <!--TODO add calendar control here-->
 
                     </div>
-
 
                 </div>
 
 
                 <script>
+                    //TODO too many document.ready, merge into one.
                     $(document).ready(function () {
                         $('.collapsible').collapsible();
                     });
-
                 </script>
 
 
-                <div id="tableview" class="col s12 transparent">
+            <div id="tableview" class="col s12">
+                <!--TODO make this functional. -->
                     <b>Click on the class to get details</b>
                     <br>
                     <br>
@@ -1007,18 +853,13 @@
                             <div class="collapsible-body"><span> <b>Location</b> <br>Thursday 6-8pm, 16 Rainforest Walk <br><br> <b>Peers:</b> <br> Ishan, Arni.. </span>
                             </div>
                         </li>
-                        <li>
-                            <div class="collapsible-header">FIT1047 - Lab</div>
-                            <div class="collapsible-body"><span> <b>Location</b> <br>Thursday 6-8pm, 25 Exhibition Walk <br><br> <b>Peers:</b> <br> Ishan, Arni.. </span>
-                            </div>
-                        </li>
                     </ul>
                 </div>
 
 
             <div class="col s12 " id="timetableupload">
 
-
+                <!--TODO make sure this progress bar works-->
                 <div class="progress">
                     <div id="progressbarupload" class="determinate" style="width: 0%"></div>
                 </div>
@@ -1027,46 +868,25 @@
                     function addfilelist() {
                         var dropZone = document.getElementById('dropZone');
 
-                        // Optional.   Show the copy icon when dragging over.  Seems to only work for chrome.
-                        dropZone.addEventListener('dragover', function (e) {
-                            e.stopPropagation();
-                            e.preventDefault();
-                            e.dataTransfer.dropEffect = 'copy';
-                        });
-
                         function upload(file) {
                             if (file.size < 2000000) {
                                 var storageRef = firebase.storage().ref();
                                 var mountainImagesRef = storageRef.child('usertimetable/' + uid);
-                                /*mountainImagesRef.put(file).then(function (snapshot) {
-                                 //////console.log('Uploaded a blob or file!');
-                                 });*/
                                 task = mountainImagesRef.put(file);
                                 task.on('state_changed', function (snapshot) {
-                                    // Observe state change events such as progress, pause, and resume
-                                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                                     var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                                     document.getElementById('progressbarupload').style.width = "" + progress + '%';
-                                    //////console.log('Upload is ' + progress + '% done');
+
                                     switch (snapshot.state) {
-                                        case firebase.storage.TaskState.PAUSED: // or 'paused'
-                                            //////console.log('Upload is paused');
+                                        case firebase.storage.TaskState.PAUSED:
                                             break;
-                                        case firebase.storage.TaskState.RUNNING: // or 'running'
-                                            //////console.log('Upload is running');
+                                        case firebase.storage.TaskState.RUNNING:
                                             break;
                                     }
                                 }, function (error) {
-                                    // Handle unsuccessful uploads
+                                    alert("Couldn't upload \n " + error);
                                 }, function () {
-                                    // Handle successful uploads on complete
-                                    // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-                                    var downloadURL = task.snapshot.downloadURL;
-                                    //////console.log(downloadURL);
-                                    //////console.log("Uploaded successfully. ");
-
                                     firebase.database().ref('requests/' + uid + "").set({status: "UPLOAD"});
-
                                 });
                             } else {
                                 alert("Too big..");
@@ -1088,8 +908,6 @@
 
                             if (files.length == 1) {
                                 var file = files[0];
-
-
                                 if (file.size < 2000000) {
                                     upload(file);
                                 } else {
@@ -1108,24 +926,18 @@
                 <div id="dropZone" style="padding-bottom: 150px; border: solid 2px black" class="center col l12 s12 ">
 
                     <img class="materialboxed" width="100%" src="allocatehelp.png">
-                    <!--<img class="materialboxed" style="width: 100%" src="background.jpg">-->
-
-                    <!---->
 
                     <br><br><br><br><br>
                     <input id="fileInput" class="center" size="60" style="opacity: 0.4;" type="file">
                     <br><br><br><br>
                     <p><strong>Or drag and drop here</strong></p>
 
-
                 </div>
-
 
             </div>
 
 
             <a href="#moreinfodialog"></a>
-
 
             <div id="moreinfodialog" class="modal modal-fixed-footer">
                 <div class="modal-content">
@@ -1134,7 +946,6 @@
 
                     <div class="row">
                         <div class="col s12 m7 l7 x7">
-                            <!--The class control-->
                             <p id="eventdescription">Description</p>
                             <p id="eventtime">Time</p>
 
@@ -1149,12 +960,12 @@
 
                             <br><br>
 
+                            <!--TODO find a better location for this-->
                             <a class="tooltipped" data-position="right" data-delay="50" data-tooltip="Coming soon">Make
                                 Notes Together</a>
 
                         </div>
                         <div class="col s12 m5 l5 x5">
-                            <!--friend display and search-->
                             <div class="col s12">
                                 <div class="row">
                                     <div class="input-field col s12">
@@ -1167,10 +978,7 @@
 
                             <ul id="class_fb_friends" class="collection with-header">
                                 <li class="collection-header"><h5>Facebook Friends</h5></li>
-                                <li class="collection-item">
-                                    <div>No one you know, make new friends?</div>
-                                </li>
-
+                                <li class="collection-item"></li>
                             </ul>
                             <ul id="other_class_friends" class="collection with-header">
 
@@ -1203,31 +1011,21 @@
                 </div>
                 <div style="padding-bottom: 80px;" class="col s10 offset-s1">
 
-
                     <ul id="listfacebookfriends" style=" overflow-y: auto; max-height: 600px;"
                         class="collection with-header">
                         <li class="collection-header"><a><h6 onclick="LoadFBUI()">Connect to facebook</h6></a>
-
                         </li>
-
 
                     </ul>
                     <ul id="otheraddedfriends" style="max-height: 250px;" class="collection with-header">
                         <li class="collection-header"><h6><a href="#modal1">Other friends</a></h6>
-
-
                         </li>
-
-
+                        <!--TODO need to add this functionality-->
                     </ul>
-
-
                 </div>
             </div>
         </div>
-
     </div>
-
 </main>
 
 
@@ -1241,16 +1039,11 @@
                         <input style="text-transform: uppercase" id="input_text" type="text">
                         <label for="input_text">Unique Code</label>
                     </div>
-
-
                 </div>
-
                 <a class="btn waves-effect waves-light">Add</a>
-
             </form>
         </div>
     </div>
-
 
 </div>
 <div id="modalsrs" class="modal">
@@ -1271,7 +1064,6 @@
 
 <div id="modalcontact" style="width: 90%;" class="modal">
     <div class="modal-content">
-        <!--<h4>Contact Us</h4>-->
 
         <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc0mTqbJ9LJPCO4zskNv4IJJVvtIbG83AxwZkgaQHnjMuA27w/viewform?embedded=true"
                 width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0">Loading...
