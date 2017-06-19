@@ -887,12 +887,16 @@
 
                 }
 
+                function clearLocalStorage() {
+                    localStorage.clear();
+                }
+
             </script>
 
 
             <li><a class="subheader">Actions</a></li>
 
-            <li><a href="#"><i class="material-icons">create</i>Edit</a></li>
+            <li><a onclick="clearLocalStorage()" href="#"><i class="material-icons">create</i>Edit</a></li>
             <li><a href="#"><i class="material-icons">settings</i>Preferences</a></li>
             <li><a href="#modalcontact"><i class="material-icons">drafts</i>Contact Us</a></li>
 
