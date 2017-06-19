@@ -341,6 +341,7 @@
             starCountRef.once('value').then(function (snapshot) {
 
                 var uid_fb_friend = snapshot.val();
+                if (uid_fb_friend != null) {
 
                 var starCountRef = firebase.database().ref('users/' + uid_fb_friend + '/classes/');
                 starCountRef.once('value').then(function (snapshot) {
@@ -358,6 +359,9 @@
                     drawoncalendar(friend_tt, "friend");
 
                 });
+                } else {
+                    alert("Facebook friend not in database yet..");
+                }
 
             });
         }
