@@ -667,13 +667,20 @@
 
 
     function GenerateMyFriendLookup(uidp, facebook_id) {
-        console.log(uidp, facebook_id);
-        if (myfriendlookup == null) {
-            myfriendlookup = {};
-        }
-        myfriendlookup[uidp] = facebook_id;
-        getdata.setproperty(uid, myfriendlookup, 'myfriendlookup');
-        myfriendlookup = getdata.getproperty(uid, 'myfriendlookup');
+
+        var starCountRef = firebase.database().ref('id_to_facebook/' + uidp);
+        starCountRef.once('value').then(function (snapshot) {
+            var va = snapshot.val();
+            if (myfriendlookup == null) {
+                myfriendlookup = {};
+            }
+            myfriendlookup[uidp] = va;
+            getdata.setproperty(uid, myfriendlookup, 'myfriendlookup');
+            myfriendlookup = getdata.getproperty(uid, 'myfriendlookup');
+        });
+
+//        console.log(uidp, facebook_id);
+
     }
 
     function AddFriendsWithFacebook(dic) {
