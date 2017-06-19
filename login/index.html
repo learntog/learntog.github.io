@@ -238,6 +238,10 @@
 
                     });
 
+                    myfriendlookup = {};
+
+                    myfriendlookup = getdata.getproperty(uid, 'myfriendlookup');
+
                     ShowFbFriend();
 
                     myfriends = getdata.getproperty(uid, 'friends');
@@ -432,13 +436,20 @@
 
             var mates = currentevent.data;
 
-            var starCountRef = firebase.database().ref('classes/' + mates + '/users/');
-            starCountRef.once('value').then(function (snapshot) {
+
+            var starCountRef2 = firebase.database().ref('classes/' + mates + '/users/');
+            starCountRef2.once('value').then(function (snapshot) {
                 var mates = snapshot.val();
-                if (mates.length >= 1) {
-                    $("#other_class_friends").html("<p></p>");
-                    for (i = 0; i < mates.length; i++) {
-                        //TODO find an effective way of storing thses.
+                $("#other_class_friends").html("<p></p>");
+                $("#class_fb_friends").html("");
+                if (Object.keys(mates).length >= 1) {
+
+                    for (var user in mates) {
+                        if (user != uid && user in myfriendlookup) {
+                            //append to facebook div.
+                            $("#class_fb_friends").append("<li class=\"collection-item\">" +
+                                    "<a href='" + myfriendlookup[user] + "'></a>" + user + "</li>")
+                        }
                     }
                 } else {
                     //No one else in the class..
@@ -588,6 +599,7 @@
     function ShowFbFriend() {
 
         response = getdata.getfacebook(uid);
+        //TODO store this data in a differnt format and update my friend lookup here
 
         autocompletefbdata = {};
         if (response != null) {
@@ -618,6 +630,8 @@
 
     }
 
+    //TODO prevent showing those don't have a timetable. (doesn't matter actually) for facebook friends
+
     function HideSomething(a) {
         a.style.display = "none";
     }
@@ -639,7 +653,7 @@
         }
     }
 
-    myfriendlookup = {};
+
     function GenerateMyFriendLookup(uidp, facebook_id) {
         console.log(uidp, facebook_id);
         myfriendlookup[uidp] = facebook_id;
@@ -993,10 +1007,12 @@
                                 </div>
                             </div>
 
+                            <h4>Facebook Friends</h4>
                             <ul id="class_fb_friends" class="collection with-header">
-                                <li class="collection-header"><h5>Facebook Friends</h5></li>
-                                <li class="collection-item"></li>
+                                <!--<li class="collection-item"></li>-->
                             </ul>
+
+                            <h5>Other friends</h5>
                             <ul id="other_class_friends" class="collection with-header">
 
                             </ul>
