@@ -794,7 +794,10 @@
                         $('#viewing_recent').html("");
                         var a = snapshot.val();
                         for (var each in a) {
-                            $('#viewing_recent').append("<tr><td>" + each + "</td><td>" + a[each].time + "</td></tr>");
+                            try {
+                                $('#viewing_recent').append("<tr><td>" + facebook_name_key[myfriendlookup[each]] + "</td><td>" + a[each].time + "</td></tr>");
+                            } catch (err) {
+                            }
                         }
                     });
                     $('#modalsrs').modal('open');
