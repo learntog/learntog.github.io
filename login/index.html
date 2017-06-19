@@ -613,15 +613,16 @@
         var response = convertToList(facebook_name_key);
         //TODO store this data in a differnt format and update my friend lookup here
 
+
         autocompletefbdata = {};
         if (response != null) {
             //TODO show logout facebook button.
             try {
                 for (i = 0; i < response.length; i++) {
 
-                    autocompletefbdata[response[i].name] = null;
+                    autocompletefbdata[facebook_name_key[response[i]]] = null;
                     //TODO add a checkbox event change listner to show/hide.
-                    $("#listfacebookfriends").append("<li onclick='drawFriendOnCalendar(" + response[i].id + ")' class='collection-item'><div>" + response[i].name + "</div>" + "</li>");
+                    $("#listfacebookfriends").append("<li onclick='drawFriendOnCalendar(" + response[i] + ")' class='collection-item'><div>" + facebook_name_key[response[i]] + "</div>" + "</li>");
                 }
             } catch (err) {
             }
