@@ -509,7 +509,8 @@
                         if (event.e != null) {
 
                             document.getElementById('eventdescription').innerHTML = event.description;
-                            document.getElementById('eventtime').innerHTML = event.start._d;
+                            var d = event.start._d;
+                            document.getElementById('eventtime').innerHTML = weektodays[d.getDay()] + "\t" + d.getHours() + ":" + d.getMinutes();
 
                             currentevent = event;
                             showInfoModal(currentevent);
@@ -751,7 +752,6 @@
                     starCountRef.once('value').then(function (snapshot) {
                         //TODO convert uid to names.
                         $('#viewing_recent').html("");
-                        console.log(a);
                         var a = snapshot.val();
                         for (var each in a) {
                             $('#viewing_recent').append("<tr><td>" + each + "</td><td>" + a[each].time + "</td></tr>");
