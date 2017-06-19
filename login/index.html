@@ -442,13 +442,21 @@
                 var mates = snapshot.val();
                 $("#other_class_friends").html("<p></p>");
                 $("#class_fb_friends").html("");
+
+                console.log(mates);
+
                 if (Object.keys(mates).length >= 1) {
 
                     for (var user in mates) {
+                        if (myfriendlookup != null) {
                         if (user != uid && user in myfriendlookup) {
                             //append to facebook div.
                             $("#class_fb_friends").append("<li class=\"collection-item\">" +
                                     "<a href='" + myfriendlookup[user] + "'></a>" + user + "</li>")
+                        }
+                        } else {
+                            //no valid to lookup from on localstorage.
+
                         }
                     }
                 } else {
