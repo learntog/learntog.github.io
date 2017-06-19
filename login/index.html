@@ -349,18 +349,23 @@
 
                     var friend_tt = snapshot.val();
                     friend_tt = convertToList(friend_tt);
-                    console.log(friend_tt);
 
+                    if (friend_tt != null) {
+
+
+                        console.log("/users/" + uid_fb_friend + "/viewedby/" + uid);
+                        firebase.database().ref("/users/" + uid_fb_friend + "/viewedby/" + uid).set({time: new Date().toString()});
+
+                        drawoncalendar(friend_tt, "friend");
+                    } else {
+                        alert("Friend hasn't uplaoded timetable. ");
+                    }
                     toggleload();
-
-                    console.log("/users/" + uid_fb_friend + "/viewedby/" + uid);
-                    firebase.database().ref("/users/" + uid_fb_friend + "/viewedby/" + uid).set({time: new Date().toString()});
-
-                    drawoncalendar(friend_tt, "friend");
 
                 });
                 } else {
                     alert("Facebook friend not in database yet..");
+                    toggleload();
                 }
 
             });
