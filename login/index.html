@@ -510,7 +510,10 @@
 
                             document.getElementById('eventdescription').innerHTML = event.description;
                             var d = event.start._d;
-                            document.getElementById('eventtime').innerHTML = weektodays[d.getDay()] + "\t" + d.getHours() + ":" + d.getMinutes();
+
+                            dayindextoday = {1: "Monday", 2: "Tuesday", 3: "Wednesday", 4: "Thursday", 5: "Friday"};
+                            console.log(d + "\t" + d.getDay());
+                            document.getElementById('eventtime').innerHTML = dayindextoday[d.getDay()] + "\t" + ("00" + d.getHours().toString()).slice(-2) + ":" + ("00" + d.getMinutes().toString()).slice(-2);
 
                             currentevent = event;
                             showInfoModal(currentevent);
