@@ -667,6 +667,9 @@
 
     function GenerateMyFriendLookup(uidp, facebook_id) {
         console.log(uidp, facebook_id);
+        if (myfriendlookup == null) {
+            myfriendlookup = {};
+        }
         myfriendlookup[uidp] = facebook_id;
         getdata.setproperty(uid, myfriendlookup, 'myfriendlookup');
         myfriendlookup = getdata.getproperty(uid, 'myfriendlookup');
