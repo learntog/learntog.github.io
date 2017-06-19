@@ -86,19 +86,6 @@
                         }
                     });
                 }
-                if (property == 'friends') {
-                    console.log('in friends');
-                    var starCountRe = firebase.database().ref('users/' + uid + '/friends/');
-                    starCountRe.once('value').then(function (snapshot) {
-
-                        var friends = snapshot.val();
-                        //console.log("fetching from database");
-                        if (friends != null || friends != undefined) {
-                            getdata.setproperty(uid, friends, "friends");
-                            myfriends = friends;
-                        }
-                    });
-                }
             },
 
             isaproperty: function (uid, property) {
@@ -110,7 +97,7 @@
                     return JSON.parse(localStorage.getItem(uid + property));
                 }
                 else {
-                    getdata.getdatafromdb(uid, property);
+                    return null;
                 }
             },
 
@@ -652,8 +639,12 @@
         }
     }
 
-    function GenerateMyFriendLookup(uid, facebook_id) {
-
+    myfriendlookup = {};
+    function GenerateMyFriendLookup(uidp, facebook_id) {
+        console.log(uidp, facebook_id);
+        myfriendlookup[uidp] = facebook_id;
+        getdata.setproperty(uid, myfriendlookup, 'myfriendlookup');
+        myfriendlookup = getdata.getproperty(uid, 'myfriendlookup');
     }
 
     function AddFriendsWithFacebook(dic) {
@@ -665,7 +656,7 @@
                 var va = snapshot.val();
                 if (va != null) {
                     firebase.database().ref("/users/" + uid + "/friends/" + va).set("I");
-
+                    GenerateMyFriendLookup(va, facebook_id);
                 }
             });
         }
