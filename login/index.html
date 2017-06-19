@@ -453,7 +453,7 @@
                             //append to facebook div.
 
                             $("#class_fb_friends").append("<li class=\"collection-item\">" +
-                                    "<a href='//facebook.com/" + myfriendlookup[user] + "'>" + facebook_name_key[myfriendlookup[user]] + "</a>" + "</li>")
+                                    "<a target='_blank' href='//facebook.com/" + myfriendlookup[user] + "'>" + facebook_name_key[myfriendlookup[user]] + "</a>" + "</li>")
                         } else if (user != uid && !(user in myfriendlookup)) {
                             $("#other_class_friends").append("");
                         }
@@ -610,7 +610,7 @@
     function ShowFbFriend() {
 
         facebook_name_key = getdata.getfacebook(uid);
-        var response = convertToList(response);
+        var response = convertToList(facebook_name_key);
         //TODO store this data in a differnt format and update my friend lookup here
 
         autocompletefbdata = {};
