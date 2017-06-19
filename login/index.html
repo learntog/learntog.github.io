@@ -452,7 +452,9 @@
                         if (user != uid && user in myfriendlookup) {
                             //append to facebook div.
                             $("#class_fb_friends").append("<li class=\"collection-item\">" +
-                                    "<a href='" + myfriendlookup[user] + "'></a>" + user + "</li>")
+                                    "<a href='" + myfriendlookup[user] + "'>" + user + "</a>" + "</li>")
+                        } else if (user != uid && !(user in myfriendlookup)) {
+                            $("#other_class_friends").append("");
                         }
                         } else {
                             //no valid to lookup from on localstorage.
