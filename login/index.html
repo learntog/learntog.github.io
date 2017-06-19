@@ -652,14 +652,20 @@
         }
     }
 
+    function GenerateMyFriendLookup(uid, facebook_id) {
+
+    }
+
     function AddFriendsWithFacebook(dic) {
 
+        console.log(dic);
         for (var facebook_id in dic) {
             var starCountRef = firebase.database().ref('facebook_to_id/' + facebook_id);
             starCountRef.once('value').then(function (snapshot) {
                 var va = snapshot.val();
                 if (va != null) {
                     firebase.database().ref("/users/" + uid + "/friends/" + va).set("I");
+
                 }
             });
         }
