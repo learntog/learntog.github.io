@@ -452,7 +452,7 @@
                         if (user != uid && user in myfriendlookup) {
                             //append to facebook div.
                             $("#class_fb_friends").append("<li class=\"collection-item\">" +
-                                    "<a href='" + myfriendlookup[user] + "'>" + user + "</a>" + "</li>")
+                                    "<a href='//facebook.com/" + myfriendlookup[user] + "'>" + facebook_name_key[user] + "</a>" + "</li>")
                         } else if (user != uid && !(user in myfriendlookup)) {
                             $("#other_class_friends").append("");
                         }
@@ -608,7 +608,8 @@
 
     function ShowFbFriend() {
 
-        response = getdata.getfacebook(uid);
+        facebook_name_key = getdata.getfacebook(uid);
+        var response = convertToList(response);
         //TODO store this data in a differnt format and update my friend lookup here
 
         autocompletefbdata = {};
@@ -673,6 +674,7 @@
 
     function AddFriendsWithFacebook(dic) {
 
+        //TODO refer to facebook data stored locally. :) to get the name.
         console.log(dic);
         for (var facebook_id in dic) {
             var starCountRef = firebase.database().ref('facebook_to_id/' + facebook_id);
@@ -703,7 +705,7 @@
                         if (response && !response.error) {
 
                             //TODO consider changing the storage in here.
-                            getdata.setfacebook(uid, response.data);
+
 
                             var cb = response.data;
                             var dic = {};
@@ -712,6 +714,7 @@
                                 dic[cb[i].id] = cb[i].name;
                             }
 
+                            getdata.setfacebook(uid, dic);
                             firebase.database().ref("/users/" + uid + "/facebook_friends").set(dic);
 
                             AddFriendsWithFacebook(dic);
