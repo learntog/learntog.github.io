@@ -150,7 +150,7 @@
                     var semester2 = cld[cld.length - 1].split("!!")[0].indexOf('1') == -1;
 
 
-                    if (semester2 || true) {
+                    if (semester2 || getdata.getproperty("semester1show") || true) {
                         var day = cld[2];
                         var time = cld[3];
                         var hour = time.split(":")[0];
@@ -242,6 +242,10 @@
                     myfriendlookup = {};
 
                     myfriendlookup = getdata.getproperty(uid, 'myfriendlookup');
+
+                    if (myfriendlookup == null) {
+                        //alert to connect to facebook.
+                    }
 
                     ShowFbFriend();
 
@@ -652,6 +656,8 @@
 
     function removethisguy(id) {
 
+        $("#" + id + "color").css('background', 'white');
+
         var events = $('#calendar').fullCalendar('clientEvents');
         //console.log(events);
         var todelete = [];
@@ -717,6 +723,7 @@
             }
         } else {
             //TODO show connect to facebook button.
+
         }
 
 
