@@ -896,7 +896,8 @@
                         var a = snapshot.val();
                         for (var each in a) {
                             try {
-                                $('#viewing_recent').append("<tr><td>" + facebook_name_key[myfriendlookup[each]] + "</td><td>" + a[each].time + "</td></tr>");
+                                var t = new Date(a[each].time);
+                                $('#viewing_recent').append("<tr><td>" + facebook_name_key[myfriendlookup[each]] + "</td><td>" + t.time + "</td></tr>");
                             } catch (err) {
                             }
                         }
@@ -953,7 +954,7 @@
 
     <p></p>
     <div class="row" id="logincomponents" style="visibility: hidden; padding-bottom: 30px;">
-        <div class="col s12 m12  l8 x8">
+        <div class="col s12 m12  l8 x">
 
             <ul id="tabs-swipe-demo" class="tabs">
                 <li class="tab col l3 s4"><a class="active" href="#calendarview" id="calendarviewtab">Calendar View</a>
