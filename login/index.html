@@ -405,47 +405,47 @@
             var unit = data[0];
             var type = data[1].replace(/[0-9]/g, '');
 
-            var starCountRef = firebase.database().ref('seperate_unit_list/' + unit + "/" + type);
-            starCountRef.once('value').then(function (snapshot) {
-
-                var units = snapshot.val();
-
-                if (units != null) {
-                    var i = units.indexOf(currentevent.data);
-                    units.splice(i, 1);
-                }
-
-                var o = units;
-
-//                $("#dropdownofswapspossible").innerHTML = "";
+//            var starCountRef = firebase.database().ref('seperate_unit_list/' + unit + "/" + type);
+//            starCountRef.once('value').then(function (snapshot) {
 //
-//                if (o != null && o.length > 0) {
-//                    var a = "";
-//                    for (i = 0; i < o.length; i++) {
+//                var units = snapshot.val();
 //
-//                        if (!elementin(timetablesur, o[i])) {
-//
-//                            var unitd = o[i].split("*");
-//                            //////console.log(unitd);
-//                            a += ("<option value='" + units[i] + "'>" + unitd[2] + " " + unitd[3] + "</option>");
-//                        }
-//                    }
-//                    $('select').material_select('destroy');
-//                    if (a != "") {
-//                        $("#dropdownofswapspossible").html(a);
-//                    }
-//                    else {
-//                        $("#dropdownofswapspossible").html("<option disabled >No swaps available</option>");
-//                    }
-//
-//                } else {
-//                    $("#dropdownofswapspossible").html("<option disabled >No swaps available</option>");
+//                if (units != null) {
+//                    var i = units.indexOf(currentevent.data);
+//                    units.splice(i, 1);
 //                }
 //
-//                $('select').material_select();
-
-
-            });
+//                var o = units;
+//
+////                $("#dropdownofswapspossible").innerHTML = "";
+////
+////                if (o != null && o.length > 0) {
+////                    var a = "";
+////                    for (i = 0; i < o.length; i++) {
+////
+////                        if (!elementin(timetablesur, o[i])) {
+////
+////                            var unitd = o[i].split("*");
+////                            //////console.log(unitd);
+////                            a += ("<option value='" + units[i] + "'>" + unitd[2] + " " + unitd[3] + "</option>");
+////                        }
+////                    }
+////                    $('select').material_select('destroy');
+////                    if (a != "") {
+////                        $("#dropdownofswapspossible").html(a);
+////                    }
+////                    else {
+////                        $("#dropdownofswapspossible").html("<option disabled >No swaps available</option>");
+////                    }
+////
+////                } else {
+////                    $("#dropdownofswapspossible").html("<option disabled >No swaps available</option>");
+////                }
+////
+////                $('select').material_select();
+//
+//
+//            });
 
 
             var mates = currentevent.data;
@@ -531,7 +531,7 @@
                     displayEventTime: true,
                     eventClick: function (event) {
 
-                        if (event.e != null) {
+                        if (event.e == "---") {
 
                             document.getElementById('eventdescription').innerHTML = event.description;
                             var d = event.start._d;
