@@ -25,7 +25,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
-
     <script
             src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -342,26 +341,26 @@
                 var uid_fb_friend = snapshot.val();
                 if (uid_fb_friend != null) {
 
-                var starCountRef = firebase.database().ref('users/' + uid_fb_friend + '/classes/');
-                starCountRef.once('value').then(function (snapshot) {
+                    var starCountRef = firebase.database().ref('users/' + uid_fb_friend + '/classes/');
+                    starCountRef.once('value').then(function (snapshot) {
 
 
-                    var friend_tt = snapshot.val();
-                    friend_tt = convertToList(friend_tt);
+                        var friend_tt = snapshot.val();
+                        friend_tt = convertToList(friend_tt);
 
-                    if (friend_tt != null) {
+                        if (friend_tt != null) {
 
 
-                        console.log("/users/" + uid_fb_friend + "/viewedby/" + uid);
-                        firebase.database().ref("/users/" + uid_fb_friend + "/viewedby/" + uid).set({time: new Date().toString()});
+                            console.log("/users/" + uid_fb_friend + "/viewedby/" + uid);
+                            firebase.database().ref("/users/" + uid_fb_friend + "/viewedby/" + uid).set({time: new Date().toString()});
 
-                        drawoncalendar(friend_tt, "friend");
-                    } else {
-                        alert("Friend hasn't uplaoded timetable. ");
-                    }
-                    toggleload();
+                            drawoncalendar(friend_tt, "friend");
+                        } else {
+                            alert("Friend hasn't uplaoded timetable. ");
+                        }
+                        toggleload();
 
-                });
+                    });
                 } else {
                     alert("Facebook friend not in database yet..");
                     toggleload();
@@ -396,7 +395,7 @@
 
                 var units = snapshot.val();
 
-                if(units!=null) {
+                if (units != null) {
                     var i = units.indexOf(currentevent.data);
                     units.splice(i, 1);
                 }
@@ -405,7 +404,7 @@
 
                 $("#dropdownofswapspossible").innerHTML = "";
 
-                if (o!= null && o.length > 0) {
+                if (o != null && o.length > 0) {
                     var a = "";
                     for (i = 0; i < o.length; i++) {
 
@@ -437,6 +436,7 @@
             var mates = currentevent.data;
 
 
+            //TODO this needs to be optimized (...)
             var starCountRef2 = firebase.database().ref('classes/' + mates + '/users/');
             starCountRef2.once('value').then(function (snapshot) {
                 var mates = snapshot.val();
@@ -450,14 +450,14 @@
                     console.log(facebook_name_key, myfriendlookup);
                     for (var user in mates) {
                         if (myfriendlookup != null) {
-                        if (user != uid && user in myfriendlookup) {
-                            //append to facebook div.
+                            if (user != uid && user in myfriendlookup) {
+                                //append to facebook div.
 
-                            $("#class_fb_friends").append("<li class=\"collection-item\">" +
-                                    "<a target='_blank' href='//facebook.com/" + myfriendlookup[user] + "'>" + facebook_name_key[myfriendlookup[user]] + "</a>" + "</li>")
-                        } else if (user != uid && !(user in myfriendlookup)) {
-                            $("#other_class_friends").append("");
-                        }
+                                $("#class_fb_friends").append("<li class=\"collection-item\">" +
+                                        "<a target='_blank' href='//facebook.com/" + myfriendlookup[user] + "'>" + facebook_name_key[myfriendlookup[user]] + "</a>" + "</li>")
+                            } else if (user != uid && !(user in myfriendlookup)) {
+                                $("#other_class_friends").append("");
+                            }
                         } else {
                             //no valid to lookup from on localstorage.
 
@@ -474,9 +474,9 @@
 
         $(document).ready(function () {
             $('.button-collapse').sideNav({
-                    menuWidth: 230,
-                draggable: true
-                }
+                        menuWidth: 230,
+                        draggable: true
+                    }
             );
             $('.collapsible').collapsible();
             $('select').material_select();
@@ -490,10 +490,10 @@
                 endingTop: '10%',
                 ready: function (modal, trigger) {
 
-                    },
-                    complete: function () {
-                    }
+                },
+                complete: function () {
                 }
+                    }
             );
 
 
@@ -615,6 +615,7 @@
         //TODO store this data in a differnt format and update my friend lookup here
 
 
+        //https://stackoverflow.com/questions/34222775/how-to-create-autocomplete-form-with-materializecss
         autocompletefbdata = {};
         if (response != null) {
             //TODO show logout facebook button.
@@ -714,30 +715,30 @@
                 //TODO add unique code calendar use.
 
                 FB.api(
-                    "/me/friends",
-                    function (response) {
+                        "/me/friends",
+                        function (response) {
 
-                        if (response && !response.error) {
+                            if (response && !response.error) {
 
-                            //TODO consider changing the storage in here.
+                                //TODO consider changing the storage in here.
 
 
-                            var cb = response.data;
-                            var dic = {};
+                                var cb = response.data;
+                                var dic = {};
 
-                            for (var i = 0; i < cb.length; i++) {
-                                dic[cb[i].id] = cb[i].name;
+                                for (var i = 0; i < cb.length; i++) {
+                                    dic[cb[i].id] = cb[i].name;
+                                }
+
+                                getdata.setfacebook(uid, dic);
+                                firebase.database().ref("/users/" + uid + "/facebook_friends").set(dic);
+
+                                AddFriendsWithFacebook(dic);
+
+                                ShowFbFriend();
+
                             }
-
-                            getdata.setfacebook(uid, dic);
-                            firebase.database().ref("/users/" + uid + "/facebook_friends").set(dic);
-
-                            AddFriendsWithFacebook(dic);
-
-                            ShowFbFriend();
-
                         }
-                    }
                 );
             }
         }, {scope: 'email, user_friends'});
@@ -864,59 +865,59 @@
                     Upload</a></li>
             </ul>
 
-                <br>
+            <br>
 
-                <div class="col s12" id="calendarview">
+            <div class="col s12" id="calendarview">
 
-                    <div class="col l12 s12 ">
-                        <div id='calendar'></div>
-                        <div class="row valign-wrapper">
-                            <div class="col valign-wrapper s10">
-                                <div class="fb-share-button" style="padding: 10px;"
-                                     data-href="https://learntog.github.io/"
-                                     data-layout="button_count" data-size="large" data-mobile-iframe="true"><a
-                                        class="fb-xfbml-parse-ignore" target="_blank"
-                                        href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Flearntog.github.io%2F&amp;src=sdkpreparse">Share</a>
-                                </div>
-                                <div class="fb-send" data-href="https://learntog.github.io/"></div>
+                <div class="col l12 s12 ">
+                    <div id='calendar'></div>
+                    <div class="row valign-wrapper">
+                        <div class="col valign-wrapper s10">
+                            <div class="fb-share-button" style="padding: 10px;"
+                                 data-href="https://learntog.github.io/"
+                                 data-layout="button_count" data-size="large" data-mobile-iframe="true"><a
+                                    class="fb-xfbml-parse-ignore" target="_blank"
+                                    href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Flearntog.github.io%2F&amp;src=sdkpreparse">Share</a>
                             </div>
-                            <div class="col s2">
-
-                            </div>
+                            <div class="fb-send" data-href="https://learntog.github.io/"></div>
+                        </div>
+                        <div class="col s2">
 
                         </div>
 
                     </div>
-                    <div class="col l12 s12 center">
 
-                        <!--TODO add calendar control here-->
+                </div>
+                <div class="col l12 s12 center">
 
-                    </div>
+                    <!--TODO add calendar control here-->
 
                 </div>
 
+            </div>
 
-                <script>
-                    //TODO too many document.ready, merge into one.
-                    $(document).ready(function () {
-                        $('.collapsible').collapsible();
-                    });
-                </script>
+
+            <script>
+                //TODO too many document.ready, merge into one.
+                $(document).ready(function () {
+                    $('.collapsible').collapsible();
+                });
+            </script>
 
 
             <div id="tableview" class="col s12">
                 <!--TODO make this functional. -->
-                    <b>Click on the class to get details</b>
-                    <br>
-                    <br>
-                    <ul class="collapsible popout" data-collapsible="accordion">
-                        <li>
-                            <div class="collapsible-header">FIT1045 - Lab</div>
-                            <div class="collapsible-body"><span> <b>Location</b> <br>Thursday 6-8pm, 16 Rainforest Walk <br><br> <b>Peers:</b> <br> Ishan, Arni.. </span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                <b>Click on the class to get details</b>
+                <br>
+                <br>
+                <ul class="collapsible popout" data-collapsible="accordion">
+                    <li>
+                        <div class="collapsible-header">FIT1045 - Lab</div>
+                        <div class="collapsible-body"><span> <b>Location</b> <br>Thursday 6-8pm, 16 Rainforest Walk <br><br> <b>Peers:</b> <br> Ishan, Arni.. </span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
 
 
             <div class="col s12 " id="timetableupload">
