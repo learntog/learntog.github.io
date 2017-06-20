@@ -268,7 +268,7 @@
                                 ShowSomething(document.getElementById("logincomponents"));
                                 ShowSomething(message);
 
-                                if (a == "ERRORLINE") {
+                                if (a == "ERRONELINE") {
                                     WriteText(message, "Please select all weeks and reupload your timetable file.");
                                 } else {
                                     alert("Error: Contact Us \n" + a);
@@ -1034,6 +1034,12 @@
                 <script>
                     function addfilelist() {
                         var dropZone = document.getElementById('dropZone');
+
+                        dropZone.addEventListener('dragover', function (e) {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            e.dataTransfer.dropEffect = 'copy';
+                        });
 
                         function upload(file) {
                             if (file.size < 2000000) {
