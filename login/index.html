@@ -417,32 +417,32 @@
 
                 var o = units;
 
-                $("#dropdownofswapspossible").innerHTML = "";
-
-                if (o != null && o.length > 0) {
-                    var a = "";
-                    for (i = 0; i < o.length; i++) {
-
-                        if (!elementin(timetablesur, o[i])) {
-
-                            var unitd = o[i].split("*");
-                            //////console.log(unitd);
-                            a += ("<option value='" + units[i] + "'>" + unitd[2] + " " + unitd[3] + "</option>");
-                        }
-                    }
-                    $('select').material_select('destroy');
-                    if (a != "") {
-                        $("#dropdownofswapspossible").html(a);
-                    }
-                    else {
-                        $("#dropdownofswapspossible").html("<option disabled >No swaps available</option>");
-                    }
-
-                } else {
-                    $("#dropdownofswapspossible").html("<option disabled >No swaps available</option>");
-                }
-
-                $('select').material_select();
+//                $("#dropdownofswapspossible").innerHTML = "";
+//
+//                if (o != null && o.length > 0) {
+//                    var a = "";
+//                    for (i = 0; i < o.length; i++) {
+//
+//                        if (!elementin(timetablesur, o[i])) {
+//
+//                            var unitd = o[i].split("*");
+//                            //////console.log(unitd);
+//                            a += ("<option value='" + units[i] + "'>" + unitd[2] + " " + unitd[3] + "</option>");
+//                        }
+//                    }
+//                    $('select').material_select('destroy');
+//                    if (a != "") {
+//                        $("#dropdownofswapspossible").html(a);
+//                    }
+//                    else {
+//                        $("#dropdownofswapspossible").html("<option disabled >No swaps available</option>");
+//                    }
+//
+//                } else {
+//                    $("#dropdownofswapspossible").html("<option disabled >No swaps available</option>");
+//                }
+//
+//                $('select').material_select();
 
 
             });
@@ -1090,49 +1090,40 @@
                 <div class="modal-content">
 
                     <h5>Activity Details</h5>
-
+                    <p id="eventdescription">Description</p>
+                    <p id="eventtime">Time</p>
                     <div class="row">
-                        <div class="col s12 m7 l7 x7">
-                            <p id="eventdescription">Description</p>
-                            <p id="eventtime">Time</p>
 
-                            <div class="input-field col s12">
-                                <select id="dropdownofswapspossible">
-                                </select>
-                                <label>Swap it.</label>
+                        <div class="col s12 m12 l12 x12">
 
-                            </div>
-
-                            <a onclick="sendClassSwapPref()">Save preferences</a>
-
-                            <br><br>
-
-                            <!--TODO find a better location for this-->
-                            <a class="tooltipped" data-position="right" data-delay="50" data-tooltip="Coming soon">Make
-                                Notes Together</a>
-
-                        </div>
-                        <div class="col s12 m5 l5 x5">
-                            <div class="col s12">
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <i class="material-icons prefix">search</i>
-                                        <input type="text" id="autocomplete_inp" class="autocomplete">
-                                        <label for="autocomplete_inp">Search</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <h4>Facebook Friends</h4>
+                            <h5>Facebook Friends</h5>
                             <ul id="class_fb_friends" class="collection with-header">
                                 <!--<li class="collection-item"></li>-->
+                                <li class="collection-item">No facebook friends</li>
                             </ul>
 
-                            <h5>Other friends</h5>
+                            <h6 id="other_friends_counter"></h6>
                             <!--<ul id="other_class_friends" class="collection with-header">-->
 
                             <!--</ul>-->
                         </div>
+
+                        <!--<br><br><br><br>-->
+                        <!--<div class="col s12 m12 l12 x12">-->
+                            <!--<h6>Swaps</h6>-->
+                            <!--<div class="input-field col s12">-->
+                                <!--<select id="dropdownofswapspossible">-->
+                                <!--</select>-->
+
+
+                            <!--</div>-->
+
+                            <!--<a class="right" onclick="sendClassSwapPref()">Save preferences</a>-->
+
+                            <!--<br><br>-->
+
+                        <!--</div>-->
+
                     </div>
 
 
@@ -1163,25 +1154,6 @@
                     <ul id="listfacebookfriends" style=" overflow-y: auto; max-height: 600px;"
                         class="collection with-header">
 
-                        <li onclick='drawFriendOnCalendar(abc)' class='collection-item'>
-                                <div class="s12">
-                                        <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
-                                        <label for="filled-in-box">Arni Mittal</label>
-
-                                </div>
-                        </li>
-                        <li onclick='drawFriendOnCalendar(abc)' class='collection-item'>
-                            <div class="s12">
-                                <input type="checkbox" class="filled-in" id="filled-in-box2" checked="checked" />
-                                <label for="filled-in-box2">Arni Mittal</label>
-                            </div>
-                        </li>
-                        <li onclick='drawFriendOnCalendar(abc)' class='collection-item'>
-                            <div class="s12">
-                                <input type="checkbox" class="filled-in" id="filled-in-box3" checked="checked" />
-                                <label for="filled-in-box3">Arni Mittal</label>
-                            </div>
-                        </li>
 
 
 
