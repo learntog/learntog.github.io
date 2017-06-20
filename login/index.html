@@ -679,6 +679,7 @@
 
         //https://stackoverflow.com/questions/34222775/how-to-create-autocomplete-form-with-materializecss
         autocompletefbdata = {};
+        fbfriendsnametoid = {};
         if (response != null) {
             //TODO show logout facebook button.
             $("#listfacebookfriends").html("<li class=\"collection-header\"><a><h6 onclick=\"LoadFBUI()\">Connect to facebook</h6></a></li>");
@@ -686,6 +687,8 @@
                 for (i = 0; i < response.length; i++) {
 
                     autocompletefbdata[facebook_name_key[response[i]]] = null;
+                    fbfriendsnametoid[facebook_name_key[response[i]]] = response[i];
+
                     //TODO add a checkbox event change listner to show/hide.
                     $("#listfacebookfriends").append("<li  class='collection-item'>" +
                         "<div class='row'style='margin-bottom: 0px'> <div class=\"col s10\"> " +
@@ -723,6 +726,15 @@
             limit: 20,
             onAutocomplete: function (val) {
                 //TODO do something with the value
+
+                var fuid = fbfriendsnametoid[val];
+                drawFriendOnCalendar(fuid);
+                //SET CHECBOX to checked.
+                $('#'+ fuid + "cbview").prop('checked', true);
+
+                //TODO rearrage viewing at top
+
+
                 alert("Compare with " + val + "?");
             },
             minLength: 1,
