@@ -171,13 +171,13 @@
                         }
 
                         if (whose == "my") {
-                            //////////console.log(unit, unitcolor);
+                            ////////////console.log(unit, unitcolor);
                             if (unitcolor[unit] == null) {
                                 unitcolor[unit] = getRandomColor();
                             }
                             createEventCalendarWithTime(unitcolor[unit], start, "---", cld[0], cld[5], timetablesur[i]);
                         } else {
-                            createEventCalendarWithTime(unitcolor['friendstatic'], start, null, cld[0], cld[5], timetablesur[i]);
+                            createEventCalendarWithTime(unitcolor['friendstatic'], start, whose, cld[0], cld[5], timetablesur[i]);
                         }
                     } else {
                         //non semester 1 class.
@@ -351,10 +351,10 @@
                         if (friend_tt != null) {
 
 
-                            console.log("/users/" + uid_fb_friend + "/viewedby/" + uid);
+                            //console.log("/users/" + uid_fb_friend + "/viewedby/" + uid);
                             firebase.database().ref("/users/" + uid_fb_friend + "/viewedby/" + uid).set({time: new Date().toString()});
 
-                            drawoncalendar(friend_tt, "friend");
+                            drawoncalendar(friend_tt, fuid);
                         } else {
                             alert("Friend hasn't uplaoded timetable. ");
                         }
@@ -411,7 +411,7 @@
                         if (!elementin(timetablesur, o[i])) {
 
                             var unitd = o[i].split("*");
-                            ////console.log(unitd);
+                            //////console.log(unitd);
                             a += ("<option value='" + units[i] + "'>" + unitd[2] + " " + unitd[3] + "</option>");
                         }
                     }
@@ -443,11 +443,11 @@
                 $("#other_class_friends").html("<p></p>");
                 $("#class_fb_friends").html("");
 
-                console.log(mates);
+                //console.log(mates);
 
                 if (Object.keys(mates).length >= 1) {
 
-                    console.log(facebook_name_key, myfriendlookup);
+                    //console.log(facebook_name_key, myfriendlookup);
                     for (var user in mates) {
                         if (myfriendlookup != null) {
                             if (user != uid && user in myfriendlookup) {
@@ -522,7 +522,7 @@
                             var d = event.start._d;
 
                             dayindextoday = {1: "Monday", 2: "Tuesday", 3: "Wednesday", 4: "Thursday", 5: "Friday"};
-                            console.log(d + "\t" + d.getDay());
+                            //console.log(d + "\t" + d.getDay());
                             document.getElementById('eventtime').innerHTML = dayindextoday[d.getDay()] + "\t" + ("00" + d.getHours().toString()).slice(-2) + ":" + ("00" + d.getMinutes().toString()).slice(-2);
 
                             currentevent = event;
@@ -608,6 +608,25 @@
         firebase.auth().signOut();
     }
 
+    function removethisguy(id) {
+
+        var events = $('#calendar').fullCalendar('clientEvents');
+        //console.log(events);
+        var todelete = [];
+        for (var event in events){
+            //console.log(events[event]);
+            if(events[event].e != "---" && events[event].e == id){
+
+                $("#calendar").fullCalendar('removeEvents', events[event]._id);
+                todelete.push(events[event]._id);
+            }//TODO replace null with fid/uid
+        }
+
+        //console.log(todelete);
+
+
+
+    }
     function ShowFbFriend() {
 
         facebook_name_key = getdata.getfacebook(uid);
@@ -634,9 +653,13 @@
 
 
                 $('input[name=selectedfbfriends]').change(function(){
+                    var id = $(this).val().toString();
                    if($(this).is(":checked")){
-                       drawFriendOnCalendar($(this).val().toString());
+                       drawFriendOnCalendar(id);
 //                       alert($(this).val().toString());
+                   }else{
+                       alert(id + "\t is unchecked");
+                       removethisguy(id);
                    }
                 });
 
@@ -698,19 +721,19 @@
             myfriendlookup = getdata.getproperty(uid, 'myfriendlookup');
         });
 
-//        console.log(uidp, facebook_id);
+//        //console.log(uidp, facebook_id);
 
     }
 
     function AddFriendsWithFacebook(dic) {
 
         //TODO refer to facebook data stored locally. :) to get the name.
-        console.log(dic);
+        //console.log(dic);
         for (var facebook_id in dic) {
             var starCountRef = firebase.database().ref('facebook_to_id/' + facebook_id);
             starCountRef.once('value').then(function (snapshot) {
                 var va = snapshot.val();
-                console.log(va + "\t" + facebook_id);
+                //console.log(va + "\t" + facebook_id);
                 if (va != null) {
                     firebase.database().ref("/users/" + uid + "/friends/" + va).set("I");
                     GenerateMyFriendLookup(va, facebook_id);
