@@ -196,7 +196,7 @@
                 loading.style.visibility = "visible";
 
                 document.getElementById("calendarviewtab").style.display = "none";
-                document.getElementById("listviewtab").style.display = "none";
+//                document.getElementById("listviewtab").style.display = "none";
 
                 addfilelist();
 
@@ -294,7 +294,7 @@
                         HideSomething(message);
 
                         ShowSomething(document.getElementById("calendarviewtab"));
-                        ShowSomething(document.getElementById("listviewtab"));
+//                        ShowSomething(document.getElementById("listviewtab"));
                         ShowSomething(document.getElementById('calendar'));
 
                         timetablesur = getdata.getproperty(uid, "classes");
@@ -337,38 +337,51 @@
             toggleload();
             //TODO add read permission denied, val not found check. Pass on null to drawfunction.
             //TODO store the facebook friend -> uid locally.
-            var starCountRef = firebase.database().ref('facebook_to_id/' + fuid);
-            starCountRef.once('value').then(function (snapshot) {
+            if(locallstoredsessionclasses[fuid]==null) {
+//                console.log("Friend class not local");
+                var starCountRef = firebase.database().ref('facebook_to_id/' + fuid);
+                starCountRef.once('value').then(function (snapshot) {
 
-                var uid_fb_friend = snapshot.val();
-                if (uid_fb_friend != null) {
+                    var uid_fb_friend = snapshot.val();
+                    if (uid_fb_friend != null) {
 
-                    var starCountRef = firebase.database().ref('users/' + uid_fb_friend + '/classes/');
-                    starCountRef.once('value').then(function (snapshot) {
-
-
-                        var friend_tt = snapshot.val();
-                        friend_tt = convertToList(friend_tt);
-
-                        if (friend_tt != null) {
+                        var starCountRef = firebase.database().ref('users/' + uid_fb_friend + '/classes/');
+                        starCountRef.once('value').then(function (snapshot) {
 
 
-                            //console.log("/users/" + uid_fb_friend + "/viewedby/" + uid);
-                            firebase.database().ref("/users/" + uid_fb_friend + "/viewedby/" + uid).set({time: new Date().toString()});
+                            var friend_tt = snapshot.val();
 
-                            drawoncalendar(friend_tt, fuid);
-                        } else {
-                            alert("Friend hasn't uplaoded timetable. ");
-                        }
+
+                            friend_tt = convertToList(friend_tt);
+
+
+                            locallstoredsessionclasses[fuid] = friend_tt;
+
+
+                            if (friend_tt != null) {
+
+
+                                //console.log("/users/" + uid_fb_friend + "/viewedby/" + uid);
+                                firebase.database().ref("/users/" + uid_fb_friend + "/viewedby/" + uid).set({time: new Date().toString()});
+
+                                drawoncalendar(friend_tt, fuid);
+                            } else {
+                                alert("Friend hasn't uplaoded timetable. ");
+                            }
+                            toggleload();
+
+                        });
+                    } else {
+                        alert("Facebook friend not in database yet..");
                         toggleload();
+                    }
 
-                    });
-                } else {
-                    alert("Facebook friend not in database yet..");
-                    toggleload();
-                }
-
-            });
+                });
+            }else{
+//                console.log("local");
+                drawoncalendar(locallstoredsessionclasses[fuid], fuid);
+                toggleload();
+            }
         }
 
         function elementin(l, e) {
@@ -562,6 +575,14 @@
 
             }
         }
+
+        function convertvaltolist(dic){
+            o = [];
+            for (var each in dic){
+                o.push(dic[each]);
+            }
+            return o;
+        }
         function getRandomColor() {
 
             var letters = '0123456789ABCDEF';
@@ -570,6 +591,9 @@
                 color += letters[Math.floor(Math.random() * 16)];
             }
             return color;
+//            color = '#ABCDEF'
+
+//            var cols = ['810D00', 'CB1558', 'EC36AF',"#44BABD", "#382C56", "#1A4AAD","#3409A6", "#3848FB"]
             /*
              var cols = ['FFF07C', 'D99AC5', 'F7C59F', 'D6E681', 'C4E7D4', '00A878', '52D1DC', 'DDC4DD', '824C71', '8E9AAF', '6369D1', '4E598C']
              return "#" + cols[getRandomInt(0, cols.length - 1)];
@@ -597,6 +621,22 @@
 
         .opaque {
             opacity: 0.15;
+        }
+
+        @media print {
+            header{
+                display: none;
+            }
+            #calendar{
+                display: block;
+            }
+            .l8{
+                width: 100%;
+                float: left
+            }
+            .l4{
+                display: none;
+            }
         }
 
     </style>
@@ -629,6 +669,7 @@
 
 
     }
+    locallstoredsessionclasses = {};
     function ShowFbFriend() {
 
         facebook_name_key = getdata.getfacebook(uid);
@@ -647,21 +688,24 @@
                     autocompletefbdata[facebook_name_key[response[i]]] = null;
                     //TODO add a checkbox event change listner to show/hide.
                     $("#listfacebookfriends").append("<li  class='collection-item'>" +
-                        "<div class='row'> <div class=\"col s10\"> " +
+                        "<div class='row'style='margin-bottom: 0px'> <div class=\"col s10\"> " +
                         "<input type=\"checkbox\" name='selectedfbfriends' value='"+response[i]+"' class=\"filled-in\" id=\""+response[i]+"cbview\" /> " +
                         "<label for=\"" + response[i] + "cbview\">"+facebook_name_key[response[i]]+"</label> " +
-                        "</div><div id='"+response[i]+"color"+"' style='height: 20px' class='col s1'></div></div> </li>"); //drawFriendOnCalendar("+response[i]+")
+                        "</div><div id='"+response[i]+"color"+"' style='height: 20px' class='col s1'></div></div> </li>");
+                    //drawFriendOnCalendar("+response[i]+")
                 }
 
 
+
                 $('input[name=selectedfbfriends]').change(function(){
-                    var id = $(this).val().toString();
+                    var facebook_ids = $(this).val().toString();
                    if($(this).is(":checked")){
-                       drawFriendOnCalendar(id);
+//                       if(locallstoredsessionclasses[facebook_ids])
+                       drawFriendOnCalendar(facebook_ids);
 //                       alert($(this).val().toString());
                    }else{
 //                       alert(id + "\t is unchecked");
-                       removethisguy(id);
+                       removethisguy(facebook_ids);
                    }
                 });
 
@@ -893,14 +937,14 @@
     <h4 style="display: none" id="firebaseui-auth-container" class="center"><a href="../home.html">Login</a></h4>
 
 
+    <p></p>
     <div class="row" id="logincomponents" style="visibility: hidden; padding-bottom: 30px;">
         <div class="col s12 m12  l8 x8">
-            <p>My calendar can be accessed by unique code <a onclick="createEventCalendar('red')"><strong>A352J</strong></a>
-            </p>
+
             <ul id="tabs-swipe-demo" class="tabs">
                 <li class="tab col l3 s4"><a class="active" href="#calendarview" id="calendarviewtab">Calendar View</a>
                 </li>
-                <li class="tab col l3 s4"><a href="#tableview" id="listviewtab">List View</a></li>
+
                 <li style="visibility: hidden" class="tab col l3 s4"><a href="#timetableupload" id="timetableuploadtab">Timetable
                     Upload</a></li>
             </ul>
@@ -944,20 +988,6 @@
                 });
             </script>
 
-
-            <div id="tableview" class="col s12">
-                <!--TODO make this functional. -->
-                <b>Click on the class to get details</b>
-                <br>
-                <br>
-                <ul class="collapsible popout" data-collapsible="accordion">
-                    <li>
-                        <div class="collapsible-header">FIT1045 - Lab</div>
-                        <div class="collapsible-body"><span> <b>Location</b> <br>Thursday 6-8pm, 16 Rainforest Walk <br><br> <b>Peers:</b> <br> Ishan, Arni.. </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
 
 
             <div class="col s12 " id="timetableupload">
@@ -1155,11 +1185,7 @@
                         </tbody>
                     </table>-->
 
-                    <ul id="otheraddedfriends" style="max-height: 250px;" class="collection with-header">
-                        <li class="collection-header"><h6><a href="#modal1">Other friends</a></h6>
-                        </li>
-                        <!--TODO need to add this functionality-->
-                    </ul>
+
                 </div>
             </div>
         </div>
@@ -1167,23 +1193,6 @@
 </main>
 
 
-<div id="modal1" class="modal">
-    <div class="modal-content">
-        <h4>Add A Friend</h4>
-        <div class="row">
-            <form class="col s12">
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input style="text-transform: uppercase" id="input_text" type="text">
-                        <label for="input_text">Unique Code</label>
-                    </div>
-                </div>
-                <a class="btn waves-effect waves-light">Add</a>
-            </form>
-        </div>
-    </div>
-
-</div>
 <div id="modalsrs" class="modal">
     <div class="modal-content">
         <h4>Recently viewed</h4>
