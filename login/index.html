@@ -264,10 +264,16 @@
                                 ShowSomething(document.getElementById("logincomponents"));
                                 drawoncalendar(null, "my");
                             } else if (a != null && a.indexOf("ERR") != -1) {
-                                alert("Error: Contact Us \n" + a);
+
                                 ShowSomething(document.getElementById("logincomponents"));
                                 ShowSomething(message);
-                                WriteText(message, "Error occured while processing your timetable, contact us.");
+
+                                if (a == "ERRORLINE") {
+                                    WriteText(message, "Please select all weeks and reupload your timetable file.");
+                                } else {
+                                    alert("Error: Contact Us \n" + a);
+                                    WriteText(message, "Error occured while processing your timetable, contact us.");
+                                }
                                 drawoncalendar(null, "my");
 
                             }
