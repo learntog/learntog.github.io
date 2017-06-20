@@ -177,6 +177,8 @@
                             }
                             createEventCalendarWithTime(unitcolor[unit], start, "---", cld[0], cld[5], timetablesur[i]);
                         } else {
+                            $("#"+whose+"color").css('background', unitcolor['friendstatic']);
+                            console.log(whose, unitcolor['friendstatic']);
                             createEventCalendarWithTime(unitcolor['friendstatic'], start, whose, cld[0], cld[5], timetablesur[i]);
                         }
                     } else {
@@ -645,10 +647,10 @@
                     autocompletefbdata[facebook_name_key[response[i]]] = null;
                     //TODO add a checkbox event change listner to show/hide.
                     $("#listfacebookfriends").append("<li  class='collection-item'>" +
-                        "<div class=\"s12\"> " +
+                        "<div class='row'> <div class=\"col s10\"> " +
                         "<input type=\"checkbox\" name='selectedfbfriends' value='"+response[i]+"' class=\"filled-in\" id=\""+response[i]+"cbview\" /> " +
                         "<label for=\"" + response[i] + "cbview\">"+facebook_name_key[response[i]]+"</label> " +
-                        "</div> </li>"); //drawFriendOnCalendar("+response[i]+")
+                        "</div><div id='"+response[i]+"color"+"' style='height: 20px' class='col s1'></div></div> </li>"); //drawFriendOnCalendar("+response[i]+")
                 }
 
 
@@ -658,7 +660,7 @@
                        drawFriendOnCalendar(id);
 //                       alert($(this).val().toString());
                    }else{
-                       alert(id + "\t is unchecked");
+//                       alert(id + "\t is unchecked");
                        removethisguy(id);
                    }
                 });
