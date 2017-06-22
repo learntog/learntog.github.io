@@ -321,12 +321,16 @@
 
                     loading = document.getElementById("logincomponents");
                     loading.style.display = "none";
-                    loading = document.getElementById("firebaseui-auth-container");
-                    loading.style.display = "block";
 
+                    alert("You're logged out..");
+                    window.location = "../";
 
-                    document.getElementById('useremail').innerHTML = "";
-                    document.getElementById('userdisplayname').innerHTML = "";
+//                    loading = document.getElementById("firebaseui-auth-container");
+//                    loading.style.display = "block";
+//
+//
+//                    document.getElementById('useremail').innerHTML = "";
+//                    document.getElementById('userdisplayname').innerHTML = "";
 
                 }
             }, function (error) {
