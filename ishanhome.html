@@ -67,14 +67,20 @@
         initApp = function () {
             firebase.auth().onAuthStateChanged(function (user) {
                 if (user) {
-                    console.log(user.displayName);
+
+                    document.getElementById('continueasbutton').innerHTML = "Continue as, " + user.displayName;
+                    document.getElementById('continueasbutton').style.display = "block";
+                    document.getElementById('firebaseui-auth-container').style.display = "none";
+//                    console.log(user.displayName);
 
 
                     // User is signed in.
                 } else {
+                    document.getElementById('continueasbutton').style.display = "none";
+                    document.getElementById('firebaseui-auth-container').style.display = "block";
                     // User is signed out.
 //                    alert("Don't try to hack");
-                    console.log("Signed out.. ");
+//                    console.log("Signed out.. ");
                 }
             }, function (error) {
                 console.log(error);
@@ -133,8 +139,11 @@
         <h5>Connect and Learntogether</h5>
         <br><br>
 
-        <div id="firebaseui-auth-container"></div>
-        <!--<button style="width: 30%; border-radius: 6px; border: 1px solid white" class="rounded transparent btn">Hey</button>-->
+        <div style="display: none" id="firebaseui-auth-container"></div>
+        <button id="continueasbutton"
+                style="display: none; margin-left: 20%; width: 60%; border-radius: 6px; box-shadow: none; border: 1px solid white"
+                class="truncate blue btn">Continue as, Ishan Joshi
+        </button>
 
 
     </div>
