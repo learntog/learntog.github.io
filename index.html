@@ -52,8 +52,8 @@
         .aboutprofile img {
             opacity: 0.7;
             padding: 5%;
-            width: 80%;
-            height: 280px;
+            width: 75%;
+            height: 300px;
         }
 
         .aboutprofile img:hover {
@@ -68,6 +68,8 @@
         }
 
         initApp = function () {
+            $(".button-collapse").sideNav();
+
             firebase.auth().onAuthStateChanged(function (user) {
                 if (user) {
 
@@ -91,7 +93,7 @@
         };
 
         window.addEventListener('load', function () {
-            initApp()
+            initApp();
         });
     </script>
 
@@ -135,15 +137,30 @@
     ui.start('#firebaseui-auth-container', uiConfig);
 </script>
 
-
+<div class="navbar-fixed">
+    <nav class="blue white-text" style="box-shadow: none">
+        <div class="nav-wrapper">
+            <a style="padding-left: 2%;" href="#!" class="brand-logo">Unilyf Monash</a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="#">FAQ's</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+                <li><a href="sass.html">Sass</a></li>
+                <li><a href="badges.html">Components</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
 <div class="row" style="padding-bottom: 5%">
     <div style="padding: 10%;" class="blue white-text center col s12 m12 l12">
-        <h2>Unilyf Monash</h2>
+        <h2 class="hide-on-med-and-down">Unilyf Monash</h2>
         <h5>Connect and Learntogether</h5>
-        <br><br>
+        <br>
         <h6><i>Unilyf Monash aims to provide an enhanced, connected and a collaborative Monash university
             experience.</i></h6>
-        <br><br>
+        <br>
         <div style="display: none" id="firebaseui-auth-container"></div>
         <a href="login/" id="continueasbutton"
            style="display: none; margin-left: 20%; width: 60%; border-radius: 6px; box-shadow: none; border: 1px solid white"
@@ -200,10 +217,38 @@
                 <img class="circle" src="img/arni.png"><br>
                 <strong><a href="#">Arni Mittal</a></strong>
             </div>
+            <p class="col blue-text s8 offset-s2" style="font-size: 1.7em">We are three first year students who're
+                passionate about making university a more connected and a collaborative expereince.</p>
         </div>
+
     </div>
 
 </div>
+
+<footer class="blue page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text">Unilyf Monash</h5>
+                <p class="grey-text text-lighten-4">Not affiliated with Monash University.</p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Links</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="#!">About</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Contact</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Privacy Policy</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Wiki</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            © 2017 Unilyf Monash
+        </div>
+    </div>
+</footer>
 
 
 </body>
