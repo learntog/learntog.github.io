@@ -1,17 +1,18 @@
-<!DOCTYPE HTML>
-<!--
-	Alpha by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Unilyf Monash</title>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <!--[if lte IE 8]>
-    <script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-    <link rel="stylesheet" href="assets/css/main.css"/>
+    <meta charset="UTF-8">
+    <title>Home page</title>
+
+    <!-- Compiled and minified CSS -->
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
 
     <meta property="description"
           content="Where Monash Students Connect and Learntogether. Compare timetables at Monash University. and collaborate with friends"/>
@@ -26,8 +27,38 @@
     <meta property="og:description" content="Where Monash University students connect with each other and learn."/>
     <meta property="og:image" content=""/>
 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css"/>
+
+    <style>
+        .promotion {
+            width: 70%;
+            margin-left: 15%;
+            height: 250px;
+        }
+
+        .pad {
+            padding: 15%;
+        }
+
+        .pad h5 {
+            padding-top: 5%;
+            padding-bottom: 2%;
+        }
+
+        .aboutprofile img {
+            opacity: 0.7;
+            padding: 5%;
+            width: 80%;
+            height: 280px;
+        }
+
+        .aboutprofile img:hover {
+            opacity: 1;
+        }
+    </style>
 
     <script>
 
@@ -38,22 +69,20 @@
         initApp = function () {
             firebase.auth().onAuthStateChanged(function (user) {
                 if (user) {
-                    console.log(user.displayName);
 
-                    document.getElementById('signoutbutton').style.display = "block";
+                    document.getElementById('continueasbutton').innerHTML = "Continue as, " + user.displayName;
+                    document.getElementById('continueasbutton').style.display = "block";
                     document.getElementById('firebaseui-auth-container').style.display = "none";
-                    document.getElementById('continueaslink').innerHTML = "Continue as, " + user.displayName;
-                    document.getElementById('continueaslink').style.display = "block";
+//                    console.log(user.displayName);
+
+
                     // User is signed in.
                 } else {
+                    document.getElementById('continueasbutton').style.display = "none";
+                    document.getElementById('firebaseui-auth-container').style.display = "block";
                     // User is signed out.
 //                    alert("Don't try to hack");
-                    console.log("Signed out.. ");
-//                    document.getElementById('signinbutton').style.display = "block";
-                    document.getElementById('signoutbutton').style.display = "none";
-                    document.getElementById('continueaslink').style.display = "none";
-                    document.getElementById('firebaseui-auth-container').style.display = "block";
-                    document.getElementById('signinbutton').style.display = "block";
+//                    console.log("Signed out.. ");
                 }
             }, function (error) {
                 console.log(error);
@@ -66,141 +95,113 @@
     </script>
 
 </head>
+<body>
 
-<body class="landing">
-<div id="page-wrapper">
+<script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyBLA6sDqXwnMX6tJayM4dmYCPRzt5CW91M",
+        authDomain: "learntogether-a250b.firebaseapp.com",
+        databaseURL: "https://learntogether-a250b.firebaseio.com",
+        projectId: "learntogether-a250b",
+        storageBucket: "learntogether-a250b.appspot.com",
+        messagingSenderId: "3175571907"
+    };
+    firebase.initializeApp(config);
+</script>
 
-    <!-- Header -->
-    <header id="header" class="alt">
-        <h1><a href="index.html">Unilyf Monash</a></h1>
-        <nav id="nav">
-            <ul>
-                <li><a style="display: none" id="signinbutton" href="#banner" class="button">Sign In</a></li>
-                <li><a onclick="signout()" style="display: none" id="signoutbutton" class="button">Sign Out</a></li>
-            </ul>
-        </nav>
-    </header>
+<script type="text/javascript">
+    // FirebaseUI config.
+    var uiConfig = {
+        signInSuccessUrl: 'login/',
+        signInOptions: [
+            // Leave the lines as is for the providers you want to offer your users.
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            //            firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+            //            firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+            //            firebase.auth.GithubAuthProvider.PROVIDER_ID,
+            firebase.auth.EmailAuthProvider.PROVIDER_ID,
+            //            firebase.auth.PhoneAuthProvider.PROVIDER_ID
+        ],
+        // Terms of service url.
+        tosUrl: '<your-tos-url>'
+    };
 
-    <!-- Banner -->
-    <section style="background-color: #2d9fff" id="banner">
+    // Initialize the FirebaseUI Widget using Firebase.
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    // The start method will wait until the DOM is loaded.
+    ui.start('#firebaseui-auth-container', uiConfig);
+</script>
+
+
+<div class="row" style="padding-bottom: 5%">
+    <div style="padding: 10%;" class="blue white-text center col s12 m12 l12">
         <h2>Unilyf Monash</h2>
-        <h4>Connect and Learntogether</h4>
-        <div id="loginform">
-            <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
-            <script>
-                // Initialize Firebase
-                var config = {
-                    apiKey: "AIzaSyBLA6sDqXwnMX6tJayM4dmYCPRzt5CW91M",
-                    authDomain: "learntogether-a250b.firebaseapp.com",
-                    databaseURL: "https://learntogether-a250b.firebaseio.com",
-                    projectId: "learntogether-a250b",
-                    storageBucket: "learntogether-a250b.appspot.com",
-                    messagingSenderId: "3175571907"
-                };
-                firebase.initializeApp(config);
-            </script>
+        <h5>Connect and Learntogether</h5>
+        <br><br>
 
-            <script type="text/javascript">
-                // FirebaseUI config.
-                var uiConfig = {
-                    signInSuccessUrl: 'login/',
-                    signInOptions: [
-                        // Leave the lines as is for the providers you want to offer your users.
-                        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-                        //            firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-                        //            firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-                        //            firebase.auth.GithubAuthProvider.PROVIDER_ID,
-                        firebase.auth.EmailAuthProvider.PROVIDER_ID,
-                        //            firebase.auth.PhoneAuthProvider.PROVIDER_ID
-                    ],
-                    // Terms of service url.
-                    tosUrl: '<your-tos-url>'
-                };
+        <div style="display: none" id="firebaseui-auth-container"></div>
+        <a href="login/" id="continueasbutton"
+           style="display: none; margin-left: 20%; width: 60%; border-radius: 6px; box-shadow: none; border: 1px solid white"
+           class="truncate blue btn">Continue as, Ishan Joshi
+        </a>
 
-                // Initialize the FirebaseUI Widget using Firebase.
-                var ui = new firebaseui.auth.AuthUI(firebase.auth());
-                // The start method will wait until the DOM is loaded.
-                ui.start('#firebaseui-auth-container', uiConfig);
-            </script>
 
-            <div style="display: none" id="firebaseui-auth-container"></div>
-            <a style="display: none" id="continueaslink" class="button" href="login/">Continue as </a>
+    </div>
+
+    <div style="padding: 5%;" class="white col s12 m12 l10 offset-l1 ">
+
+        <div class="row">
+
+            <div class="col s12 m8 offset-m2 l4 pad">
+                <h5>Compare timetable</h5>
+                <img class="promotion"
+                     src="https://d3liiczouvobl1.cloudfront.net/assets/product/compare-page-icons-eac9b43cfcf91b45b21822e298d7281e1e8e87519edda0155d41d70e7a097015.png">
+                <!--<p>See if your facebook friends are in same class. Or find a time you can hang out with friends at
+                    uni.</p>-->
+            </div>
+            <div class="col s12 m8 offset-m2 l4 pad">
+                <h5>Take notes with peers</h5>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYi2JOyBNr40mZj3akhMJgClh769R-26e3gLUNK4oxKzc0OvTu"
+                     class="promotion">
+                <!--<p>Make notes and learntogether. (Coming Soon)</p>-->
+            </div>
+            <div class="col s12  m8 offset-m2 l4 pad">
+                <h5>Enjoy a new unilyf</h5>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlSe_3K8vk84InTjm8W79K60VpJFHAN8KnWZzNCkkAAeA0SQJ3"
+                     class="promotion">
+                <!--<p>Swap your class times if you're unhappy with your allocation. Connect with other people who're free
+                    at the moment.</p>-->
+            </div>
+
         </div>
-    </section>
-
-    <!-- Main -->
-    <section id="main" class="container">
-        <h2>Project</h2>
-        <p>Once complete, this website will allow Monash Students to see who’s in their class, contact class members and
-            also compare timetable with friends. Additionally it will allow students to make notes together as a class,
-            share notes with class members or just organise and backup notes on Google Drive.</p>
-
-        <p>If you answer yes to any of these, it will be for you:</p>
-        <ul>
-            <li>Are my friends with me in any of the classes I’m enrolled in?</li>
-            <li>When can I catch up with my friends at uni?</li>
-            <li>Just curious to know who’s in your class in advance?</li>
-            <li>I didn't get the class I wanted, I wish I could swap my class times.</li>
-            <li>Wish I could make notes together with my peers in classes?</li>
-            <li>Organise and backup notes on Google Drive?</li>
-            <li>Share and review notes with others studying the same unit?</li>
-            <li>Want to try out something awesome?</li>
-        </ul>
-
-        <!--<p><i>Coming soon, currently being made with love.</i></p>-->
 
 
-        <h2>About</h2>
-        <p>We are three first year students who started studying at Monash this Feburary.
-            There are a lot of things we can learn from each other. Learning with friends can be more collaborative and
-            fun.</p>
+    </div>
 
+    <section class="divider"></section>
 
-        <h2>Key Dates</h2>
-        <ul>
-            <li>22 April - Idea and development started at Unihack Mini</li>
-            <li>27 June - Expected release of timetable comparsion and swapping preferences</li>
-            <li>14 July - Swapping function will provide show you potential options to get your preffered time slots.
-            </li>
-            <li>17 July - Release of note taking, beta release for feedback</li>
-            <li>24 July - Final release of collaborative note taking, review and organisation.</li>
-        </ul>
-
-        <h2>Contact</h2>
-        <p>If you have any questions, contact us.</p>
-        <ul>
-            <li>Ishan Joshi<br><span class="emailInfo">ijos0001@student.monash.edu</span></li>
-            <li>Surayez Rahman<br><span class="emailInfo">srah0001@student.monash.edu</span></li>
-            <li>Arni Mittal<br><span class="emailInfo">amit0001@student.monash.edu</span></li>
-        </ul>
-
-    </section>
-    <!-- Footer -->
-    <footer id="footer">
-        <ul class="icons">
-            <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-            <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-            <li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
-            <li><a href="#" class="icon fa-google-plus"><span class="label">Google+</span></a></li>
-        </ul>
-        <ul class="copyright">
-            <li>&copy; Connect and Learntogether</li>
-            <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-            <li><p><i>Last updated, 30 May 2017</i></p></li>
-        </ul>
-    </footer>
+    <div style="padding: 5%" class="grey lighten-3 col s12 l10 offset-l1 ">
+        <h4>About Developers</h4>
+        <div class="row center">
+            <div class="col s12 m4 l4  aboutprofile">
+                <img class="circle" src="img/ishan.jpg"><br>
+                <strong><a target="_blank" href="//ishanjoshi.me">Ishan Joshi</a></strong>
+            </div>
+            <div class="col s12 m4 l4 aboutprofile">
+                <img class="circle" src="img/surayez.png"><br>
+                <strong><a href="#">Surayez Rahman</a></strong>
+            </div>
+            <div class="col s12 m4 l4 aboutprofile">
+                <img class="circle" src="img/arni.png"><br>
+                <strong><a href="#">Arni Mittal</a></strong>
+            </div>
+        </div>
+    </div>
 
 </div>
 
-<!-- Scripts -->
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/jquery.dropotron.min.js"></script>
-<script src="assets/js/jquery.scrollgress.min.js"></script>
-<script src="assets/js/skel.min.js"></script>
-<script src="assets/js/util.js"></script>
-<!--[if lte IE 8]>
-<script src="assets/js/ie/respond.min.js"></script><![endif]-->
-<script src="assets/js/main.js"></script>
 
 </body>
 </html>
