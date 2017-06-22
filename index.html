@@ -33,12 +33,19 @@
         initApp = function () {
             firebase.auth().onAuthStateChanged(function (user) {
                 if (user) {
-                    console.log(user);
+                    console.log(user.displayName);
+                    document.getElementById('signinbutton').innerHTML = "Welcome, " + user.displayName;
+                    document.getElementById('signinbutton').style.display = "block";
+                    document.getElementById('firebaseui-auth-container').style.display = "none";
+                    document.getElementById('continueaslink').innerHTML = "Continue as, " + user.displayName;
+                    document.getElementById('continueaslink').style.display = "block";
                     // User is signed in.
                 } else {
                     // User is signed out.
 //                    alert("Don't try to hack");
                     console.log("Signed out.. ");
+                    document.getElementById('firebaseui-auth-container').style.display = "block";
+                    document.getElementById('signinbutton').style.display = "block";
                 }
             }, function (error) {
                 console.log(error);
@@ -60,13 +67,13 @@
         <h1><a href="index.html">Unilyf Monash</a></h1>
         <nav id="nav">
             <ul>
-                <li><a href="#banner" class="button">Sign In</a></li>
+                <li><a style="display: none" id="signinbutton" href="#banner" class="button">Sign In</a></li>
             </ul>
         </nav>
     </header>
 
     <!-- Banner -->
-    <section id="banner">
+    <section style="background-color: #2d9fff" id="banner">
         <h2>Unilyf Monash</h2>
         <h4>Connect and Learntogether</h4>
         <div id="loginform">
@@ -107,7 +114,8 @@
                 ui.start('#firebaseui-auth-container', uiConfig);
             </script>
 
-            <div id="firebaseui-auth-container"></div>
+            <div style="display: none" id="firebaseui-auth-container"></div>
+            <a style="display: none" id="continueaslink" class="button" href="login/">Continue as </a>
         </div>
     </section>
 
