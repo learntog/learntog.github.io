@@ -417,6 +417,8 @@
             return o;
         }
 
+        ashown = 0;
+
         function showInfoModal(currentevent) {
 
             var data = currentevent.data.split("*");
@@ -706,7 +708,12 @@
         fbfriendsnametoid = {};
         if (response != null) {
             //TODO show logout facebook button.
-            $("#listfacebookfriends").html("<li class=\"collection-header\"><a><h6 onclick=\"LoadFBUI()\">Connect to facebook</h6></a></li>");
+            $("#listfacebookfriends").html("<li class=\"collection-header\"><a><h6 onclick=\"LoadFBUI()\">Facebook Friends<i class=\"material-icons\">refresh</i></h6></a></li>" +
+                    "<li class='collection-item'> <div class='fb-share-button' style='padding: 10px;' data-href='https://learntog.github.io/' " +
+                    "data-layout='button_count' data-size='large' data-mobile-iframe='true'>" +
+                    "<a class='fb-xfbml-parse-ignore' target='_blank' " +
+                    "href='https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Flearntog.github.io%2F&amp;src=sdkpreparse'>" +
+                    "Share</a> </div> <div class=\"fb-send\" data-href=\"https://learntog.github.io/\"></div></li>");
             try {
                 for (i = 0; i < response.length; i++) {
 
@@ -1009,21 +1016,7 @@
 
                 <div class="col l12 s12 ">
                     <div id='calendar'></div>
-                    <div class="row valign-wrapper">
-                        <div class="col valign-wrapper s10">
-                            <div class="fb-share-button" style="padding: 10px;"
-                                 data-href="https://learntog.github.io/"
-                                 data-layout="button_count" data-size="large" data-mobile-iframe="true"><a
-                                    class="fb-xfbml-parse-ignore" target="_blank"
-                                    href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Flearntog.github.io%2F&amp;src=sdkpreparse">Share</a>
-                            </div>
-                            <div class="fb-send" data-href="https://learntog.github.io/"></div>
-                        </div>
-                        <div class="col s2">
 
-                        </div>
-
-                    </div>
 
                 </div>
                 <div class="col l12 s12 center">
