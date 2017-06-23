@@ -150,7 +150,7 @@
                     var semester2 = cld[cld.length - 1].split("!!")[0].indexOf('1') == -1;
 
 
-                    if (semester2 || getdata.getproperty("semester1show") || true) {
+                    if (semester2) {
                         var day = cld[2];
                         var time = cld[3];
                         var hour = time.split(":")[0];
@@ -664,6 +664,7 @@
 </head>
 <body>
 
+
 <div id="fb-root"></div>
 <script>
     function logoff() {
@@ -760,7 +761,7 @@
                 //TODO prevent same person from being added twice
 
 
-                alert("Compare with " + val + "?");
+//                alert("Compare with " + val + "?");
             },
             minLength: 1,
         });
@@ -894,7 +895,7 @@
 <header>
     <nav class="blue">
 
-        <ul id="slide-out" class="side-nav fixed">
+        <ul id="slide-out" class="grey lighten-3 side-nav fixed">
             <li>
                 <div class="userView">
 
