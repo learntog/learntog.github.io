@@ -708,12 +708,12 @@
         fbfriendsnametoid = {};
         if (response != null) {
             //TODO show logout facebook button.
-            $("#listfacebookfriends").html("<li class=\"collection-header\"><a><h6 onclick=\"LoadFBUI()\">Facebook Friends<i class=\"material-icons\">refresh</i></h6></a></li>" +
-                    "<li class='collection-item'> <div class='fb-share-button' style='padding: 10px;' data-href='https://learntog.github.io/' " +
-                    "data-layout='button_count' data-size='large' data-mobile-iframe='true'>" +
-                    "<a class='fb-xfbml-parse-ignore' target='_blank' " +
-                    "href='https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Flearntog.github.io%2F&amp;src=sdkpreparse'>" +
-                    "Share</a> </div></li>");
+            $("#listfacebookfriends").html("<li class=\"collection-header\"><a><h6 onclick=\"LoadFBUI()\">Facebook Friends<i class=\"material-icons\">refresh</i></h6></a></li>");
+//                    "<li class='collection-item'> <div class='fb-share-button' style='padding: 10px;' data-href='https://learntog.github.io/' " +
+//                    "data-layout='button_count' data-size='large' data-mobile-iframe='true'>" +
+//                    "<a class='fb-xfbml-parse-ignore' target='_blank' " +
+//                    "href='https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Flearntog.github.io%2F&amp;src=sdkpreparse'>" +
+//                    "Share</a> </div></li>");
             try {
                 for (i = 0; i < response.length; i++) {
 
@@ -1195,6 +1195,16 @@
                     <ul id="listfacebookfriends" style=" overflow-y: auto; max-height: 700px;"
                         class="collection with-header">
                     </ul>
+
+                    <div class="center">
+                        <div class="fb-page" data-href="https://www.facebook.com/monashunilyf/" data-tabs="messages"
+                             data-height="400" data-small-header="true" data-adapt-container-width="true"
+                             data-hide-cover="true" data-show-facepile="true">
+                            <blockquote cite="https://www.facebook.com/monashunilyf/" class="fb-xfbml-parse-ignore"><a
+                                    href="https://www.facebook.com/monashunilyf/">Monash UniLyf</a></blockquote>
+                        </div>
+
+                    </div>
 
 
                 </div>
