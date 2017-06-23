@@ -186,6 +186,11 @@
                     }
 
                 }
+
+                loading1 = document.getElementById("timetableuploadtab");
+                loading1.style.visibility = "visible";
+                addfilelist();
+
             } else if (whose == 'friend' && (timetablesur == [] || timetablesur.length == 0)) {
                 //TODO do a better check here
                 alert("Your friend hasn't uploaded their timetable");
