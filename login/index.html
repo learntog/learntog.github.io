@@ -417,6 +417,8 @@
             return o;
         }
 
+        ashown = 0;
+
         function showInfoModal(currentevent) {
 
             var data = currentevent.data.split("*");
@@ -706,7 +708,12 @@
         fbfriendsnametoid = {};
         if (response != null) {
             //TODO show logout facebook button.
-            $("#listfacebookfriends").html("<li class=\"collection-header\"><a><h6 onclick=\"LoadFBUI()\">Connect to facebook</h6></a></li>");
+            $("#listfacebookfriends").html("<li class=\"collection-header\"><a><h6 onclick=\"LoadFBUI()\">Facebook Friends<i class=\"material-icons\">refresh</i></h6></a></li>");
+//                    "<li class='collection-item'> <div class='fb-share-button' style='padding: 10px;' data-href='https://learntog.github.io/' " +
+//                    "data-layout='button_count' data-size='large' data-mobile-iframe='true'>" +
+//                    "<a class='fb-xfbml-parse-ignore' target='_blank' " +
+//                    "href='https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Flearntog.github.io%2F&amp;src=sdkpreparse'>" +
+//                    "Share</a> </div></li>");
             try {
                 for (i = 0; i < response.length; i++) {
 
@@ -919,11 +926,19 @@
                         //TODO convert uid to names.
                         $('#viewing_recent').html("");
                         var a = snapshot.val();
+                        var k = 0;
                         for (var each in a) {
                             try {
                                 var t = new Date(a[each].time);
+                                if (facebook_name_key[myfriendlookup[each]] != null) {
                                 var months={0:"January",1:"Feburary",2:"March",3:"April",4:"May",5:"June",6:"July",7:"August",8:"September",9:"October",10:"November",11:"December"};
                                 $('#viewing_recent').append("<tr><td>" + facebook_name_key[myfriendlookup[each]] + "</td><td>" + t.getDate()+"\t"+ months[t.getMonth()] + "</td></tr>");
+                                } else {
+                                    if (k == 0) {
+                                        alert("We recommend connecting with facebook again to get new friends.");
+                                        k++;
+                                    }
+                                }
                             } catch (err) {
                             }
                         }
@@ -1001,21 +1016,7 @@
 
                 <div class="col l12 s12 ">
                     <div id='calendar'></div>
-                    <div class="row valign-wrapper">
-                        <div class="col valign-wrapper s10">
-                            <div class="fb-share-button" style="padding: 10px;"
-                                 data-href="https://learntog.github.io/"
-                                 data-layout="button_count" data-size="large" data-mobile-iframe="true"><a
-                                    class="fb-xfbml-parse-ignore" target="_blank"
-                                    href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Flearntog.github.io%2F&amp;src=sdkpreparse">Share</a>
-                            </div>
-                            <div class="fb-send" data-href="https://learntog.github.io/"></div>
-                        </div>
-                        <div class="col s2">
 
-                        </div>
-
-                    </div>
 
                 </div>
                 <div class="col l12 s12 center">
@@ -1194,6 +1195,16 @@
                     <ul id="listfacebookfriends" style=" overflow-y: auto; max-height: 700px;"
                         class="collection with-header">
                     </ul>
+
+                    <div class="center">
+                        <div class="fb-page" data-href="https://www.facebook.com/monashunilyf/" data-tabs="messages"
+                             data-height="400" data-small-header="true" data-adapt-container-width="true"
+                             data-hide-cover="true" data-show-facepile="true">
+                            <blockquote cite="https://www.facebook.com/monashunilyf/" class="fb-xfbml-parse-ignore"><a
+                                    href="https://www.facebook.com/monashunilyf/">Monash UniLyf</a></blockquote>
+                        </div>
+
+                    </div>
 
 
                 </div>

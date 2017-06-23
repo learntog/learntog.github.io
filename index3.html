@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unilyf Monash</title>
+
+    <!-- Compiled and minified CSS -->
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
+
+    <meta name="description"
+          content="Where Monash Students Connect and Learntogether. Compare timetables at Monash University. and collaborate with friends"/>
+    <meta name="keywords" content="Unilyf Monash, Learntog Monash, Compare timetable with friends Monash"/>
+    <meta name="copyright" content="_________"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0"/>
+
+
+    <meta property="og:url" content="https://learntog.github.io/login/"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Unilyf Monash - Connect and LearnTogether"/>
+    <meta property="og:description" content="Where Monash University students connect with each other and learn."/>
+    <meta property="og:image" content="https://learntog.github.io/img/uniicon.png"/>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script src="js/analytics.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css"/>
+
+    <style>
+        .promotion {
+            width: 70%;
+            margin-left: 15%;
+            height: 250px;
+        }
+
+        .pad {
+            padding: 15%;
+        }
+
+        .pad h5 {
+            padding-top: 5%;
+            padding-bottom: 2%;
+        }
+
+        .aboutprofile img {
+            opacity: 0.7;
+            padding: 5%;
+            width: 75%;
+            height: 300px;
+        }
+
+        .aboutprofile img:hover {
+            opacity: 1;
+        }
+    </style>
+
+    <script>
+
+        function signout() {
+            firebase.auth().signOut();
+        }
+
+        initApp = function () {
+
+
+            firebase.auth().onAuthStateChanged(function (user) {
+                if (user) {
+
+                    document.getElementById('continueasbutton').innerHTML = "Continue as, " + user.displayName;
+                    document.getElementById('continueasbutton').style.display = "block";
+                    document.getElementById('firebaseui-auth-container').style.display = "none";
+//                    console.log(user.displayName);
+
+
+                    // User is signed in.
+                } else {
+                    document.getElementById('continueasbutton').style.display = "none";
+                    document.getElementById('firebaseui-auth-container').style.display = "block";
+                    // User is signed out.
+//                    alert("Don't try to hack");
+//                    console.log("Signed out.. ");
+                }
+            }, function (error) {
+                console.log(error);
+            });
+        };
+
+        window.addEventListener('load', function () {
+            initApp();
+        });
+    </script>
+
+</head>
+<body>
+
+<script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyBLA6sDqXwnMX6tJayM4dmYCPRzt5CW91M",
+        authDomain: "learntogether-a250b.firebaseapp.com",
+        databaseURL: "https://learntogether-a250b.firebaseio.com",
+        projectId: "learntogether-a250b",
+        storageBucket: "learntogether-a250b.appspot.com",
+        messagingSenderId: "3175571907"
+    };
+    firebase.initializeApp(config);
+</script>
+
+<script type="text/javascript">
+    // FirebaseUI config.
+
+    function setURLembed() {
+        //
+        $('.modal').modal('open');
+    }
+
+    var uiConfig = {
+        signInSuccessUrl: 'login/',
+        signInOptions: [
+            // Leave the lines as is for the providers you want to offer your users.
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            //            firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+            //            firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+            //            firebase.auth.GithubAuthProvider.PROVIDER_ID,
+            firebase.auth.EmailAuthProvider.PROVIDER_ID,
+            //            firebase.auth.PhoneAuthProvider.PROVIDER_ID
+        ],
+        // Terms of service url.
+        tosUrl: '<your-tos-url>'
+    };
+
+    // Initialize the FirebaseUI Widget using Firebase.
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    // The start method will wait until the DOM is loaded.
+    ui.start('#firebaseui-auth-container', uiConfig);
+</script>
+
+<div id="fb-root"></div>
+<script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.9&appId=1913393705562842";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+<div class="navbar-fixed">
+    <nav class="blue white-text" style="box-shadow: none">
+        <div class="nav-wrapper">
+            <a style="padding-left: 2%;" href="#!" class="brand-logo">Unilyf Monash</a>
+
+            <ul class="right hide-on-med-and-down">
+
+
+                <!--<li><a href="#">FAQ's</a></li>-->
+                <!--<li><a onclick="setURLembed()" href="#modalcontact">Contact Us</a></li>-->
+            </ul>
+
+        </div>
+    </nav>
+</div>
+<div class="row" style="padding-bottom: 5%">
+    <div style="padding: 10%;" class="blue white-text center col s12 m12 l12">
+        <h2 class="hide-on-med-and-down">Unilyf Monash</h2>
+        <h5>Connect and Learntogether</h5>
+        <br>
+        <h6><i>Unilyf Monash aims to provide an enhanced, connected and a collaborative Monash university
+            experience.</i></h6>
+        <br>
+        <div style="display: none" id="firebaseui-auth-container"></div>
+        <a href="login/" id="continueasbutton"
+           style="display: none; margin-left: 20%; width: 60%; border-radius: 6px; box-shadow: none; border: 1px solid white"
+           class="truncate blue btn">Continue as, Ishan Joshi
+        </a>
+
+
+    </div>
+
+
+    <div style="padding: 5%; padding-top: 3%;" class="white col s12 m12 l10 offset-l1 ">
+
+        <div style="padding: 2%" class="fb-like" data-href="https://learntog.github.io/" data-layout="standard"
+             data-action="like"
+             data-size="large" data-show-faces="false" data-share="true"></div>
+        <div class="row">
+
+            <div class="col s12 m8 offset-m2 l4 pad">
+                <h5>Compare timetable</h5>
+                <img class="promotion"
+                     src="https://d3liiczouvobl1.cloudfront.net/assets/product/compare-page-icons-eac9b43cfcf91b45b21822e298d7281e1e8e87519edda0155d41d70e7a097015.png">
+                <!--<p>See if your facebook friends are in same class. Or find a time you can hang out with friends at
+                    uni.</p>-->
+            </div>
+            <div class="col s12 m8 offset-m2 l4 pad">
+                <h5>Take notes with peers</h5>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYi2JOyBNr40mZj3akhMJgClh769R-26e3gLUNK4oxKzc0OvTu"
+                     class="promotion">
+                <!--<p>Make notes and learntogether. (Coming Soon)</p>-->
+            </div>
+            <div class="col s12  m8 offset-m2 l4 pad">
+                <h5>Enjoy a new unilyf</h5>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlSe_3K8vk84InTjm8W79K60VpJFHAN8KnWZzNCkkAAeA0SQJ3"
+                     class="promotion">
+                <!--<p>Swap your class times if you're unhappy with your allocation. Connect with other people who're free
+                    at the moment.</p>-->
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <section class="divider"></section>
+
+    <div style="padding: 5%" class="grey lighten-3 col s12 l10 offset-l1 ">
+        <h4>About Developers</h4>
+        <div class="row center">
+            <div class="col s12 m4 l4  aboutprofile">
+                <img class="circle" src="img/ishan.jpg"><br>
+                <strong><a target="_blank" href="//ishanjoshi.me">Ishan Joshi</a></strong>
+            </div>
+            <div class="col s12 m4 l4 aboutprofile">
+                <img class="circle" src="img/surayez.png"><br>
+                <strong><a href="#">Surayez Rahman</a></strong>
+            </div>
+            <div class="col s12 m4 l4 aboutprofile">
+                <img class="circle" src="img/arni.png"><br>
+                <strong><a href="#">Arni Mittal</a></strong>
+            </div>
+            <p class="col blue-text s8 offset-s2" style="font-size: 1.7em">We are three first year students who're
+                passionate about making university a more connected and a collaborative expereince.</p>
+        </div>
+
+    </div>
+
+</div>
+
+<footer class="blue page-footer">
+    <div class="container">
+        <div class="row">
+
+            <div class="col l4 s12">
+                <h5 class="white-text">Links</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="#!">About</a></li>
+                    <li><a onclick="setURLembed()" class="grey-text text-lighten-3" href="#modalcontact">Contact Us</a>
+                    </li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Privacy Policy</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Wiki</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            © 2017 Unilyf Monash <p class="grey-text text-lighten-4">Not affiliated with Monash University.</p>
+        </div>
+    </div>
+</footer>
+
+<div id="modalcontact" style="width: 440px; height: 440px;" class="modal">
+    <div class="modal-content" style=" height: 100%;">
+        <div class="fb-page" data-href="https://www.facebook.com/monashunilyf/" data-tabs="messages" data-width="400"
+             data-height="400" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true"
+             data-show-facepile="false">
+            <blockquote cite="https://www.facebook.com/monashunilyf/" class="fb-xfbml-parse-ignore"><a
+                    href="https://www.facebook.com/monashunilyf/">Monash UniLyf</a></blockquote>
+        </div>
+    </div>
+
+</div>
+
+<div class="fixed-action-btn">
+    <a onclick="setURLembed()" class="btn-floating btn-large pulse black lighten-3">
+        <i class="large material-icons">message</i>
+    </a>
+</div>
+
+
+</body>
+</html>
