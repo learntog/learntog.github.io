@@ -160,8 +160,10 @@
             <a style="padding-left: 2%;" href="#!" class="brand-logo">Unilyf Monash</a>
 
             <ul class="right hide-on-med-and-down">
-                <li><a href="#">FAQ's</a></li>
-                <li><a onclick="setURLembed()" href="#modalcontact">Contact Us</a></li>
+
+
+                <!--<li><a href="#">FAQ's</a></li>-->
+                <!--<li><a onclick="setURLembed()" href="#modalcontact">Contact Us</a></li>-->
             </ul>
 
         </div>
@@ -184,8 +186,11 @@
 
     </div>
 
+
     <div style="padding: 5%;" class="white col s12 m12 l10 offset-l1 ">
 
+        <div class="fb-like" data-href="https://www.facebook.com/monashunilyf/" data-layout="standard"
+             data-action="like" data-size="large" data-show-faces="false" data-share="true"></div>
         <div class="row">
 
             <div class="col s12 m8 offset-m2 l4 pad">
@@ -242,17 +247,8 @@
 <footer class="blue page-footer">
     <div class="container">
         <div class="row">
-            <div class="col l6 s12">
-                <h5 class="white-text">Unilyf Monash</h5>
-                <p class="grey-text text-lighten-4">Not affiliated with Monash University.</p>
-                <div class="fb-page" data-href="https://www.facebook.com/monashunilyf/" data-tabs="timeline"
-                     data-small-header="true" data-adapt-container-width="true" data-hide-cover="false"
-                     data-show-facepile="true">
-                    <blockquote cite="https://www.facebook.com/monashunilyf/" class="fb-xfbml-parse-ignore"><a
-                            href="https://www.facebook.com/monashunilyf/">Monash UniLyf</a></blockquote>
-                </div>
-            </div>
-            <div class="col l4 offset-l2 s12">
+
+            <div class="col l4 s12">
                 <h5 class="white-text">Links</h5>
                 <ul>
                     <li><a class="grey-text text-lighten-3" href="#!">About</a></li>
@@ -262,28 +258,32 @@
                     <li><a class="grey-text text-lighten-3" href="#!">Wiki</a></li>
                 </ul>
             </div>
+
         </div>
     </div>
     <div class="footer-copyright">
         <div class="container">
-            © 2017 Unilyf Monash
+            © 2017 Unilyf Monash <p class="grey-text text-lighten-4">Not affiliated with Monash University.</p>
         </div>
     </div>
 </footer>
 
-<div id="modalcontact" style="width: 30%" class="modal">
+<div id="modalcontact" style="width: 440px; height: 440px;" class="modal">
     <div class="modal-content" style=" height: 100%;">
-
-
-        <div class="fb-page" data-href="https://www.facebook.com/monashunilyf/" data-tabs="messages"
-             data-small-header="true" data-adapt-container-width="true" data-hide-cover="false"
-             data-show-facepile="true">
+        <div class="fb-page" data-href="https://www.facebook.com/monashunilyf/" data-tabs="messages" data-width="400"
+             data-height="400" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true"
+             data-show-facepile="false">
             <blockquote cite="https://www.facebook.com/monashunilyf/" class="fb-xfbml-parse-ignore"><a
                     href="https://www.facebook.com/monashunilyf/">Monash UniLyf</a></blockquote>
         </div>
-
     </div>
 
+</div>
+
+<div class="fixed-action-btn">
+    <a onclick="setURLembed()" class="btn-floating btn-large pulse black lighten-3">
+        <i class="large material-icons">message</i>
+    </a>
 </div>
 
 
