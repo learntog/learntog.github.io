@@ -919,11 +919,19 @@
                         //TODO convert uid to names.
                         $('#viewing_recent').html("");
                         var a = snapshot.val();
+                        var k = 0;
                         for (var each in a) {
                             try {
                                 var t = new Date(a[each].time);
+                                if (facebook_name_key[myfriendlookup[each]] != null) {
                                 var months={0:"January",1:"Feburary",2:"March",3:"April",4:"May",5:"June",6:"July",7:"August",8:"September",9:"October",10:"November",11:"December"};
                                 $('#viewing_recent').append("<tr><td>" + facebook_name_key[myfriendlookup[each]] + "</td><td>" + t.getDate()+"\t"+ months[t.getMonth()] + "</td></tr>");
+                                } else {
+                                    if (k == 0) {
+                                        alert("We recommend connecting with facebook again to get new friends.");
+                                        k++;
+                                    }
+                                }
                             } catch (err) {
                             }
                         }
