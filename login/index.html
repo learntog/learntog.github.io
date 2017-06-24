@@ -153,7 +153,7 @@
                     var semester2 = cld[cld.length - 1].split("!!")[0].indexOf('1') == -1;
 
 
-                    if (semester2 || true) {
+                    if (semester2) {
                         var day = cld[2];
                         var time = cld[3];
                         var hour = time.split(":")[0];
@@ -658,6 +658,19 @@
             header{
                 display: none;
             }
+
+            header, main, footer {
+                padding-left: 0;
+            }
+
+            .fixed-action-btn {
+                display: none;
+            }
+
+            #calendarviewtab {
+                display: none;
+            }
+
             #calendar{
                 display: block;
             }
@@ -1055,7 +1068,7 @@
 
 
     <p>To download a sample file click <a href="sample_file.txt" download="samplefile.txt" target="_blank">here</a></p>
-    <div class="row" id="logincomponents" style="visibility: hidden; padding-bottom: 30px;">
+    <div class="row" id="logincomponents" style="visibility: hidden; padding-bottom: 70px;">
         <div class="col s12 m12  l8 x">
 
             <ul id="tabs-swipe-demo" class="tabs">
@@ -1273,6 +1286,18 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="fixed-action-btn horizontal click-to-toggle">
+        <a class="btn-floating btn-large red">
+            <i class="material-icons">menu</i>
+        </a>
+        <ul>
+            <!--<li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>-->
+            <li><a onclick="window.print()" class="btn-floating green"><i class="material-icons">print</i></a></li>
+            <!--<li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>-->
+            <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+        </ul>
     </div>
 </main>
 
