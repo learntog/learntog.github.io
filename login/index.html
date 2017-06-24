@@ -195,10 +195,10 @@
                     $("#currently_viewing_list").append("<li id='" + whose + "currentlyviewing" + "' class='collection-item'><div>" + facebook_name_key[whose] + "<a style='color: " + unitcolor['friendstatic'] + "' onclick='removethisguy(" + whose + ")' class='secondary-content'><i class='material-icons'>clear</i></a></div></li>");
                 }
 
-                loading1 = document.getElementById("timetableuploadtab");
+                /*loading1 = document.getElementById("timetableuploadtab");
                 loading1.style.visibility = "visible";
                 addfilelist();
-                document.getElementById("timetableuploadh5").innerHTML = "Upload your timetable here."
+                 document.getElementById("timetableuploadh5").innerHTML = "Upload your timetable here."*/
 
             } else if (whose == 'friend' && (timetablesur == [] || timetablesur.length == 0)) {
                 //TODO do a better check here
@@ -979,8 +979,22 @@
                 }
 
                 function clearLocalStorage() {
+
+                    var conf = confirm("Are you sure you want to clear your data?");
+                    if (conf) {
+                        var classes = getdata.getproperty(uid, 'classes');
+
+                        for (var c in classes) {
+                            firebase.database().ref("/classes/" + c + "/users/" + uid).set(null);
+                        }
+                        localStorage.removeItem(uid + "classes");
+                        firebase.database().ref("/requests/" + uid).set(null);
+                        firebase.database().ref("/users/" + uid + "/classes").set(null);
+                        location.reload();
+                    }
+
                     //TODO improve this function a little bit for regular data cleansing.
-                    localStorage.clear();
+//                    localStorage.clear();
                 }
 
                 function setURLembed() {
