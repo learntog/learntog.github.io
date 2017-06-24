@@ -671,6 +671,13 @@
 <div id="fb-root"></div>
 <script>
     function logoff() {
+
+        try {
+            getdata.clearfacebook(uid);
+            FB.logout();
+        } catch (err) {
+
+        }
         firebase.auth().signOut();
     }
 
