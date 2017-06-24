@@ -142,6 +142,7 @@
             if (timetablesur != null && timetablesur.length > 0) {
                 unitcolor = {};
 
+                //TODO check length 0 here to uncheck/provide message that other person timetable doesn't have current
                 for (i = 0; i < timetablesur.length; i++) {
                     var cl = timetablesur[i];
 
@@ -185,6 +186,11 @@
                         //non semester 1 class.
                     }
 
+                }
+
+
+                if (timetablesur.length > 0 && whose != "my") {
+                    $("#currently_viewing_list").append("<li id='" + whose + "currentlyviewing" + "' class='collection-item'><div>" + facebook_name_key[whose] + "<a style='color: " + unitcolor['friendstatic'] + "' onclick='removethisguy(" + whose + ")' class='secondary-content'><i class='material-icons'>clear</i></a></div></li>");
                 }
 
                 loading1 = document.getElementById("timetableuploadtab");
@@ -684,6 +690,13 @@
     function removethisguy(id) {
 
         $("#" + id + "color").css('background', 'white');
+        $('#' + id + "cbview").prop('checked', false);
+
+        try {
+            $("#" + id + "currentlyviewing").remove();
+        } catch (err) {
+
+        }
 
         var events = $('#calendar').fullCalendar('clientEvents');
         //console.log(events);
@@ -746,6 +759,7 @@
 //                       alert($(this).val().toString());
                    }else{
 //                       alert(id + "\t is unchecked");
+                       $('#' + facebook_ids + "cbview").prop('checked', false);
                        removethisguy(facebook_ids);
                    }
                 });
@@ -1032,6 +1046,10 @@
 
                 <div class="col l12 s12 ">
                     <div id='calendar'></div>
+
+                    <ul id="currently_viewing_list" class="collection with-header">
+                        <li class="collection-header"><h5>Currently comparing</h5></li>
+                    </ul>
 
 
                 </div>
