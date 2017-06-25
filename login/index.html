@@ -3,15 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Unilyf Monash - Dashboard</title>
-
     <!-- Basic SEO metadata -->
     <meta name="description"
           content="Where Monash Students Connect and Learntogether. Compare timetables at Monash University. and collaborate with friends"/>
     <meta name="keywords" content="Unilyf Monash, Learntog Monash, Compare timetable with friends Monash"/>
     <meta name="copyright" content="_________"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0"/>
-
-
     <meta property="og:url" content="https://learntog.github.io/login/"/>
     <meta property="og:type" content="website"/>
     <meta property="og:title" content="Unilyf Monash - Connect and LearnTogether"/>
@@ -20,39 +17,27 @@
           content="http://cdn2.iconfinder.com/data/icons/crazy-paparazzi-collection-svg/100/Noun_Project_100Icon_10px_grid_2-47-512.png">
     <meta property="og:image:secure_url" content="https://learntog.github.io/img/uniicon.png"/>
     <!--TODO add the og:image parameter-->
-
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.0/fullcalendar.css'/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-
     <script
             src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
             crossorigin="anonymous"></script>
-
     <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.0/fullcalendar.min.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
-
-
     <script src="../js/analytics.js"></script>
-
     <script>
-
         function toggleload() {
             $("#calendar").toggleClass("opaque");
         }
-
-
         var getdata = {
             setfacebook: function (uid, data) {
                 if (typeof data == 'string' && data != null && data != "") {
                     localStorage.setItem(uid + "facebook_friends", data);
                 } else if (data != null) {
                     localStorage.setItem(uid + "facebook_friends", JSON.stringify(data));
-
                 }
             },
             getfacebook: function (uid) {
@@ -61,21 +46,16 @@
                 } else {
                     var starCountRef = firebase.database().ref('users/' + uid + '/facebook_friends/');
                     starCountRef.once('value').then(function (snapshot) {
-
-                        //TODO convert this to list here from dictionary format.
                         var friends = snapshot.val();
                         getdata.setfacebook(uid, friends);
                         return friends;
-
                     });
                 }
             },
-
             getdatafromdb: function (uid, property) {
                 if (property == 'classes') {
                     var starCountRef = firebase.database().ref('users/' + uid + '/classes/');
                     starCountRef.once('value').then(function (snapshot) {
-
                         var classes = snapshot.val();
                         if (classes != null || classes != undefined) {
                             getdata.setproperty(uid, classes, property);
@@ -88,12 +68,10 @@
                     });
                 }
             },
-
             isaproperty: function (uid, property) {
                 return localStorage.getItem(uid + property) == null || localStorage.getItem(uid + property) == "";
             },
             getproperty: function (uid, property) {
-
                 if (localStorage.getItem(uid + property) != null && JSON.parse(localStorage.getItem(uid + property)) != null) {
                     return JSON.parse(localStorage.getItem(uid + property));
                 }
@@ -101,7 +79,6 @@
                     return null;
                 }
             },
-
             setproperty: function (uid, data, property) {
                 if (typeof data == 'string' && data != null) {
                     localStorage.setItem(uid + property, data);
@@ -111,21 +88,15 @@
                     }
                 }
             },
-
             clearfacebook: function (uid) {
                 localStorage.removeItem(uid + 'facebook_friends');
-
             }
-
         };
-
         function thisWeekDay(x) {
             var now = new Date();
-
             if (x == now.getDay()) {
                 return now;
             }
-
             else if (x < now.getDay()) {
                 now.setDate(now.getDate() - (now.getDay() - x));
                 return now;
@@ -134,45 +105,31 @@
                 now.setDate(now.getDate() + (x - now.getDay()));
                 return now;
             }
-
         }
-
         uid = "";
-
         weektodays = {Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6};
         function drawoncalendar(timetablesur, whose) {
             if (timetablesur != null && timetablesur.length > 0) {
                 unitcolor = {};
-
                 //TODO check length 0 here to uncheck/provide message that other person timetable doesn't have current
                 for (i = 0; i < timetablesur.length; i++) {
                     var cl = timetablesur[i];
-
                     var cld = cl.split("*");
-
                     var semester2 = cld[cld.length - 1].split("!!")[0].indexOf('1') == -1;
-
-
                     if (semester2) {
                         var day = cld[2];
                         var time = cld[3];
                         var hour = time.split(":")[0];
                         var min = time.split(":")[1];
-
-
                         var weektoday = {Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6};
-
                         var start = thisWeekDay(weektoday[day]);
-
                         start.setHours(hour);
                         start.setMinutes(min);
                         start.setSeconds(0);
-
                         var unit = cld[0];
                         if (unitcolor['friendstatic'] == null) {
                             unitcolor['friendstatic'] = getRandomColor();
                         }
-
                         if (whose == "my") {
                             ////////////console.log(unit, unitcolor);
                             if (unitcolor[unit] == null) {
@@ -187,37 +144,21 @@
                     } else {
                         //non semester 1 class.
                     }
-
                 }
-
-
                 if (timetablesur.length > 0 && whose != "my") {
                     $("#currently_viewing_list").append("<li id='" + whose + "currentlyviewing" + "' class='collection-item'><div>" + facebook_name_key[whose] + "<a style='color: " + unitcolor['friendstatic'] + "' onclick='removethisguy(" + whose + ")' class='secondary-content'><i class='material-icons'>clear</i></a></div></li>");
                 }
-
-                /*loading1 = document.getElementById("timetableuploadtab");
-                loading1.style.visibility = "visible";
-                addfilelist();
-                 document.getElementById("timetableuploadh5").innerHTML = "Upload your timetable here."*/
-
             } else if (whose == 'friend' && (timetablesur == [] || timetablesur.length == 0)) {
                 //TODO do a better check here
                 alert("Your friend hasn't uploaded their timetable");
-
             } else {
-
                 loading = document.getElementById("timetableuploadtab");
                 loading.style.visibility = "visible";
-
                 document.getElementById("calendarviewtab").style.display = "none";
 //                document.getElementById("listviewtab").style.display = "none";
-
                 addfilelist();
-
                 $('ul.tabs').tabs('select_tab', 'timetableupload');
-
             }
-
         }
         function WriteText(message, data) {
             message.innerHTML = data;
@@ -229,59 +170,41 @@
             }
             return l;
         }
-
         initApp = function () {
             firebase.auth().onAuthStateChanged(function (user) {
                 if (user) {
-
                     var displayName = user.displayName;
                     var email = user.email;
                     var emailVerified = user.emailVerified;
                     var photoURL = user.photoURL;
                     uid = user.uid;
-
                     user.getIdToken().then(function (accessToken) {
-
                         uid = user.uid;
-
                         firebase.database().ref('users/' + uid + "/email").set(email);
                         firebase.database().ref('users/' + uid + "/display_name").set(displayName);
                         firebase.database().ref("id_to_name/" + uid).set(displayName);
-
                         document.getElementById('useremail').innerHTML = email;
                         document.getElementById('userdisplayname').innerHTML = displayName;
-
                     });
-
                     myfriendlookup = {};
-
                     myfriendlookup = getdata.getproperty(uid, 'myfriendlookup');
-
                     if (myfriendlookup == null) {
                         //alert to connect to facebook.
                     }
-
                     ShowFbFriend();
-
                     myfriends = getdata.getproperty(uid, 'friends');
-
                     var message = document.getElementById('importantmessage');
                     var alllogin = document.getElementById('logincomponents');
                     if (getdata.isaproperty(uid, "classes")) {
-
                         var starCountRef = firebase.database().ref('requests/' + uid + '/status');
                         starCountRef.on('value', function (snapshot) {
                             var a = snapshot.val();
-
-
                             if (a == null) { //upload,download,success,error
                                 ShowSomething(document.getElementById("logincomponents"));
                                 drawoncalendar(null, "my");
                             } else if (a != null && a.indexOf("ERR") != -1) {
-
                                 ShowSomething(document.getElementById("logincomponents"));
                                 ShowSomething(message);
-
                                 if (a == "ERRONELINE") {
                                     WriteText(message, "Please select all weeks and reupload your timetable file.");
                                 } else {
@@ -289,14 +212,12 @@
                                     WriteText(message, "Error occured while processing your timetable, contact us.");
                                 }
                                 drawoncalendar(null, "my");
-
                             }
                             else if (a == "UPLOAD") {
                                 alert("Uploaded successfully");
                                 HideSomething(alllogin);
                                 ShowSomething(message);
                                 WriteText(message, "Make your instant noodles, we'll be done in the meantime.");
-
                                 //TODO add hiding all tabs code
                             }
                             else if (a == "DOWNLOADED") {
@@ -304,48 +225,28 @@
                                 HideSomething(alllogin);
                                 ShowSomething(message);
                                 WriteText(message, "Your file is being processed right now, hang tight...");
-
                             }
                             else if (a == "SUCCESS") {
                                 getdata.getdatafromdb(uid, "classes");
                             }
-//
                         });
                     } else {
-
                         ShowSomething(alllogin);
                         ShowSomething(document.getElementById('calendar'));
                         HideSomething(message);
-
                         ShowSomething(document.getElementById("calendarviewtab"));
-//                        ShowSomething(document.getElementById("listviewtab"));
                         ShowSomething(document.getElementById('calendar'));
-
                         timetablesur = getdata.getproperty(uid, "classes");
                         timetablesur = convertToList(timetablesur);
                         drawoncalendar(timetablesur, "my");
-
                         $('ul.tabs').tabs('select_tab', 'calendarviewtab');
                     }
-
                 } else {
-
-                    //User is logged out.
                     //TODO check this more carefully for event listenening.
-
                     loading = document.getElementById("logincomponents");
                     loading.style.display = "none";
-
                     alert("You're logged out...");
                     window.location = "../";
-
-//                    loading = document.getElementById("firebaseui-auth-container");
-//                    loading.style.display = "block";
-//
-//
-//                    document.getElementById('useremail').innerHTML = "";
-//                    document.getElementById('userdisplayname').innerHTML = "";
-
                 }
             }, function (error) {
                 alert("Error signing in\n" + error);
@@ -354,13 +255,8 @@
         window.addEventListener('load', function () {
             initApp()
         });
-
-
     </script>
-
-
     <script>
-
         function drawFriendOnCalendar(fuid) {
             toggleload();
             //TODO add read permission denied, val not found check. Pass on null to drawfunction.
@@ -369,41 +265,26 @@
 //                console.log("Friend class not local");
                 var starCountRef = firebase.database().ref('facebook_to_id/' + fuid);
                 starCountRef.once('value').then(function (snapshot) {
-
                     var uid_fb_friend = snapshot.val();
                     if (uid_fb_friend != null) {
-
                         var starCountRef = firebase.database().ref('users/' + uid_fb_friend + '/classes/');
                         starCountRef.once('value').then(function (snapshot) {
-
-
                             var friend_tt = snapshot.val();
-
-
                             friend_tt = convertToList(friend_tt);
-
-
                             locallstoredsessionclasses[fuid] = friend_tt;
-
-
                             if (friend_tt != null) {
-
-
                                 //console.log("/users/" + uid_fb_friend + "/viewedby/" + uid);
                                 firebase.database().ref("/users/" + uid_fb_friend + "/viewedby/" + uid).set({time: new Date().toString()});
-
                                 drawoncalendar(friend_tt, fuid);
                             } else {
                                 alert("Friend hasn't uplaoded timetable. ");
                             }
                             toggleload();
-
                         });
                     } else {
                         alert("Facebook friend not in database yet...");
                         toggleload();
                     }
-
                 });
             }else{
 //                console.log("local");
@@ -411,7 +292,6 @@
                 toggleload();
             }
         }
-
         function elementin(l, e) {
             return e in l;
         }
