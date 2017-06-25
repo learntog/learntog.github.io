@@ -29,6 +29,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
     <script src="../js/analytics.js"></script>
     <script>
+        shown = 0;
         function toggleload() {
             $("#calendar").toggleClass("opaque");
         }
@@ -368,7 +369,7 @@
 //                $("#other_class_friends").html("<p></p>");
                 $("#class_fb_friends").html("");
                 $("#other_friends_counter").html("");
-                //console.log(mates);
+                console.log(mates);
 
                 if (Object.keys(mates).length >= 1) {
 
@@ -389,7 +390,13 @@
                             }
                         } else {
                             //no valid to lookup from on localstorage.
-
+                            //TODO SHOW connect to facebook :)
+                            /*var fbl = confirm("This website is best when connected to facebook. Do you want to connect to facebook?");
+                             if(fbl && shown==0){
+                             LoadFBUI();
+                             }
+                             shown++;*/
+                            others = Object.keys(mates).length;
                         }
                     }
 
