@@ -82,7 +82,7 @@
                             timetablesur = classes;
                             location.reload();
                         } else {
-                            alert("Contact us.. quote (that impossible null returned from getdatafromdb)");
+                            alert("Contact us... quote (that impossible null returned from getdatafromdb)");
                             return null;
                         }
                     });
@@ -303,7 +303,7 @@
                                 alert("Your file is currently being proccessed!");
                                 HideSomething(alllogin);
                                 ShowSomething(message);
-                                WriteText(message, "Your file is being processed right now, hang tight..");
+                                WriteText(message, "Your file is being processed right now, hang tight...");
 
                             }
                             else if (a == "SUCCESS") {
@@ -336,7 +336,7 @@
                     loading = document.getElementById("logincomponents");
                     loading.style.display = "none";
 
-                    alert("You're logged out..");
+                    alert("You're logged out...");
                     window.location = "../";
 
 //                    loading = document.getElementById("firebaseui-auth-container");
@@ -400,7 +400,7 @@
 
                         });
                     } else {
-                        alert("Facebook friend not in database yet..");
+                        alert("Facebook friend not in database yet...");
                         toggleload();
                     }
 
@@ -1160,7 +1160,7 @@
                                     firebase.database().ref('requests/' + uid + "").set({status: "UPLOAD"});
                                 });
                             } else {
-                                alert("Too big..");
+                                alert("Too big...");
                             }
                         }
 
