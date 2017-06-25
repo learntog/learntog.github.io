@@ -295,7 +295,7 @@
                                 alert("Uploaded successfully");
                                 HideSomething(alllogin);
                                 ShowSomething(message);
-                                WriteText(message, "Uploaded successfully, will be processed soon.");
+                                WriteText(message, "Make your instant noodles, we'll be done in the meantime.");
 
                                 //TODO add hiding all tabs code
                             }
@@ -637,6 +637,13 @@
     <style>
         header, main, footer {
             padding-left: 230px;
+        }
+        #importantmessage{
+            padding-left: 2%;
+        }
+        #dropZone ol li p{
+            font-size: 1.3em;
+            color: grey;
         }
 
         @media only screen and (max-width: 992px) {
@@ -1089,6 +1096,10 @@
                 <div class="col l12 s12 ">
                     <div id='calendar'></div>
 
+                    <ul id="currently_viewing_list" class="collection with-header">
+                        <li class="collection-header"><h5>Currently comparing</h5></li>
+
+                    </ul>
 
 
 
@@ -1184,8 +1195,20 @@
 
                 <h5 id="timetableuploadh5">We need your timetable!</h5>
 
-                <div id="dropZone" style="padding-bottom: 150px; border: solid 2px black" class="center col l12 s12 ">
 
+
+                <div id="dropZone" style="padding-bottom: 150px; border: solid 2px black" class="center col l12 s12 ">
+                    <ol style="text-align: left">
+                        <li>
+                            <p>Login in to Allocate+ and select the timetable tab.</p>
+                        </li>
+                        <li>
+                            <p>Download the timetable text file (Make sure you select all weeks!)</p>
+                        </li>
+                        <li>
+                            <p>Upload the file and you're on your way!</p>
+                        </li>
+                    </ol>
                     <img class="materialboxed" width="100%" src="allocatehelp.png">
 
                     <br><br><br><br><br>
@@ -1265,11 +1288,6 @@
                     </div>
                 </div>
                 <div class="col s11 offset-s1">
-
-                    <ul id="currently_viewing_list" class="collection with-header">
-                        <li class="collection-header"><h5>Currently comparing</h5></li>
-
-                    </ul>
 
                     <ul id="listfacebookfriends" style=" overflow-y: auto; max-height: 700px;"
                         class="collection with-header">
