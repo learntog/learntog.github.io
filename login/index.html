@@ -197,6 +197,13 @@
                     if (myfriendlookup == null) {
                         //alert to connect to facebook.
                     }
+
+                    var listoftips = ['Click on a class to view details.', 'Click the eye in the top right corner to see who\'s seen your timetable'
+                        , 'Click button in bottom right corner for options with your calendar.', 'Message us on facebook for a quick reply.'];
+
+                    var ri = getRandomInt(0, listoftips.length - 1);
+                    $("#tipthistime").html("<strong>Tip: </strong>" + listoftips[ri]);
+
                     ShowFbFriend();
                     myfriends = getdata.getproperty(uid, 'friends');
                     var message = document.getElementById('importantmessage');
@@ -675,10 +682,10 @@
 
                     //TODO add a checkbox event change listner to show/hide.
                     $("#listfacebookfriends").append("<li  class='collection-item' style='padding-left: 2px'>" +
-                        "<div class='row'style='margin-bottom: 0px'> <div class=\"col s10\"> " +
+                            "<div class='row'style='margin-bottom: 0px'> <div class=\"col s9\"> " +
                         "<input type=\"checkbox\" name='selectedfbfriends' value='"+response[i]+"' class=\"filled-in\" id=\""+response[i]+"cbview\" /> " +
-                            "<label class='truncate black-text' for=\"" + response[i] + "cbview\"><a class='black-text' target='_blank' href='//facebook.com/" + response[i] + "'>" + facebook_name_key[response[i]] + "</a></label> " +
-                        "</div><div id='"+response[i]+"color"+"' style='height: 20px' class='col s1'></div></div> </li>");
+                            "<label class='truncate black-text' for=\"" + response[i] + "cbview\">" + facebook_name_key[response[i]] + "</label> " +
+                            "</div><div id='" + response[i] + "color" + "' style='height: 20px' class='col s1'></div><div class='col center offset-s1 s1'><a class='black-text' target='_blank' href='//facebook.com/" + response[i] + "'><i class=\"material-icons\">face</i></a></div> </div> </li>");
                     //drawFriendOnCalendar("+response[i]+")
                 }
 
@@ -1009,8 +1016,7 @@
 
                     <ul id="currently_viewing_list" class="collection with-header">
                         <li class="collection-header"><h5>Currently comparing</h5></li>
-                        <li class="collection-item" style="color: #ff8b00"><strong>Tip: </strong>Click on a class to
-                            view details
+                        <li id="tipthistime" class="collection-item" style="color: #ff8b00">
                         </li>
 
                     </ul>
@@ -1192,7 +1198,7 @@
 
 
             <div class="row">
-                <div class="col s11 offset-s1">
+                <div class="col s12">
                     <div class="row">
                         <div class="input-field col s11">
                             <i class="material-icons prefix">search</i>
@@ -1202,7 +1208,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col s11 offset-s1">
+                <div class="col s12">
 
                     <div class="col valign-wrapper center s12">
                         <div class="fb-send" data-href="https://learntog.github.io/"></div>
