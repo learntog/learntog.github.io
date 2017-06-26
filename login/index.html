@@ -1060,6 +1060,7 @@
                         });
 
                         function upload(file) {
+                            //TODO upload progress bar
                             if (file.size < 2000000) {
                                 var storageRef = firebase.storage().ref();
                                 var mountainImagesRef = storageRef.child('usertimetable/' + uid);
@@ -1077,6 +1078,7 @@
                                 }, function (error) {
                                     alert("Couldn't upload \n " + error);
                                 }, function () {
+                                    firebase.database().ref('temp_requests/' + uid + "").set({status: "UPLOAD"});
                                     firebase.database().ref('requests/' + uid + "").set({status: "UPLOAD"});
                                 });
                             } else {
