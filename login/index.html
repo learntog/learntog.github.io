@@ -285,7 +285,7 @@
                             var friend_tt = snapshot.val();
                             friend_tt = convertToList(friend_tt);
                             locallstoredsessionclasses[fuid] = friend_tt;
-                            if (friend_tt != null) {
+                            if (friend_tt != null || friend_tt.length <= 0) {
                                 //console.log("/users/" + uid_fb_friend + "/viewedby/" + uid);
                                 firebase.database().ref("/users/" + uid_fb_friend + "/viewedby/" + uid).set({time: new Date().toString()});
                                 drawoncalendar(friend_tt, fuid);
