@@ -386,7 +386,7 @@
 //                $("#other_class_friends").html("<p></p>");
                 $("#class_fb_friends").html("");
                 $("#other_friends_counter").html("");
-                //console.log(mates);
+                console.log(mates);
 
                 if (Object.keys(mates).length >= 1) {
 
@@ -423,6 +423,7 @@
 
                 } else {
                     //No one else in the class..
+
                 }
             });
 
@@ -959,7 +960,7 @@
                     class="material-icons">help</i>Help</a></li>
             <li><a onclick="logoff()"><i class="material-icons">close</i>Log off</a></li>
 
-            <li><a class="subheader">Get in touch</a></li>
+            <!--<li><a class="subheader">Get in touch</a></li>
             <li>
                 <div class="fb-page" data-href="https://www.facebook.com/monashunilyf/" data-tabs="messages"
                      data-height="400" data-small-header="true" data-adapt-container-width="true"
@@ -967,7 +968,7 @@
                     <blockquote cite="https://www.facebook.com/monashunilyf/" class="fb-xfbml-parse-ignore"><a
                             href="https://www.facebook.com/monashunilyf/">Monash UniLyf</a></blockquote>
                 </div>
-            </li>
+            </li>-->
 
 
         </ul>
@@ -997,7 +998,8 @@
     <h4 style="display: none" id="firebaseui-auth-container" class="center"><a href="../">Login</a></h4>
 
 
-    <p>To download a sample file click <a href="sample_file.txt" download="samplefile.txt" target="_blank">here</a></p>
+    <p style="padding-left: 2%">The website best works when you <a style="cursor: hand" onclick="LoadFBUI()">connect to
+        facebook </a>every now and then.</p>
     <div class="row" id="logincomponents" style="visibility: hidden; padding-bottom: 70px;">
         <div class="col s12 m12  l8 x">
 
@@ -1050,9 +1052,9 @@
             <div class="col s12 " id="timetableupload">
 
                 <!--TODO make sure this progress bar works-->
-                <div class="progress">
-                    <div id="progressbarupload" class="determinate" style="width: 0%"></div>
-                </div>
+                <!--<div class="progress">-->
+                <!--<div id="progressbarupload" class="determinate" style="width: 0%"></div>-->
+                <!--</div>-->
 
                 <script>
                     function addfilelist() {
@@ -1072,7 +1074,9 @@
                                 task = mountainImagesRef.put(file);
                                 task.on('state_changed', function (snapshot) {
                                     var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                                    document.getElementById('progressbarupload').style.width = "" + progress + '%';
+
+
+//                                    document.getElementById('progressbarupload').style.width = "" + progress + '%';
 
                                     switch (snapshot.state) {
                                         case firebase.storage.TaskState.PAUSED:
@@ -1234,7 +1238,7 @@
                         class="collection with-header">
                     </ul>
 
-                    <!--<div class="center">
+                    <div class="center">
                         <div class="fb-page" data-href="https://www.facebook.com/monashunilyf/" data-tabs="messages"
                              data-height="400" data-small-header="true" data-adapt-container-width="true"
                              data-hide-cover="true" data-show-facepile="true">
@@ -1242,7 +1246,7 @@
                                     href="https://www.facebook.com/monashunilyf/">Monash UniLyf</a></blockquote>
                         </div>
 
-                    </div>-->
+                    </div>
 
 
                 </div>
