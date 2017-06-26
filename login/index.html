@@ -489,9 +489,15 @@
         function createEventCalendarWithTime(color, start, e, title, duration, data) {
             try {
                 newEvent = {};
-                newEvent.title = title;
-                newEvent.description = "";
 
+                console.log(e);
+                if (e == "---") {
+                    newEvent.title = title;
+                    newEvent.description = "";
+                } else {
+                    newEvent.title = "";
+                    newEvent.description = "";
+                }
                 newEvent.start = start;
 
                 duration = duration.replace("~", ".");
@@ -1003,6 +1009,9 @@
 
                     <ul id="currently_viewing_list" class="collection with-header">
                         <li class="collection-header"><h5>Currently comparing</h5></li>
+                        <li class="collection-item" style="color: #ff8b00"><strong>Tip: </strong>Click on a class to
+                            view details
+                        </li>
 
                     </ul>
 
