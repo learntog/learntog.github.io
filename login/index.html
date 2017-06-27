@@ -293,7 +293,7 @@
                                 firebase.database().ref("/users/" + uid_fb_friend + "/viewedby/" + uid).set({time: new Date().toString()});
                                 drawoncalendar(friend_tt, fuid);
                             } else {
-                                alert("Friend hasn't uplaoded timetable. ");
+                                alert("Friend hasn't uploaded timetable. ");
                             }
                             toggleload();
                         });
@@ -310,6 +310,7 @@
                     toggleload();
                 } else {
                     alert("Friend hasn't uploaded their timetable yet.");
+                    toggleload();
                 }
             }
         }
