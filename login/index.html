@@ -154,7 +154,7 @@
                 if (timetablesur.length > 0 && whose != "my") {
                     $("#currently_viewing_list").append("<li id='" + whose + "currentlyviewing" + "' class='collection-item'><div>" + facebook_name_key[whose] + "<a style='color: " + unitcolor['friendstatic'] + "' onclick='removethisguy(" + whose + ")' class='secondary-content'><i class='material-icons'>clear</i></a></div></li>");
                 }
-            } else if (whose == 'friend' && (timetablesur == [] || timetablesur.length == 0)) {
+            } else if (whose != 'my' && (timetablesur == [] || timetablesur.length == 0)) {
                 //TODO do a better check here
                 alert("Your friend hasn't uploaded their timetable");
             } else {
