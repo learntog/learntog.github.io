@@ -932,6 +932,7 @@
                         localStorage.removeItem(uid + "classes");
                         firebase.database().ref("/requests/" + uid).set(null);
                         firebase.database().ref("/users/" + uid + "/classes").set(null);
+                        firebase.database().ref("/deleted/" + uid + "").set("A");
                         location.reload();
                     }
 
