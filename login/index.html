@@ -665,6 +665,17 @@
     function ShowFbFriend() {
 
         facebook_name_key = getdata.getfacebook(uid);
+
+        if(getdata.getproperty(uid, 'showfb')==null) {
+            getdata.setproperty(uid, 0, 'showfb');
+        }
+        console.log(getdata.getproperty(uid, 'showfb'));
+        if(getdata.getproperty(uid, 'showfb')%3==0||getdata.getproperty(uid, 'showfb')==0){
+            alert("Please connect to facebook for an enhanced expereince.");
+        }
+        getdata.setproperty(uid, getdata.getproperty(uid, 'showfb')+1, 'showfb');
+
+
         var response = convertToList(facebook_name_key);
         //TODO store this data in a differnt format and update my friend lookup here
 
