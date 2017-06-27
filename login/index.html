@@ -333,47 +333,47 @@
             var unit = data[0];
             var type = data[1].replace(/[0-9]/g, '');
 
-//            var starCountRef = firebase.database().ref('seperate_unit_list/' + unit + "/" + type);
-//            starCountRef.once('value').then(function (snapshot) {
-//
-//                var units = snapshot.val();
-//
-//                if (units != null) {
-//                    var i = units.indexOf(currentevent.data);
-//                    units.splice(i, 1);
-//                }
-//
-//                var o = units;
-//
-//                $("#dropdownofswapspossible").innerHTML = "";
-//
-//                if (o != null && o.length > 0) {
-//                    var a = "";
-//                    for (i = 0; i < o.length; i++) {
-//
-//                        if (!elementin(timetablesur, o[i])) {
-//
-//                            var unitd = o[i].split("*");
-//                            //////////console.log(unitd);
-//                            a += ("<option value='" + units[i] + "'>" + unitd[2] + " " + unitd[3] + "</option>");
-//                        }
-//                    }
-//                    $('select').material_select('destroy');
-//                    if (a != "") {
-//                        $("#dropdownofswapspossible").html(a);
-//                    }
-//                    else {
-//                        $("#dropdownofswapspossible").html("<option disabled >No swaps available</option>");
-//                    }
-//
-//                } else {
-//                    $("#dropdownofswapspossible").html("<option disabled >No swaps available</option>");
-//                }
-//
-//                $('select').material_select();
-//
-//
-//            });
+            var starCountRef = firebase.database().ref('seperate_unit_list/' + unit + "/" + type);
+            starCountRef.once('value').then(function (snapshot) {
+
+                var units = snapshot.val();
+
+                if (units != null) {
+                    var i = units.indexOf(currentevent.data);
+                    units.splice(i, 1);
+                }
+
+                var o = units;
+
+                $("#dropdownofswapspossible").innerHTML = "";
+
+                if (o != null && o.length > 0) {
+                    var a = "";
+                    for (i = 0; i < o.length; i++) {
+
+                        if (!elementin(timetablesur, o[i])) {
+
+                            var unitd = o[i].split("*");
+                            //////////console.log(unitd);
+                            a += ("<option value='" + units[i] + "'>" + unitd[2] + " " + unitd[3] + "</option>");
+                        }
+                    }
+                    $('select').material_select('destroy');
+                    if (a != "") {
+                        $("#dropdownofswapspossible").html(a);
+                    }
+                    else {
+                        $("#dropdownofswapspossible").html("<option disabled >No swaps available</option>");
+                    }
+
+                } else {
+                    $("#dropdownofswapspossible").html("<option disabled >No swaps available</option>");
+                }
+
+                $('select').material_select();
+
+
+            });
 
 
             var mates = currentevent.data;
@@ -671,7 +671,7 @@
             getdata.setproperty(uid, 0, 'showfb');
         }
         //console.log(getdata.getproperty(uid, 'showfb'));
-        if(getdata.getproperty(uid, 'showfb')%3==0||getdata.getproperty(uid, 'showfb')==0){
+        if(getdata.getproperty(uid, 'showfb')%5==0||getdata.getproperty(uid, 'showfb')==0 || getdata.getproperty(uid, 'showfb')==2){
             alert("Please connect to facebook for an enhanced expereince.");
         }
         getdata.setproperty(uid, getdata.getproperty(uid, 'showfb')+1, 'showfb');
@@ -784,6 +784,7 @@
             var type = aa[1].replace(/[0-9]/g, '');
             var x = [currentclassselected.data, a];
             firebase.database().ref('swaps/' + unit + "/" + type + "/" + uid).set(x);
+            alert("Your preferences have been saved. We'll notify you shortly!");
         }
     }
 
@@ -1188,21 +1189,21 @@
                             <!--</ul>-->
                         </div>
 
-                        <!--<br><br><br><br>-->
-                        <!--<div class="col s12 m12 l12 x12">-->
-                            <!--<h6>Swaps</h6>-->
-                            <!--<div class="input-field col s12">-->
-                                <!--<select id="dropdownofswapspossible">-->
-                                <!--</select>-->
+                        <br><br><br><br>
+                        <div class="col s12 m12 l12 x12">
+                            <h6>Swaps</h6>
+                            <div class="input-field col s12">
+                                <select id="dropdownofswapspossible">
+                                </select>
 
 
-                            <!--</div>-->
+                            </div>
 
-                            <!--<a class="right" onclick="sendClassSwapPref()">Save preferences</a>-->
+                            <a class="right" onclick="sendClassSwapPref()">Save preferences</a>
 
-                            <!--<br><br>-->
+                            <br><br>
 
-                        <!--</div>-->
+                        </div>
 
                     </div>
 
