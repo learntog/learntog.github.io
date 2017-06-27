@@ -1086,11 +1086,13 @@
                     starCountRef.once('value').then(function (snapshot) {
                         var notifs = snapshot.val();
 
+                        console.log(notifs);
                         for (var not in notifs) {
-                            if (not['type'] == 'text') {
+                            console.log(not);
+                            if (notifs[not]['type'] == 'text') {
                                 //
-                                var t = not['time'];
-                                var m = not['message'];
+                                var t = notifs[not]['time'];
+                                var m = notifs[not]['message'];
                                 $("#tabnotifications").append("<tr><td>" + t + "</td><td>" + m + "</td></tr>");
                             }
                         }
