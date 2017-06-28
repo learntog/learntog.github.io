@@ -376,8 +376,30 @@
 
                 $('select').material_select();
 
+                //SHOW list of their preferences that have already been done.
+                var aa = currentclassselected.data.split("*");
+                var unit = aa[0];
+                var type = aa[1].replace(/[0-9]/g, '');
+
+                //COMEBACKHERE
+                var starCountRef = firebase.database().ref('swaps/' + unit + "/" + type + "/" + uid);
+                starCountRef.once('value').then(function (snapshot) {
+                    var va = snapshot.val();
+                    $("#currprefslist").html("");
+                    if (va != null && va.length > 1) {
+
+                        for (var q = 1; q < va.length; q++) {
+                            var g = va[q].split('*');
+                            $("#currprefslist").append("<tr><td>" + g[2] + " " + g[3] + "</td></tr>");
+                        }
+                    } else {
+                        $("#currprefslist").append("<tr><td>No preferences submitted yet." + "</td></tr>");
+                    }
+                });
+
 
             });
+
 
 
             var mates = currentevent.data;
@@ -1245,7 +1267,7 @@
 
                         <br><br><br><br>
                         <div class="col s12 m12 l12 x12">
-                            <h6>Swaps</h6>
+                            <h6><strong>Swaps</strong></h6>
                             <div class="input-field col s12">
                                 <select multiple id="dropdownofswapspossible">
                                 </select>
@@ -1255,6 +1277,9 @@
 
                             <a class="right" onclick="sendClassSwapPref()">Save preferences</a>
 
+                            <br><br>
+                            <h6><strong>Your current preferences</strong></h6>
+                            <table id="currprefslist"></table>
                             <br><br>
 
                         </div>
