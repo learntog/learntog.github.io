@@ -352,7 +352,7 @@
                 $("#dropdownofswapspossible").innerHTML = "";
 
                 if (o != null && o.length > 0) {
-                    var a = "";
+                    var a = "<option disabled >Click to view options</option>";
                     for (i = 0; i < o.length; i++) {
 
                         if (!elementin(timetablesur, o[i])) {
@@ -783,15 +783,24 @@
     }
     function sendClassSwapPref() {
 
-        var a = $('option:selected').val();
+
+        var a = $('option:selected').map(function () {
+            return this.value
+        }).get();
+
 
         var aa = null;
         if (a != null) {
-            aa = a.split("*");
-            var unit = aa[0];
-            var type = aa[1].replace(/[0-9]/g, '');
-            var x = [currentclassselected.data, a];
-            firebase.database().ref('swaps/' + unit + "/" + type + "/" + uid).set(x);
+            var x = [currentclassselected.data];
+            for (var i = 0; i < a.length; i++) {
+                aa = a[i].split("*");
+                var unit = aa[0];
+                var type = aa[1].replace(/[0-9]/g, '');
+                x.push(a[i]);
+
+                firebase.database().ref('swaps/' + unit + "/" + type + "/" + uid).set(x);
+            }
+
             alert("Your preferences have been saved. We'll notify you shortly!");
         }
     }
@@ -1238,7 +1247,7 @@
                         <div class="col s12 m12 l12 x12">
                             <h6>Swaps</h6>
                             <div class="input-field col s12">
-                                <select id="dropdownofswapspossible">
+                                <select multiple id="dropdownofswapspossible">
                                 </select>
 
 
