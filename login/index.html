@@ -329,6 +329,7 @@
 
         ashown = 0;
 
+
         function showInfoModal(currentevent) {
 
             var data = currentevent.data.split("*");
@@ -382,23 +383,11 @@
                 var type = aa[1].replace(/[0-9]/g, '');
 
                 //COMEBACKHERE
-                var starCountRef = firebase.database().ref('swaps/' + unit + "/" + type + "/" + uid);
-                starCountRef.once('value').then(function (snapshot) {
-                    var va = snapshot.val();
-                    $("#currprefslist").html("");
-                    if (va != null && va.length > 1) {
-
-                        for (var q = 1; q < va.length; q++) {
-                            var g = va[q].split('*');
-                            $("#currprefslist").append("<tr><td>" + g[2] + " " + g[3] + "</td></tr>");
-                        }
-                    } else {
-                        $("#currprefslist").append("<tr><td>No preferences submitted yet." + "</td></tr>");
-                    }
-                });
+                showprefs();
 
 
             });
+
 
 
 
@@ -803,6 +792,24 @@
         a.style.display = "block";
         a.style.visibility = "visible";
     }
+
+    function showprefs() {
+        var starCountRef = firebase.database().ref('swaps/' + unit + "/" + type + "/" + uid);
+        starCountRef.once('value').then(function (snapshot) {
+            var va = snapshot.val();
+            $("#currprefslist").html("");
+            if (va != null && va.length > 1) {
+
+                for (var q = 1; q < va.length; q++) {
+                    var g = va[q].split('*');
+                    $("#currprefslist").append("<tr><td>" + g[2] + " " + g[3] + "</td></tr>");
+                }
+            } else {
+                $("#currprefslist").append("<tr><td>No preferences submitted yet." + "</td></tr>");
+            }
+        });
+    }
+
     function sendClassSwapPref() {
 
 
@@ -823,6 +830,7 @@
                 firebase.database().ref('swaps/' + unit + "/" + type + "/" + uid).set(x);
             }
 
+            showprefs();
             alert("Your preferences have been saved. We'll notify you shortly!");
         }
     }
