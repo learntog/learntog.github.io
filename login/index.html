@@ -831,7 +831,7 @@
                 firebase.database().ref('swaps/' + unit + "/" + type + "/" + uid).set(x);
             }
 
-            showprefs();
+            showprefs(currentclassselected.data);
             alert("Your preferences have been saved. We'll notify you shortly!");
         }
     }
