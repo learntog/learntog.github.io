@@ -378,12 +378,10 @@
                 $('select').material_select();
 
                 //SHOW list of their preferences that have already been done.
-                var aa = currentclassselected.data.split("*");
-                var unit = aa[0];
-                var type = aa[1].replace(/[0-9]/g, '');
+
 
                 //COMEBACKHERE
-                showprefs();
+                showprefs(currentclassselected.data);
 
 
             });
@@ -793,7 +791,10 @@
         a.style.visibility = "visible";
     }
 
-    function showprefs() {
+    function showprefs(dd) {
+        var aa = dd.split("*");
+        var unit = aa[0];
+        var type = aa[1].replace(/[0-9]/g, '');
         var starCountRef = firebase.database().ref('swaps/' + unit + "/" + type + "/" + uid);
         starCountRef.once('value').then(function (snapshot) {
             var va = snapshot.val();
