@@ -338,7 +338,9 @@
             var unit = data[0];
             var type = data[1].replace(/[0-9]/g, '');
 
-            var starCountRef = firebase.database().ref('seperate_unit_list/' + unit + "/" + type);
+//            var starCountRef = firebase.database().ref('seperate_unit_list/' + unit + "/" + type);
+            console.log("swaps/" + unit + "/" + type + "/suggested" + "/" + currentclassselected.data);
+            var starCountRef = firebase.database().ref("swaps/" + unit + "/" + type + "/suggested" + "/" + currentclassselected.data);
             starCountRef.once('value').then(function (snapshot) {
 
                 var units = snapshot.val();
@@ -346,36 +348,81 @@
                 if (units != null) {
                     var i = units.indexOf(currentevent.data);
                     units.splice(i, 1);
-                }
 
-                var o = units;
 
-                $("#dropdownofswapspossible").innerHTML = "";
+                    var o = units;
 
-                if (o != null && o.length > 0) {
-                    var a = "<option disabled >Click to view options</option>";
-                    for (i = 0; i < o.length; i++) {
+                    $("#dropdownofswapspossible").innerHTML = "";
 
-                        if (!elementin(timetablesur, o[i])) {
+                    if (o != null && o.length > 0) {
+                        var a = "<option disabled >Click for smart suggestions</option>";
+                        for (i = 0; i < o.length; i++) {
 
-                            var unitd = o[i].split("*");
-                            //////////console.log(unitd);
-                            a += ("<option value='" + units[i] + "'>" + unitd[2] + " " + unitd[3] + "</option>");
+                            if (!elementin(timetablesur, o[i])) {
+
+                                var unitd = o[i].split("*");
+                                //////////console.log(unitd);
+                                a += ("<option value='" + units[i] + "'>" + unitd[2] + " " + unitd[3] + "</option>");
+                            }
                         }
-                    }
-                    $('select').material_select('destroy');
-                    if (a != "") {
-                        $("#dropdownofswapspossible").html(a);
-                    }
-                    else {
+                        $('select').material_select('destroy');
+                        if (a != "") {
+                            $("#dropdownofswapspossible").html(a);
+                        }
+                        else {
+                            $("#dropdownofswapspossible").html("<option disabled >No swaps available</option>");
+                        }
+
+                    } else {
                         $("#dropdownofswapspossible").html("<option disabled >No swaps available</option>");
                     }
-
+                    $('select').material_select();
                 } else {
-                    $("#dropdownofswapspossible").html("<option disabled >No swaps available</option>");
+
+                    console.log("Show from the other list ");
+
+                    var starCountRef = firebase.database().ref('seperate_unit_list/' + unit + "/" + type);
+                    starCountRef.once('value').then(function (snapshot) {
+                        var units = snapshot.val();
+                        if (units != null) {
+                            var i = units.indexOf(currentevent.data);
+                            units.splice(i, 1);
+
+
+                            var o = units;
+
+                            $("#dropdownofswapspossible").innerHTML = "";
+
+                            if (o != null && o.length > 0) {
+                                var a = "<option disabled >Click to view options</option>";
+                                for (i = 0; i < o.length; i++) {
+
+                                    if (!elementin(timetablesur, o[i])) {
+
+                                        var unitd = o[i].split("*");
+                                        //////////console.log(unitd);
+                                        a += ("<option value='" + units[i] + "'>" + unitd[2] + " " + unitd[3] + "</option>");
+                                    }
+                                }
+                                $('select').material_select('destroy');
+                                if (a != "") {
+                                    $("#dropdownofswapspossible").html(a);
+                                }
+                                else {
+                                    $("#dropdownofswapspossible").html("<option disabled >No swaps available</option>");
+                                }
+
+                            } else {
+                                $("#dropdownofswapspossible").html("<option disabled >No swaps available</option>");
+                            }
+                            $('select').material_select();
+                        }
+                    });
+
                 }
 
-                $('select').material_select();
+
+//                $('select').material_select();
 
                 //SHOW list of their preferences that have already been done.
 
