@@ -758,9 +758,9 @@
                 var fuid = fbfriendsnametoid[val];
                 if (!$('#' + fuid + "cbview").is(":checked")) {
 
-
-                    drawFriendOnCalendar(fuid);
                     $('#' + fuid + "cbview").prop('checked', true);
+                    drawFriendOnCalendar(fuid);
+
                 } else {
                     //SET CHECBOX to checked.
 
