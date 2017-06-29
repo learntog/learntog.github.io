@@ -345,10 +345,12 @@
 
                 var units = snapshot.val();
 
+
                 if (units != null) {
                     var i = units.indexOf(currentevent.data);
-                    units.splice(i, 1);
-
+                    if (i >= 0) {
+                        units.splice(i, 1);
+                    }
 
                     var o = units;
 
