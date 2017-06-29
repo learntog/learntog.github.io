@@ -338,9 +338,9 @@
             var unit = data[0];
             var type = data[1].replace(/[0-9]/g, '');
 
-//            var starCountRef = firebase.database().ref('seperate_unit_list/' + unit + "/" + type);
+            var starCountRef = firebase.database().ref('seperate_unit_list/' + unit + "/" + type);
             console.log("swaps/" + unit + "/" + type + "/suggested" + "/" + currentclassselected.data);
-            var starCountRef = firebase.database().ref("swaps/" + unit + "/" + type + "/suggested" + "/" + currentclassselected.data);
+//            var starCountRef = firebase.database().ref("swaps/" + unit + "/" + type + "/suggested" + "/" + currentclassselected.data);
             starCountRef.once('value').then(function (snapshot) {
 
                 var units = snapshot.val();
@@ -381,7 +381,7 @@
                     $('select').material_select();
                 } else {
 
-                    console.log("Show from the other list ");
+                    /*console.log("Show from the other list ");
 
                     var starCountRef = firebase.database().ref('seperate_unit_list/' + unit + "/" + type);
                     starCountRef.once('value').then(function (snapshot) {
@@ -419,7 +419,7 @@
                             }
                             $('select').material_select();
                         }
-                    });
+                     });*/
 
                 }
 
