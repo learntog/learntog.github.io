@@ -572,7 +572,7 @@
                     newEvent.title = "";
                     newEvent.description = "";
                 }
-                newEvent.start = start;
+                newEvent.start = new Date(new Date(start).getTime() + (5 * 60000));
 
                 duration = duration.replace("~", ".");
                 newEvent.end = new Date(start.getTime() + (duration * 60 * 60 * 1000));
