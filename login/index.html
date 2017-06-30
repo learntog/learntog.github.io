@@ -354,7 +354,8 @@
 
                     var o = units;
 
-                    $("#dropdownofswapspossible").innerHTML = "";
+                    $("#dropdownofswapspossible").innerHTML = "<option disabled >Loading...</option>";
+                    $('select').material_select();
 
                     if (o != null && o.length > 0) {
                         var a = "<option disabled >Click for smart suggestions</option>";
@@ -423,13 +424,6 @@
 
                 }
 
-
-//                $('select').material_select();
-
-                //SHOW list of their preferences that have already been done.
-
-
-                //COMEBACKHERE
                 showprefs(currentclassselected.data);
 
 
@@ -440,6 +434,8 @@
 
             var mates = currentevent.data;
 
+            $("#class_fb_friends").html("Loading...");
+            $("#other_friends_counter").html("Loading...");
 
             //TODO this needs to be optimized (...)
             var starCountRef2 = firebase.database().ref('classes/' + mates + '/users/');
