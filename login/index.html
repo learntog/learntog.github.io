@@ -733,7 +733,7 @@
             getdata.setproperty(uid, 0, 'showfb');
         }
         //console.log(getdata.getproperty(uid, 'showfb'));
-        if(getdata.getproperty(uid, 'showfb')%5==0||getdata.getproperty(uid, 'showfb')==0 || getdata.getproperty(uid, 'showfb')==2){
+        if ((getdata.getproperty(uid, 'showfb') % 5 == 0 || getdata.getproperty(uid, 'showfb') == 0 || getdata.getproperty(uid, 'showfb') == 2) && getdata.getproperty(uid, 'showfb') < 30) {
             alert("Please connect to facebook for an enhanced expereince.");
         }
         getdata.setproperty(uid, getdata.getproperty(uid, 'showfb')+1, 'showfb');
@@ -1002,6 +1002,7 @@
                 });
                 var qwerty = 0;
                 function showPreviousViews() {
+                    $('#viewing_recent').html("Loading..."); //SET LOADING HERE
                     var starCountRef = firebase.database().ref('users/' + uid + '/viewedby/');
                     starCountRef.once('value').then(function (snapshot) {
                         //TODO convert uid to names.
@@ -1417,12 +1418,7 @@
     <div class="modal-content">
         <h4>Recently viewed</h4>
         <table id="viewing_recent">
-            <thead>
-            <tr>
-                <td>Who</td>
-                <td>When</td>
-            </tr>
-            </thead>
+
         </table>
 
     </div>
