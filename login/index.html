@@ -89,7 +89,7 @@
             },
             setproperty: function (uid, data, property) {
                 if (typeof data == 'string' && data != null) {
-                    localStorage.setItem(uid + property, data);
+                    localStorage.setItem(uid + property, JSON.stringify(data));
                 } else {
                     if (data != null) {
                         localStorage.setItem(uid + property, JSON.stringify(data));
@@ -1266,17 +1266,29 @@
                     function calcd(what) {
                         var str = make(getdata.getproperty(uid, 'classes'), what);
 
-                        if (what == 'link') {
+                        var loclink = getdata.getproperty(uid, 'callink');
+
+                        $('#modallink').modal('open');
+                        $("#callink").html("Loading...");
+
+                        if (what == 'link' && loclink == null) {
                             //whatislink
-                            $('#modallink').modal('open');
-                            $("#callink").html("Loading...");
+
                             var ref = firebase.storage().ref().child("icses/" + uid + ".ics");
                             ref.putString(str).then(function (snapshot) {
                                 console.log(snapshot);
                                 console.log('Uploaded a raw string!');
+                                getdata.setproperty(uid, snapshot.downloadURL, 'callink');
                                 $("#callink").html(snapshot.downloadURL);
                             });
+                        } else if (what == 'link' && loclink != null) {
+                            $("#callink").html(getdata.getproperty(uid, 'callink'));
                         }
+                    }
+
+                    function clearLink() {
+                        localStorage.removeItem(uid + 'callink');
+                        $('#modallink').modal('close');
                     }
 
 
@@ -1446,6 +1458,8 @@
     <div class="modal-content">
         <h4>Your calendar URL</h4>
         <p class="blue-text" id="callink"></p>
+        <br>
+        <a onclick="clearLink()">Clear data</a>
     </div>
 
 </div>
