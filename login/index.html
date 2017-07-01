@@ -1285,7 +1285,10 @@
                             });
                         } else if (what == 'link' && loclink != null) {
                             $("#callink").html(getdata.getproperty(uid, 'callink'));
-                        }}
+                        }
+                        } else {
+                            alert("Please upload your timetable.");
+                        }
                     }
 
                     function clearLink() {
