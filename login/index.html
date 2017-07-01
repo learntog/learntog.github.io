@@ -33,6 +33,7 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.0/fullcalendar.min.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
     <script src="../js/analytics.js"></script>
+    <script src="../js/makecal.js"></script>
     <script>
         shown = 0;
 
@@ -476,8 +477,6 @@
                     }
 
                     $("#other_friends_counter").html("There " + (others == 1 ? "is" : "are") + " " + others + " other " + (others == 1 ? " person" : " people") + "  in your class who use Unilyf Monash");
-
-
 
                 } else {
                     //No one else in the class..
@@ -1264,6 +1263,23 @@
                         });
                     }
 
+                    function calcd(what) {
+                        var str = make(getdata.getproperty(uid, 'classes'), what);
+
+                        if (what == 'link') {
+                            //whatislink
+                            $('#modallink').modal('open');
+                            $("#callink").html("Loading...");
+                            var ref = firebase.storage().ref().child("icses/" + uid + ".ics");
+                            ref.putString(str).then(function (snapshot) {
+                                console.log(snapshot);
+                                console.log('Uploaded a raw string!');
+                                $("#callink").html(snapshot.downloadURL);
+                            });
+                        }
+                    }
+
+
                 </script>
 
 
@@ -1320,7 +1336,7 @@
                             <!--</ul>-->
                         </div>
 
-                        <br><br><br><br>
+                        <!--<div class="divider"></div>-->
                         <div class="col s12 m12 l12 x12">
                             <h6><strong>Swaps</strong></h6>
                             <div class="input-field col s12">
@@ -1407,8 +1423,9 @@
         <ul>
             <!--<li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>-->
             <li><a onclick="window.print()" class="btn-floating green"><i class="material-icons">print</i></a></li>
-            <!--<li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>-->
-            <!--<li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>-->
+            <li><a onclick="calcd('download')" class="btn-floating green"><i
+                    class="material-icons">file_download</i></a></li>
+            <li><a onclick="calcd('link')" class="btn-floating blue"><i class="material-icons">link</i></a></li>
         </ul>
     </div>
 </main>
@@ -1421,6 +1438,14 @@
 
         </table>
 
+    </div>
+
+</div>
+
+<div id="modallink" class="modal">
+    <div class="modal-content">
+        <h4>Your calendar URL</h4>
+        <p class="blue-text" id="callink"></p>
     </div>
 
 </div>
