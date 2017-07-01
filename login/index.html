@@ -1268,9 +1268,10 @@
 
                         var loclink = getdata.getproperty(uid, 'callink');
 
-                        $('#modallink').modal('open');
-                        $("#callink").html("Loading...");
-
+                        if (what == 'link') {
+                            $('#modallink').modal('open');
+                            $("#callink").html("Loading...");
+                        }
                         if (what == 'link' && loclink == null) {
                             //whatislink
 
