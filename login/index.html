@@ -1264,6 +1264,7 @@
                     }
 
                     function calcd(what) {
+                        if(getdata.getproperty(uid,'classes')!=null) {
                         var str = make(getdata.getproperty(uid, 'classes'), what);
 
                         var loclink = getdata.getproperty(uid, 'callink');
@@ -1284,7 +1285,7 @@
                             });
                         } else if (what == 'link' && loclink != null) {
                             $("#callink").html(getdata.getproperty(uid, 'callink'));
-                        }
+                        }}
                     }
 
                     function clearLink() {
