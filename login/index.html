@@ -1037,6 +1037,7 @@
                         }
                     });
                     $('#modalsrs').modal('open');
+                    ga('send', 'event', 'Views', 'whoviewed', 'Campaign');
                 }
 
                 function clearLocalStorage() {
@@ -1269,6 +1270,7 @@
                     }
 
                     function calcd(what) {
+                        ga('send', 'event', 'CalendarAction', what, 'Campaign');
                         if(getdata.getproperty(uid,'classes')!=null) {
                         var str = make(getdata.getproperty(uid, 'classes'), what);
 
