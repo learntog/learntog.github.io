@@ -1064,13 +1064,18 @@
 
                     $('#contactuspage').attr('src', "https://docs.google.com/forms/d/e/1FAIpQLSc0mTqbJ9LJPCO4zskNv4IJJVvtIbG83AxwZkgaQHnjMuA27w/viewform?embedded=true");
                 }
+                function feedbackURLembed() {
+                    //
+
+                    $('#feedback').attr('src', "https://docs.google.com/forms/d/e/1FAIpQLSe1hK5L0TBWeMAq4go7TEEZQwN7heKumIEXIuAtKTfylBaklA/viewform?embedded=true");
+                }
             </script>
 
 
             <!--TODO disable some links when not logged in-->
             <li><a class="subheader">Actions</a></li>
 
-            <li><a onclick="clearLocalStorage()" href="#"><i class="material-icons">create</i>Clear Data</a></li>
+            <li><a onclick="feedbackURLembed()" href="#modalcontact2"><i class="material-icons">create</i>Clear Data</a></li>
             <!--<li><a href="#"><i class="material-icons">settings</i>Preferences</a></li>-->
             <li><a onclick="setURLembed()" href="#modalcontact"><i class="material-icons">drafts</i>Contact Us</a></li>
 
@@ -1484,8 +1489,17 @@
         <iframe id="contactuspage" src=""
                 width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...
         </iframe>
+    </div>
+</div>
 
-
+<div id="modalcontact2" style="width: 85%;" class="modal">
+    <div class="modal-dialog">
+        <iframe id="feedback" src=""
+                width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...
+        </iframe>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" onclick="clearLocalStorage()" role="button">Clear Data</button>
     </div>
 
 </div>
