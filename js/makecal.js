@@ -15,6 +15,9 @@ var icsFormatter = function () {
         var calendarEvents = [];
         var calendarStart = [
             'BEGIN:VCALENDAR',
+            'PRODID:-//Unilyf Monash//learntog.github.io//EN',
+            'X-WR-TIMEZONE:Australia/Melbourne',
+            'X-WR-CALNAME:Monash-Timetable',
             'VERSION:2.0'
         ].join(SEPARATOR);
         var calendarEnd = SEPARATOR + 'END:VCALENDAR';
