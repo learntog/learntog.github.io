@@ -754,6 +754,13 @@
 //                    "href='https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Flearntog.github.io%2F&amp;src=sdkpreparse'>" +
 //                    "Share</a> </div></li>");
             try {
+
+                var x = getdata.getproperty(uid, 'showfb');
+                if (response.length < 4 && (x % 7 == 0 || x == 5)) {
+                    //INVITE POPUP
+                    $("#invitemodal").modal('open');
+                }
+
                 for (i = 0; i < response.length; i++) {
 
                     autocompletefbdata[facebook_name_key[response[i]]] = null;
@@ -1454,6 +1461,25 @@
     </div>
 </main>
 
+<div id="invitemodal" class="modal">
+    <div class="modal-content">
+        <h4>Invite your friends to this website</h4>
+        <p>
+            We've noticed not many of your friends use Unilyf Monash. You can invite them to grow our community.
+        </p>
+        <div class="fb-send" data-href="https://learntog.github.io/"></div>
+
+        <div class="fb-share-button" style="padding: 10px;"
+             data-href="https://learntog.github.io/"
+             data-layout="button_count" data-size="large" data-mobile-iframe="true"><a
+                class="fb-xfbml-parse-ignore" target="_blank"
+                href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Flearntog.github.io%2F&amp;src=sdkpreparse">Share</a>
+        </div>
+
+
+    </div>
+
+</div>
 
 <div id="modalsrs" class="modal">
     <div class="modal-content">
