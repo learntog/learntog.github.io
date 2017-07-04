@@ -431,8 +431,6 @@
             });
 
 
-
-
             var mates = currentevent.data;
 
             $("#class_fb_friends").html("Loading...");
@@ -481,6 +479,30 @@
                 } else {
                     //No one else in the class..
 
+                }
+            });
+
+            //SET the ahref innerhtml to loading...
+            var classID = currentevent.data;
+            $("#gdriveLink").html("Loading...");
+            var starCountRef3 = firebase.database().ref('classes/' + classID + '/parentFolder/');
+            starCountRef3.once('value').then(function (snapshot) {
+                console.log(snapshot.val());
+                var pfolder = snapshot.val();
+                if(pfolder!=null){
+                    //display a link in the modal that pops up when a user clicks a class.
+
+
+                    //set the href attribute to the link to the document
+                    //TODO you need to sest the href
+
+                    //set innerHTML to Link to GDrive
+                    $("#gdriveLink").html("Class GDrive Folder");
+                    $('#gdriveLink').attr('href','https://drive.google.com/drive/folders/'+pfolder);
+                }else{
+
+                    $("#gdriveLink").html("No class collaboration folder yet...");
+                    $('#gdriveLink').attr('href','#');
                 }
             });
 
@@ -1370,6 +1392,7 @@
                     <p id="eventtime">Time</p>
                     <div class="row">
 
+                        <a id="gdriveLink" href="#" target="_blank">Link to GDrive</a>
                         <div class="col s12 m12 l12 x12">
 
                             <h5>Facebook Friends</h5>
