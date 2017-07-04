@@ -497,11 +497,13 @@
                     //TODO you need to sest the href
 
                     //set innerHTML to Link to GDrive
+                    $("#gdriveLink").removeAttr("target");
                     $("#gdriveLink").html("Class GDrive Folder");
                     $('#gdriveLink').attr('href','https://drive.google.com/drive/folders/'+pfolder);
                 }else{
 
-                    $("#gdriveLink").html("No class collaboration folder yet...");
+                    $("#gdriveLink").attr("target", "__blank");
+                    $("#gdriveLink").html("");
                     $('#gdriveLink').attr('href','#');
                 }
             });
