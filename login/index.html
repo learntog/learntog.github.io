@@ -1294,13 +1294,24 @@
                         if (what == 'link' && loclink == null) {
                             //whatislink
 
-                            var ref = firebase.storage().ref().child("icses/" + uid + ".ics");
-                            ref.putString(str).then(function (snapshot) {
-                                console.log(snapshot);
-                                console.log('Uploaded a raw string!');
-                                getdata.setproperty(uid, snapshot.downloadURL, 'callink');
-                                $("#callink").html(snapshot.downloadURL);
+                            var starCountRef = firebase.database().ref('users/' + uid + '/calLink/');
+                            starCountRef.once('value').then(function (snapshot) {
+                                var callink = snapshot.val();
+                                if(callink!=null){
+                                    $("#callink").html(callink);
+                                    getdata.setproperty(uid, callink, 'callink');
+                                }else{
+                                    var ref = firebase.storage().ref().child("icses/" + uid + ".ics");
+                                    ref.putString(str).then(function (snapshot) {
+                                        console.log(snapshot);
+                                        console.log('Uploaded a raw string!');
+                                        getdata.setproperty(uid, snapshot.downloadURL, 'callink');
+                                        $("#callink").html(snapshot.downloadURL);
+                                        firebase.database().ref("users/"+uid+"/calLink/").set(snapshot.downloadURL);
+                                    });
+                                }
                             });
+
                         } else if (what == 'link' && loclink != null) {
                             $("#callink").html(getdata.getproperty(uid, 'callink'));
                         }
@@ -1311,6 +1322,7 @@
 
                     function clearLink() {
                         localStorage.removeItem(uid + 'callink');
+                        firebase.database().ref("users/"+uid+"/calLink").set(null);
                         $('#modallink').modal('close');
                     }
 
