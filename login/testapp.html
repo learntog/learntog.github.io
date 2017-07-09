@@ -747,6 +747,7 @@
 
 
     }
+    var counterScore = 0;
     locallstoredsessionclasses = {};
     function ShowFbFriend() {
 
@@ -772,11 +773,6 @@
         if (response != null) {
             //TODO show logout facebook button.
             $("#listfacebookfriends").html("<li class=\"collection-header\"><a><h6 onclick=\"LoadFBUI()\">Facebook Friends<i class=\"material-icons\">refresh</i></h6></a></li>");
-//                    "<li class='collection-item'> <div class='fb-share-button' style='padding: 10px;' data-href='https://learntog.github.io/' " +
-//                    "data-layout='button_count' data-size='large' data-mobile-iframe='true'>" +
-//                    "<a class='fb-xfbml-parse-ignore' target='_blank' " +
-//                    "href='https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Flearntog.github.io%2F&amp;src=sdkpreparse'>" +
-//                    "Share</a> </div></li>");
             try {
 
                 var x = getdata.getproperty(uid, 'showfb');
@@ -797,6 +793,7 @@
                         "<label class='truncate black-text' for=\"" + response[i] + "cbview\">" + facebook_name_key[response[i]] + "</label> " +
                         "</div><div id='" + response[i] + "color" + "' style='height: 20px' class='col s1'></div><div class='col center offset-s1 s1'><a class='black-text' target='_blank' href='//facebook.com/" + response[i] + "'><i class=\"material-icons\">face</i></a></div> </div> </li>");
                     //drawFriendOnCalendar("+response[i]+")
+                    counterScore++;
                 }
 
 
@@ -1453,16 +1450,16 @@
                 </div>
                 <div class="col s12">
 
-                    <script>
-                        var score = 0;
-                        function incrementScore() {
-                            document.getElementById('loginScoreboard').value = ++score;
-                            $("#loginMyscore").html("Your current share points: "+score);
-                        }
+                    <!--<script>-->
+                        <!--var score = 0;-->
+                        <!--function incrementScore() {-->
+                            <!--document.getElementById('loginScoreboard').value = ++score;-->
+                            <!--$("#loginMyscore").html("Your current share points: "+score);-->
+                        <!--}-->
 
-                    </script>
+                    <!--</script>-->
 
-                    <div class="col valign-wrapper center s12" onclick="incrementScore()">
+                    <div class="col valign-wrapper center s12">
                         <div class="fb-send" data-href="https://learntog.github.io/"></div>
 
                         <div class="fb-share-button" style="padding: 10px;"
@@ -1476,7 +1473,13 @@
 
                     <div id="loginScoreboard" style="border:0.5px solid #AEB6BF; padding: 20px;">
                         <div id="loginMyscore">
-                            <p>Your current share points: 0</p>
+                            <p>Your current share points:</p>
+                            <div id="showScore"></div>
+
+                            <script>
+                                $("#showScore").html(counterScore);
+                            </script>
+
                         </div>
                         <div>
                             <br>
@@ -1487,14 +1490,8 @@
 
                     </div>
 
-                    <div id="sharebutton" style="margin: 5px;" onclick="incrementScore()">Share!</div>
-
-
-
-
                     <ul id="listfacebookfriends" style=" overflow-y: auto; max-height: 550px;"
                         class="collection with-header">
-
                     </ul>
 
 
@@ -1507,10 +1504,6 @@
                         </div>
 
                     </div>
-
-
-
-
 
                 </div>
             </div>
