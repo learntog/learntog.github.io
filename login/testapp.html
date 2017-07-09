@@ -796,7 +796,7 @@
                     counterScore++;
                 }
 
-
+                setScore();
 
                 $('input[name=selectedfbfriends]').change(function(){
                     var facebook_ids = $(this).val().toString();
@@ -1476,10 +1476,11 @@
                             <p>Your current share points:</p>
                             <div id="scoreDisplay" style="font-size: 16px; font-weight: bolder"></div>
                             <script>
-                                function setScore() {
-                                    setTimeout(function(){$("#scoreDisplay").html(counterScore)}, 2000);
+
+                                function setScore(){
+                                    $("#scoreDisplay").html(counterScore);
                                 }
-                                setScore();
+
                             </script>
                         </div>
 
