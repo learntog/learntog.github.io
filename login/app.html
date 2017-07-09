@@ -124,7 +124,7 @@
                     var cl = timetablesur[i];
                     var cld = cl.split("*");
                     var semester2 = cld[cld.length - 1].split("!!")[0].indexOf('1') == -1;
-                    if (semester2) {
+                    if (semester2 || true) {
                         var day = cld[2];
                         var time = cld[3];
                         var hour = time.split(":")[0];
@@ -318,6 +318,16 @@
         function elementin(l, e) {
             return e in l;
         }
+
+        function elementinLinear(l, e){
+
+            for(var i =0; i < l.length; i++){
+                if(e==l[i])
+                    return true
+            }
+            return false;
+        }
+
         function getnondup(units, timetablesur) {
             var o = [];
             for (i = 0; i < units.length; i++) {
@@ -586,10 +596,14 @@
                 newEvent = {};
 
                 ////console.log(e);
+                //console.log(data.toString(), elementinLinear(timetablesur, ""+data.trim()));
                 if (e == "---") {
                     newEvent.title = title;
                     newEvent.description = "";
-                } else {
+                } else if(e!="---" && (elementinLinear(timetablesur, ""+data.trim()))) {
+                    newEvent.title = title;
+                    newEvent.description = "";
+                }else{
                     newEvent.title = "";
                     newEvent.description = "";
                 }
