@@ -801,12 +801,16 @@
 
                 $('input[name=selectedfbfriends]').change(function () {
                     var facebook_ids = $(this).val().toString();
-                    if ($(this).is(":checked") &&  (counterScore>0))  {
-//                       if(locallstoredsessionclasses[facebook_ids])
-                        drawFriendOnCalendar(facebook_ids);
-//                       alert($(this).val().toString());
-                        counterScore -= 1;
-                        setScore();
+                    if ($(this).is(":checked") )  {
+                        if (counterScore>0) {
+                            drawFriendOnCalendar(facebook_ids);
+                            counterScore -= 1;
+                            setScore();
+                        }
+                        else{
+                            window.alert("Sorry you are out of points");
+                            $('#' + facebook_ids + "cbview").prop('checked', false);
+                        }
 
                     } else {
 //                       alert(id + "\t is unchecked");
