@@ -780,7 +780,9 @@
                     //INVITE POPUP
                     $("#invitemodal").modal('open');
                 }
-                counterScore += response.length;
+
+                counterScore = response.length;
+                counterScore += 3;
                 for (i = 0; i < response.length; i++) {
 
                     autocompletefbdata[facebook_name_key[response[i]]] = null;
