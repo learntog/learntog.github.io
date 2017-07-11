@@ -747,7 +747,7 @@
 
 
     }
-    var counterScore = 0;
+    var counterScore = 3;
     locallstoredsessionclasses = {};
     function ShowFbFriend() {
 
@@ -780,7 +780,7 @@
                     //INVITE POPUP
                     $("#invitemodal").modal('open');
                 }
-
+                counterScore += response.length;
                 for (i = 0; i < response.length; i++) {
 
                     autocompletefbdata[facebook_name_key[response[i]]] = null;
@@ -793,7 +793,7 @@
                         "<label class='truncate black-text' for=\"" + response[i] + "cbview\">" + facebook_name_key[response[i]] + "</label> " +
                         "</div><div id='" + response[i] + "color" + "' style='height: 20px' class='col s1'></div><div class='col center offset-s1 s1'><a class='black-text' target='_blank' href='//facebook.com/" + response[i] + "'><i class=\"material-icons\">face</i></a></div> </div> </li>");
                     //drawFriendOnCalendar("+response[i]+")
-                    counterScore++;
+
                 }
 
                 setScore();
