@@ -806,6 +806,9 @@
 //                       if(locallstoredsessionclasses[facebook_ids])
                         drawFriendOnCalendar(facebook_ids);
 //                       alert($(this).val().toString());
+                        counterScore -= 1;
+                        setScore();
+
                     } else {
 //                       alert(id + "\t is unchecked");
                         $('#' + facebook_ids + "cbview").prop('checked', false);
