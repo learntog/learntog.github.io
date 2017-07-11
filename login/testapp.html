@@ -797,12 +797,11 @@
                     //drawFriendOnCalendar("+response[i]+")
 
                 }
-
                 setScore();
 
-                $('input[name=selectedfbfriends]').change(function(){
+                $('input[name=selectedfbfriends]').change(function () {
                     var facebook_ids = $(this).val().toString();
-                    if ($(this).is(":checked")) {
+                    if ($(this).is(":checked") &&  (counterScore>0))  {
 //                       if(locallstoredsessionclasses[facebook_ids])
                         drawFriendOnCalendar(facebook_ids);
 //                       alert($(this).val().toString());
@@ -815,8 +814,6 @@
                         removethisguy(facebook_ids);
                     }
                 });
-
-
             } catch (err) {
             }
         } else {
@@ -1483,7 +1480,9 @@
                             <script>
 
                                 function setScore(){
-                                    $("#scoreDisplay").html(counterScore);
+                                    if (counterScore>=0){
+                                        $("#scoreDisplay").html(counterScore);
+                                    }
                                 }
 
                             </script>
