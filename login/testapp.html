@@ -747,7 +747,7 @@
 
 
     }
-    var counterScore = 0;
+    var counterScore = 3;
     locallstoredsessionclasses = {};
     function ShowFbFriend() {
 
@@ -781,6 +781,8 @@
                     $("#invitemodal").modal('open');
                 }
 
+                counterScore = response.length;
+                counterScore += 3;
                 for (i = 0; i < response.length; i++) {
 
                     autocompletefbdata[facebook_name_key[response[i]]] = null;
@@ -793,30 +795,34 @@
                         "<label class='truncate black-text' for=\"" + response[i] + "cbview\">" + facebook_name_key[response[i]] + "</label> " +
                         "</div><div id='" + response[i] + "color" + "' style='height: 20px' class='col s1'></div><div class='col center offset-s1 s1'><a class='black-text' target='_blank' href='//facebook.com/" + response[i] + "'><i class=\"material-icons\">face</i></a></div> </div> </li>");
                     //drawFriendOnCalendar("+response[i]+")
-                    counterScore++;
-                }
 
+                }
                 setScore();
 
-                $('input[name=selectedfbfriends]').change(function(){
+                $('input[name=selectedfbfriends]').change(function () {
                     var facebook_ids = $(this).val().toString();
-                    if ($(this).is(":checked")) {
-//                       if(locallstoredsessionclasses[facebook_ids])
-                        drawFriendOnCalendar(facebook_ids);
-//                       alert($(this).val().toString());
+                    if ($(this).is(":checked") )  {
+                        if (counterScore>0) {
+                            drawFriendOnCalendar(facebook_ids);
+                            counterScore -= 1;
+                            setScore();
+                        }
+                        else{
+                            window.alert("Sorry you are out of share points. Add some more Facebook friends to get more points!");
+                            $('#' + facebook_ids + "cbview").prop('checked', false);
+                        }
+
                     } else {
 //                       alert(id + "\t is unchecked");
                         $('#' + facebook_ids + "cbview").prop('checked', false);
                         removethisguy(facebook_ids);
                     }
                 });
-
-
             } catch (err) {
             }
         } else {
             //TODO show connect to facebook button.
-
+            counterScore += 3;
         }
 
 
@@ -1478,7 +1484,9 @@
                             <script>
 
                                 function setScore(){
-                                    $("#scoreDisplay").html(counterScore);
+                                    if (counterScore>=0){
+                                        $("#scoreDisplay").html(counterScore);
+                                    }
                                 }
 
                             </script>
@@ -1488,7 +1496,7 @@
                             <br>
                             <b>What does share points do?</b>
                             <br>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium cumque dolorem.</p>
+                            <p>The more share points you have, the more will you be able to see your friends timetables. Keep sharing and add more Facebook buddies to gain more points!</p>
                         </div>
 
                     </div>
