@@ -6,6 +6,20 @@
 
     <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
     <script>
+
+        gd = {
+            there: function (prop) {
+                return localStorage.getItem(prop)!=null;
+            },
+            s: function (prop, val) {
+                localStorage.setItem(prop, JSON.stringify(val));
+            },
+            g: function (prop) {
+                return (JSON.parse(localStorage.getItem(prop)));
+            }
+
+        };
+
         // Initialize Firebase
         var config = {
             apiKey: "AIzaSyBLA6sDqXwnMX6tJayM4dmYCPRzt5CW91M",
@@ -21,6 +35,12 @@
 
     <script>
 
+
+        function a(x,val){
+            ct = document.getElementById("ct");
+            ct.innerHTML = ct.innerHTML + val;
+        }
+
         function TryLogin(){
             var email = document.getElementById("username").value;
             var password = document.getElementById("password").value;
@@ -29,6 +49,8 @@
                 // Handle Errors here.
                 var errorCode = error.code;
                 var errorMessage = error.message;
+
+                alert(errorCode+"\n"+errorMessage);
                 console.log(errorCode, errorMessage);
                 // ...
             });
@@ -77,6 +99,7 @@
                 // ...
             } else {
                 console.log("Logged out.");
+                alert("Logged out<br>");
                 // User is signed out.
                 // ...
             }
@@ -91,6 +114,8 @@
 <button onclick="TryLogin()">__________</button>
 <br>
 <button onclick="firebase.auth().signOut()">*******</button>
+
+<p id="ct">___</p>
 
 <table id="infotable">
 
