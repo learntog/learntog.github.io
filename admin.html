@@ -64,6 +64,16 @@
                     }
 
                 });
+
+                var s = firebase.database().ref('/facebook_to_id');
+                s.once('value').then(function (snapshot) {
+                    var all = snapshot.val();
+                    var count = snapshot.numChildren();
+
+                    document.getElementById("infotable").innerHTML = (document.getElementById("infotable").innerHTML +
+                    "<tr><td>Facebook accounts linked.</td><td>"+count+"</td></tr>");
+
+                });
                 // ...
             } else {
                 console.log("Logged out.");
