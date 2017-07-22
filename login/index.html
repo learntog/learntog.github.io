@@ -1328,6 +1328,7 @@
                         function upload(file) {
                             //TODO upload progress bar
                             if (file.size < 2000000) {
+                                $("#dropZone").css('border', 'solid 10px green');
                                 var storageRef = firebase.storage().ref();
                                 var mountainImagesRef = storageRef.child('usertimetable/' + uid);
                                 task = mountainImagesRef.put(file);
@@ -1438,7 +1439,7 @@
                 <div id="dropZone" style="padding-bottom: 150px; border: solid 2px black" class="center col l12 s12 ">
                     <ol style="text-align: left">
                         <li>
-                            <p>Login in to Allocate+ and select the timetable tab.</p>
+                            <p><a href="https://www.monash.edu/timetables/login.html" target="_blank"> Login into Allocate+</a> and select the timetable tab.</p>
                         </li>
                         <li>
                             <p>Download the timetable text file (Make sure you select all weeks!)</p>
