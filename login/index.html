@@ -214,6 +214,7 @@
                         var starCountRef = firebase.database().ref('requests/' + uid + '/status');
                         starCountRef.on('value', function (snapshot) {
                             var a = snapshot.val();
+                            console.log(a);
                             if (a == null) { //upload,download,success,error
                                 ShowSomething(document.getElementById("logincomponents"));
                                 document.getElementById('message_mobile').innerHTML = "Allocate+ only allows downloading timetable on desktop devices. <br> Use a computer to upload your timetable.";
@@ -1171,13 +1172,21 @@
 
                     $('#feedback').attr('src', "https://docs.google.com/forms/d/e/1FAIpQLSe1hK5L0TBWeMAq4go7TEEZQwN7heKumIEXIuAtKTfylBaklA/viewform?embedded=true");
                 }
+
+                function syncfromdb() {
+//                    getdata.setproperty(uid,"classes", null);
+                    localStorage.removeItem(uid+"classes");
+                        console.log(localStorage);
+                     location.reload();
+                }
             </script>
 
 
             <!--TODO disable some links when not logged in-->
             <li><a class="subheader">Actions</a></li>
 
-            <li><a onclick="feedbackURLembed()" href="#modalcontact2"><i class="material-icons">create</i>Clear Data</a></li>
+            <li><a onclick="syncfromdb()"><i class="material-icons">create</i>Sync</a></li>
+            <li><a onclick="feedbackURLembed()" href="#modalcontact2"><i class="material-icons">create</i>Reupload Timetable</a></li>
             <!--<li><a href="#"><i class="material-icons">settings</i>Preferences</a></li>-->
             <li><a onclick="setURLembed()" href="#modalcontact"><i class="material-icons">drafts</i>Contact Us</a></li>
 
@@ -1335,6 +1344,7 @@
                                 task = mountainImagesRef.put(file);
                                 task.on('state_changed', function (snapshot) {
                                     var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                                    console.log(progress);
 
 
 //                                    document.getElementById('progressbarupload').style.width = "" + progress + '%';
