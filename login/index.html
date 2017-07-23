@@ -1148,6 +1148,7 @@
                     if (conf) {
                         var classes = getdata.getproperty(uid, 'classes');
 
+                        clearLink();
                         for (var c in classes) {
                             firebase.database().ref("/classes/" + c + "/users/" + uid).set(null);
                         }
