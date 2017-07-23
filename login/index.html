@@ -835,7 +835,7 @@
         fbfriendsnametoid = {};
         if (response != null) {
             //TODO show logout facebook button.
-            $("#listfacebookfriends").html("<li class=\"collection-header\"><a><h6 onclick=\"LoadFBUI()\">Facebook Friends<i class=\"material-icons\">refresh</i></h6></a></li>");
+            $("#listfacebookfriends").html("<li class=\"collection-header\"><a><h6 onclick=\"LoadFBUI()\">Facebook Friends ("+response.length+") <i class=\"material-icons\">refresh</i></h6></a></li>");
 //                    "<li class='collection-item'> <div class='fb-share-button' style='padding: 10px;' data-href='https://learntog.github.io/' " +
 //                    "data-layout='button_count' data-size='large' data-mobile-iframe='true'>" +
 //                    "<a class='fb-xfbml-parse-ignore' target='_blank' " +
