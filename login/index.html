@@ -599,7 +599,8 @@
                             dayindextoday = {1: "Monday", 2: "Tuesday", 3: "Wednesday", 4: "Thursday", 5: "Friday"};
                             //////console.log(d + "\t" + d.getDay());
                             document.getElementById('eventtime').innerHTML = dayindextoday[d.getDay()] + "\t" + ("00" + d.getHours().toString()).slice(-2) + ":" + ("00" + d.getMinutes().toString()).slice(-2);
-
+                            document.getElementById("eventaddress").innerHTML = a[4];
+                            //dudecomehere
                             currentevent = event;
                             showInfoModal(currentevent);
                         }
@@ -1478,6 +1479,7 @@
                     <h5>Activity Details</h5>
                     <p id="eventdescription">Description</p>
                     <p id="eventtime">Time</p>
+                    <p id="eventaddress">Address</p>
                     <div class="row">
 
                         <a id="gdriveLink" href="#" target="_blank">Link to GDrive</a>
