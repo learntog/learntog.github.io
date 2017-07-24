@@ -546,6 +546,29 @@
 
         }
 
+        function getHumanAddress(a){
+            var claytonStreetNames = {
+                All: "Alliance Lane",
+                Anc: "Ancora Imparo Way",
+                Chn: "Chancellors Walk",
+                Col: "College Walk",
+                Exh: "Exhibition Walk",
+                FGR: "Ferntree Gully Road",
+                Inn: "Innovation Walk",
+                Rnf: "Rainforest Walk",
+                Res: "Research Way",
+                Sce: "Scenic Boulevard"
+            };
+
+            //CL_15Rnf-S5
+            try{
+            if(a.indexOf("CL_")==0){
+
+            }}catch(er){
+                return a;
+            }
+            return a;
+        }
         $(document).ready(function () {
             $('.button-collapse').sideNav({
                         menuWidth: 230,
@@ -599,7 +622,7 @@
                             dayindextoday = {1: "Monday", 2: "Tuesday", 3: "Wednesday", 4: "Thursday", 5: "Friday"};
                             //////console.log(d + "\t" + d.getDay());
                             document.getElementById('eventtime').innerHTML = dayindextoday[d.getDay()] + "\t" + ("00" + d.getHours().toString()).slice(-2) + ":" + ("00" + d.getMinutes().toString()).slice(-2);
-                            document.getElementById("eventaddress").innerHTML = a[4];
+                            document.getElementById("eventaddress").innerHTML = getHumanAddress(a[4]);
                             //dudecomehere
                             currentevent = event;
                             showInfoModal(currentevent);
@@ -1256,17 +1279,8 @@
             <div class="col s12" id="calendarview">
 
                 <div class="col l12 s12 ">
-                    <p>You'll soon be able to take notes with your classmates :)</p><br>
+                    <p style="font-size: 1.5em;">Confused in classes? You can team up with peers to take notes. Click on a class to get started.</p>
                     <div id='calendar'></div>
-
-
-
-
-
-
-
-
-
 
                     <ul id="currently_viewing_list" class="collection with-header">
                         <li class="collection-header"><h5>Currently comparing</h5></li>
