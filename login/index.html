@@ -563,7 +563,13 @@
             //CL_15Rnf-S5
             try{
             if(a.indexOf("CL_")==0){
+                var x = a.split("_");
+                var s = x[1].split("-")[0];
+                var q = s.replace(/[0-9]/g,"");
 
+                if(claytonStreetNames[q]!=null){
+                    return x[1].split("-")[1] + " " + s.replace(q, " "+claytonStreetNames[q]);
+                }
             }}catch(er){
                 return a;
             }
@@ -1288,12 +1294,6 @@
                         </li>
 
                     </ul>
-
-
-
-
-
-
 
                 </div>
 
