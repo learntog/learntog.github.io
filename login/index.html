@@ -277,6 +277,8 @@
     <script>
         function drawFriendOnCalendar(fuid) {
             toggleload();
+
+            ga('send', 'event', 'Views', 'Viewsomeone', 'Campaign');
             //TODO add read permission denied, val not found check. Pass on null to drawfunction.
             //TODO store the facebook friend -> uid locally.
             if(locallstoredsessionclasses[fuid]==null) {
