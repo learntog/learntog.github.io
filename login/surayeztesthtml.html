@@ -123,6 +123,7 @@
             if (timetablesur != null && timetablesur.length > 0) {
                 var l = new Date();
                 var today = l.getDay();
+
                 var counter = 0;
                 var classList = [];
                 for (i = 0; i < timetablesur.length; i++) {
@@ -142,8 +143,11 @@
                     $("#classestodayCollapsible").html("You have no classes today.\n");
                 }else{
                     for(i=0; i<counter;i++){
-                        $(".collapsible-header").html(classList[i][0]+ " " + classList[i][1]);
-                        $(".collapsible-body").html("Time:"+classList[i][3]+"<br>"+"Location: " + classList[i][4]);
+                        $(".collapsible").append("<li><div class=\"collapsible-header\">"+classList[i][0]+ " " + classList[i][1]+"</div><div class=\"collapsible-body\"><span>"+"Time: "+classList[i][3]+"<br>"+"Location: " + classList[i][4]+"</span></div></li>");
+
+//                        $(".collapsible-header").html(classList[i][0]+ " " + classList[i][1]);
+//                        $(".collapsible-body").html("Time:"+classList[i][3]+"<br>"+"Location: " + classList[i][4]);
+
                     }
                 }
             }
@@ -1311,12 +1315,7 @@
     <div id="classestodayCollapsible">
     <p style="padding-left: 2%"><strong>My class timetable today: </strong></p>
 
-    <ul class="collapsible" data-collapsible="accordion" style="margin: 40px; margin-top:10px ;width:600px">
-        <li>
-            <div class="collapsible-header">First class</div>
-            <div class="collapsible-body"><span></span></div>
-        </li>
-    </ul>
+    <ul class="collapsible" data-collapsible="accordion" style="margin: 40px; margin-top:10px ;width:600px"></ul>
 
     </div>
 
