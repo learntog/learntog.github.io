@@ -100,6 +100,8 @@
                 localStorage.removeItem(uid + 'facebook_friends');
             }
         };
+
+
         function thisWeekDay(x) {
             var now = new Date();
             if (x == now.getDay()) {
@@ -116,6 +118,28 @@
         }
         uid = "";
         weektodays = {Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6};
+
+        function classestoday(timetablesur) {
+            if (timetablesur != null && timetablesur.length > 0) {
+                var l = new Date();
+                var today = l.getDay();
+
+                for (i = 0; i < timetablesur.length; i++) {
+                    var cl = timetablesur[i];
+                    var cld = cl.split("*");
+//                    console.log(cld);
+                    var semester2 = cld[cld.length - 1].split("!!")[0].indexOf('1') == -1;
+                    if (semester2 || true) {
+                        dayCode = weektodays[cld[2]];
+                        if (today == dayCode) {
+                            console.log("My classes today:" + cld[0]+ " " +cld[1])
+                        }
+                    }
+                }
+            }
+
+        }
+
         function drawoncalendar(timetablesur, whose) {
             if (timetablesur != null && timetablesur.length > 0) {
                 unitcolor = {};
@@ -257,6 +281,7 @@
                         timetablesur = getdata.getproperty(uid, "classes");
                         timetablesur = convertToList(timetablesur);
                         drawoncalendar(timetablesur, "my");
+                        classestoday(timetablesur);
                         $('ul.tabs').tabs('select_tab', 'calendarviewtab');
                     }
                 } else {
@@ -273,6 +298,9 @@
         window.addEventListener('load', function () {
             initApp()
         });
+
+
+
     </script>
     <script>
         function drawFriendOnCalendar(fuid) {
@@ -624,6 +652,7 @@
                         if (event.e == "---") {
 
                             var a = event.data.split("*");
+
                             document.getElementById('eventdescription').innerHTML = a[0] + " " + a[1];
                             var d = event.start._d;
 
@@ -634,6 +663,7 @@
                             //dudecomehere
                             currentevent = event;
                             showInfoModal(currentevent);
+
                         }
 
                     }
@@ -702,8 +732,6 @@
              return "#" + cols[getRandomInt(0, cols.length - 1)];
              */
         }
-        //
-
 
     </script>
 
@@ -1212,6 +1240,8 @@
                     console.log(localStorage);
                     location.reload();
                 }
+
+
             </script>
 
 
@@ -1269,7 +1299,7 @@
     <!--My classes today-->
     <p style="padding-left: 2%"><strong>My class timetable today: </strong></p>
 
-    <ul class="collapsible" data-collapsible="expandable" style="margin: 40px; margin-top:10px ;width:600px">
+    <ul class="collapsible" data-collapsible="accordion" style="margin: 40px; margin-top:10px ;width:600px">
         <li>
             <div class="collapsible-header">First class</div>
             <div class="collapsible-body"><span></span></div>
