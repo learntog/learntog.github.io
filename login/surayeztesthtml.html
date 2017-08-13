@@ -123,7 +123,8 @@
             if (timetablesur != null && timetablesur.length > 0) {
                 var l = new Date();
                 var today = l.getDay();
-
+//                var today = 3;
+                var counter = 0;
                 for (i = 0; i < timetablesur.length; i++) {
                     var cl = timetablesur[i];
                     var cld = cl.split("*");
@@ -131,9 +132,13 @@
                     if (semester2 || true) {
                         dayCode = weektodays[cld[2]];
                         if (today == dayCode) {
+                            counter += 1;
                             console.log("My classes today:" + cld[0]+ " " +cld[1])
                         }
                     }
+                }
+                if(counter == 0){
+                    $("#classestodayCollapsible").html("You have no classes today.\n");
                 }
             }
 
@@ -1296,6 +1301,8 @@
     <h4 style="display: none" id="firebaseui-auth-container" class="center"><a href="../">Login</a></h4>
 
     <!--My classes today-->
+
+    <div id="classestodayCollapsible">
     <p style="padding-left: 2%"><strong>My class timetable today: </strong></p>
 
     <ul class="collapsible" data-collapsible="accordion" style="margin: 40px; margin-top:10px ;width:600px">
@@ -1312,6 +1319,8 @@
             <div class="collapsible-body"><span></span></div>
         </li>
     </ul>
+
+    </div>
 
     <!--my classes today ends here-->
 
