@@ -123,7 +123,6 @@
             if (timetablesur != null && timetablesur.length > 0) {
                 var l = new Date();
                 var today = l.getDay();
-                var today = 3;
                 var counter = 0;
                 var classList = [];
                 for (i = 0; i < timetablesur.length; i++) {
@@ -143,7 +142,6 @@
                     $("#classestodayCollapsible").html("You have no classes today.\n");
                 }else{
                     for(i=0; i<counter;i++){
-                        console.log(classList[i]);
                         $(".collapsible-header").html(classList[i][0]+ " " + classList[i][1]);
                         $(".collapsible-body").html("Time:"+classList[i][3]+"<br>"+"Location: " + classList[i][4]);
                     }
