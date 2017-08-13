@@ -123,8 +123,9 @@
             if (timetablesur != null && timetablesur.length > 0) {
                 var l = new Date();
                 var today = l.getDay();
-//                var today = 3;
+                var today = 3;
                 var counter = 0;
+                var classList = [];
                 for (i = 0; i < timetablesur.length; i++) {
                     var cl = timetablesur[i];
                     var cld = cl.split("*");
@@ -133,12 +134,19 @@
                         dayCode = weektodays[cld[2]];
                         if (today == dayCode) {
                             counter += 1;
-                            console.log("My classes today:" + cld[0]+ " " +cld[1])
+                            classList.push(cld);
+//                            console.log(cld)
                         }
                     }
                 }
-                if(counter == 0){
+                if(counter == 0) {
                     $("#classestodayCollapsible").html("You have no classes today.\n");
+                }else{
+                    for(i=0; i<counter;i++){
+                        console.log(classList[i]);
+                        $(".collapsible-header").html(classList[i][0]+ " " + classList[i][1]);
+                        $(".collapsible-body").html("Time:"+classList[i][3]+"<br>"+"Location: " + classList[i][4]);
+                    }
                 }
             }
 
@@ -1308,14 +1316,6 @@
     <ul class="collapsible" data-collapsible="accordion" style="margin: 40px; margin-top:10px ;width:600px">
         <li>
             <div class="collapsible-header">First class</div>
-            <div class="collapsible-body"><span></span></div>
-        </li>
-        <li>
-            <div class="collapsible-header">Second class</div>
-            <div class="collapsible-body"><span></span></div>
-        </li>
-        <li>
-            <div class="collapsible-header">Third class</div>
             <div class="collapsible-body"><span></span></div>
         </li>
     </ul>
